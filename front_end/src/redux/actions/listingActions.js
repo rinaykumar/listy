@@ -20,6 +20,11 @@ export const setTitle = (title) => ({
   title,
 });
 
+export const setImage = (image) => ({
+  type: "IMAGE_SET",
+  image,
+});
+
 export const setShowListing = (showListing, listing) => ({
   type: "SHOW_LISTING_SET",
   showListing,
@@ -43,15 +48,16 @@ export const deleteListing = (id, showListing) => {
   };
 };
 
-export const postListing = (description, type, price, title) => {
+export const postListing = (description, type, price, title, image) => {
   return (dispatch) => {
-    dispatch(postListingRequest(description, type, price, title));
+    dispatch(postListingRequest(description, type, price, title, image));
     axios
       .post("/api/createListing", {
         description,
         type,
         price,
         title,
+        image,
       })
       .then(() => {
         dispatch(fetchListings());

@@ -3,6 +3,7 @@ const initState = {
   type: "",
   price: "",
   title: "",
+  image: "",
   loading: false,
   listings: [],
   error: "",
@@ -32,6 +33,11 @@ const listingReducer = (state = initState, action) => {
         ...state,
         title: action.title,
       };
+    case "IMAGE_SET":
+      return {
+        ...state,
+        image: action.image,
+      };
     case "SHOW_LISTING_SET":
       return {
         ...state,
@@ -45,6 +51,7 @@ const listingReducer = (state = initState, action) => {
         type: "",
         price: "",
         title: "",
+        image: "",
         loading: true,
       };
     case "DELETE_LISTING_REQUEST":
