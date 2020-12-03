@@ -2,6 +2,7 @@ import React from "react";
 import ViewListings from "../components/ViewListings";
 import NavigationHeader  from "../components/NavigationHeader";
 
+
 const User = () => {
   return (
     <div>

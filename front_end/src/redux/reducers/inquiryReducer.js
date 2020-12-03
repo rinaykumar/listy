@@ -6,6 +6,7 @@ const initState = {
   loadInquiries: false,
 };
 
+
 const inquiryReducer = (state = initState, action) => {
   switch (action.type) {
     case "LOAD_INQUIRIES_SET":

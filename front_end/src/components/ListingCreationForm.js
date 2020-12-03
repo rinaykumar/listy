@@ -9,6 +9,7 @@ import {
   setImage,
 } from "../redux/actions/listingActions";
 
+
 const ListingCreationForm = () => {
   const dispatch = useDispatch();
   const description = useSelector((state) => state.listingReducer.description);

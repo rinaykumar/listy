@@ -4,6 +4,7 @@ import { fetchListings, setShowListing } from "../redux/actions/listingActions";
 import { setLoadInquiries } from "../redux/actions/inquiryActions";
 import Listing from "./Listing";
 
+
 const ViewListings = ({ listingData, fetchListings, userMode }) => {
   useEffect(() => {
     fetchListings();

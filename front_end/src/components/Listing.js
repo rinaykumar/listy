@@ -7,6 +7,7 @@ import {
 } from "../redux/actions/inquiryActions";
 import { deleteListing } from "../redux/actions/listingActions";
 
+
 const Listing = ({ inquiryData, userMode, listing }) => {
   const HeaderItems = ["Title", "Type", "Description", "Price"];
   const dispatch = useDispatch();

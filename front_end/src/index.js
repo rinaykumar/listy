@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import { Provider } from "react-redux";
 
+
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(

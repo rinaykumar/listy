@@ -3,6 +3,7 @@ const initState = {
   password: "",
 };
 
+
 const listingReducer = (state = initState, action) => {
   switch (action.type) {
     case "USERNAME_SET":

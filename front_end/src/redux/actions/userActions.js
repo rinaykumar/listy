@@ -7,3 +7,4 @@ export const setPassword = (password) => ({
   type: "PASSWORD_SET",
   password,
 });
+

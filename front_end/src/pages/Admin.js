@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Inquiries from "../components/Inquiries";
 import NavigationHeader  from "../components/NavigationHeader";
 
+
 const Admin = ({ listingData, inquiryData }) => {
   return (
     <div>

@@ -1,5 +1,6 @@
 const axios = require("axios");
 
+
 // /api/getInquiries?listingId=<listingId>
 export const fetchInquiries = (loadInquiries, listingId) => {
   return (dispatch) => {

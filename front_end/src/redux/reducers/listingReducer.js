@@ -11,6 +11,7 @@ const initState = {
   singleListing: [],
 };
 
+
 const listingReducer = (state = initState, action) => {
   switch (action.type) {
     case "DESCRIPTION_SET":
