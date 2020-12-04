@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import {
   postInquiry,
   setInquiryMsg,
@@ -7,8 +7,9 @@ import {
 } from "../redux/actions/inquiryActions";
 import { deleteListing } from "../redux/actions/listingActions";
 
-const Listing = ({ inquiryData, userMode, listing }) => {
+const Listing = ({ userMode, listing }) => {
   const HeaderItems = ["Title", "Type", "Description", "Price"];
+  const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
   const dispatch = useDispatch();
   return (
     <div>
@@ -33,14 +34,12 @@ const Listing = ({ inquiryData, userMode, listing }) => {
             {userMode ? (
               <td>
                 <textarea
-                  value={inquiryData.inquiryMsg}
+                  value={inquiryMsg}
                   onChange={(e) => dispatch(setInquiryMsg(e.target.value))}
                 />{" "}
                 <br />
                 <button
-                  onClick={() =>
-                    dispatch(postInquiry(listing.id, inquiryData.inquiryMsg))
-                  }
+                  onClick={() => dispatch(postInquiry(listing.id, inquiryMsg))}
                 >
                   Send Inquiry
                 </button>
@@ -70,12 +69,6 @@ const Listing = ({ inquiryData, userMode, listing }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    inquiryData: state.inquiryReducer,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     postInquiry: () => dispatch(postInquiry()),
@@ -84,4 +77,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Listing);
+export default connect(mapDispatchToProps)(Listing);
