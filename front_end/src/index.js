@@ -10,9 +10,10 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Admin from "./pages/Admin";
 import User from "./pages/User";
-
-
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
 import { Provider } from "react-redux";
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -27,8 +28,14 @@ ReactDOM.render(
           <Route path="/user">
             <User />
           </Route>
-          <Route path="/">
+          <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
       </BrowserRouter>

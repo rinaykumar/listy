@@ -3,10 +3,13 @@ import ViewListings from "../components/ViewListings";
 import ListingCreationForm from "../components/ListingCreationForm";
 import { connect } from "react-redux";
 import Inquiries from "../components/Inquiries";
+import NavigationHeader  from "../components/NavigationHeader";
+
 
 const Admin = ({ listingData, inquiryData }) => {
   return (
     <div>
+      <NavigationHeader/>
       <h2>Admin Route</h2>
       <div>
         <div>
@@ -22,8 +25,6 @@ const Admin = ({ listingData, inquiryData }) => {
     </div>
   );
 };
-
-// Add a line here
 
 const mapStateToProps = (state) => {
   return {
