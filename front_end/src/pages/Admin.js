@@ -23,6 +23,8 @@ const Admin = ({ listingData, inquiryData }) => {
   );
 };
 
+// Add a line here
+
 const mapStateToProps = (state) => {
   return {
     inquiryData: state.inquiryReducer,

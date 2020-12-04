@@ -11,6 +11,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Admin from "./pages/Admin";
 import User from "./pages/User";
 
+
 import { Provider } from "react-redux";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
