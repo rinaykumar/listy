@@ -4,7 +4,7 @@
 // };
 
 const initState = () => ({
-  userName: "",
+  username: "",
   password: "",
   isLoggedIn: false,
 });

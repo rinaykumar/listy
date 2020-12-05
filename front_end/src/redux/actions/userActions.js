@@ -1,14 +1,64 @@
+const axios = require("axios");
+
+// used for logging in
+export const fetchUsers = (username, password) => {
+  return (dispatch) => {
+    dispatch(fetchUsersRequest(username, password));
+    console.log(username);
+    console.log(password);
+
+    axios
+      .get(`/logIn?userName=${username}&password=${password}`)
+      .then((response) => {
+        const loginResponse = response.data;
+        console.log(loginResponse.success);
+        dispatch(LoginSuccess(loginResponse));
+        if(loginResponse.success) {
+          dispatch(setIsLoggedIn(true));
+        } else {
+          alert('Invalid username or password. Please try again.');
+        }
+        
+      })
+      .catch((error) => {
+        dispatch(LoginFailure(error.message));
+      });
+  };
+};
+
+export const fetchUsersRequest = () => {
+  return {
+    type: "FETCH_USERS_REQUEST",
+  };
+};
+
+export const LoginSuccess = (axiosResponse) => {
+  return {
+    type: "LOGIN_SUCCESS",
+    payload: axiosResponse,
+  };
+};
+
+export const LoginFailure = (axiosResponse) => {
+  return {
+    type: "LOGIN_FAILURE",
+    payload: axiosResponse,
+  };
+};
+
+
+
 export const setUsername = (username) => ({
   type: "USERNAME_SET",
   username,
 });
 
-export const setIsLoggedIn = (isLoggedIn) => ({
-  type: 'USER_SET_LOGGED_IN',
-  isLoggedIn,
-});
-
 export const setPassword = (password) => ({
   type: "PASSWORD_SET",
   password,
+});
+
+export const setIsLoggedIn = (isLoggedIn) => ({
+  type: 'USER_SET_LOGGED_IN',
+  isLoggedIn,
 });
