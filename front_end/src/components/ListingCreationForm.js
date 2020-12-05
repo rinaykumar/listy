@@ -1,12 +1,13 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   postListing,
   setDescription,
   setType,
   setPrice,
   setTitle,
-} from "../redux/actions/listingActions";
+  setImage,
+} from '../redux/actions/listingActions';
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,9 @@ const ListingCreationForm = () => {
   const type = useSelector((state) => state.listingReducer.type);
   const price = useSelector((state) => state.listingReducer.price);
   const title = useSelector((state) => state.listingReducer.title);
+  const image = useSelector((state) => state.listingReducer.image);
+  const ref = React.useRef();
+
   return (
     <div>
       <h3 className="text-info">Creating A Listing</h3>
@@ -62,20 +66,35 @@ const ListingCreationForm = () => {
             onChange={(e) => dispatch(setTitle(e.target.value))}
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="Image">Upload an Image: </label>
+          <input
+            id="input-image"
+            type="file"
+            name="imageUpload"
+            // value={image}
+            className="form-control"
+            ref={ref}
+            onChange={(e) => dispatch(setImage(e.target.files[0]))}
+          />
+        </div>
         <button
           id="submit"
           className="btn btn-dark"
           onClick={(e) => {
+            // console.log(image);
+            ref.current.value = '';
             e.preventDefault();
             if (
-              description === "" ||
-              type === "" ||
-              price === "" ||
-              title === ""
+              description === '' ||
+              type === '' ||
+              price === '' ||
+              title === '' ||
+              image === ''
             ) {
-              alert("Enter all fields..");
+              alert('Enter all fields..');
             } else {
-              dispatch(postListing(description, type, price, title));
+              dispatch(postListing(description, type, price, title, image));
             }
           }}
         >

@@ -1,8 +1,8 @@
-import React from "react";
-import ViewListings from "../components/ViewListings";
-import ListingCreationForm from "../components/ListingCreationForm";
-import { connect } from "react-redux";
-import Inquiries from "../components/Inquiries";
+import React from 'react';
+import ViewListings from '../components/ViewListings';
+import ListingCreationForm from '../components/ListingCreationForm';
+import { connect } from 'react-redux';
+import Inquiries from '../components/Inquiries';
 
 const Admin = ({ listingData, inquiryData }) => {
   return (

@@ -1,27 +1,33 @@
-const axios = require("axios");
+const axios = require('axios');
+const formData = new FormData();
 
 export const setDescription = (description) => ({
-  type: "DESCRIPTION_SET",
+  type: 'DESCRIPTION_SET',
   description,
 });
 
 export const setType = (ListingType) => ({
-  type: "TYPE_SET",
+  type: 'TYPE_SET',
   ListingType,
 });
 
 export const setPrice = (price) => ({
-  type: "PRICE_SET",
+  type: 'PRICE_SET',
   price,
 });
 
 export const setTitle = (title) => ({
-  type: "TITLE_SET",
+  type: 'TITLE_SET',
   title,
 });
 
+export const setImage = (image) => ({
+  type: 'IMAGE_SET',
+  image,
+});
+
 export const setShowListing = (showListing, listing) => ({
-  type: "SHOW_LISTING_SET",
+  type: 'SHOW_LISTING_SET',
   showListing,
   payload: listing,
 });
@@ -43,16 +49,26 @@ export const deleteListing = (id, showListing) => {
   };
 };
 
-export const postListing = (description, type, price, title) => {
+export const postListing = (description, type, price, title, image) => {
   return (dispatch) => {
-    dispatch(postListingRequest(description, type, price, title));
+    dispatch(postListingRequest(description, type, price, title, image));
+    const data = {
+      description,
+      type,
+      price,
+      title,
+      image,
+      actionType: 'postInquiry',
+    };
+
+    formData.append('imageUpload', image, image.name);
+    // if (data) {
+    //   webSocket.send(JSON.stringify(data)); // send plain string
+    // }
+    //send image to backend
+    axios.post('upload', formData);
     axios
-      .post("/api/createListing", {
-        description,
-        type,
-        price,
-        title,
-      })
+      .post('/api/createListing', data)
       .then(() => {
         dispatch(fetchListings());
       })
@@ -76,17 +92,17 @@ export const fetchListings = () => {
     //   });
     const listings = [
       {
-        description: "This is the first item",
-        type: "type1",
+        description: 'This is the first item',
+        type: 'type1',
         price: 124,
-        title: "Itemno1",
+        title: 'Itemno1',
         id: 11111111,
       },
       {
-        description: "This is the second item",
-        type: "type2",
+        description: 'This is the second item',
+        type: 'type2',
         price: 145,
-        title: "Itemno2",
+        title: 'Itemno2',
         id: 11111112,
       },
     ];
@@ -96,25 +112,25 @@ export const fetchListings = () => {
 
 export const fetchListingsRequest = () => {
   return {
-    type: "FETCH_LISTINGS_REQUEST",
+    type: 'FETCH_LISTINGS_REQUEST',
   };
 };
 
 export const postListingRequest = () => {
   return {
-    type: "POST_LISTING_REQUEST",
+    type: 'POST_LISTING_REQUEST',
   };
 };
 
 export const deleteListingRequest = () => {
   return {
-    type: "DELETE_LISTING_REQUEST",
+    type: 'DELETE_LISTING_REQUEST',
   };
 };
 
 export const deleteListingSuccess = (listings, showListing) => {
   return {
-    type: "DELETE_LISTING_SUCCESS",
+    type: 'DELETE_LISTING_SUCCESS',
     payload: listings,
     showListing,
   };
@@ -122,14 +138,14 @@ export const deleteListingSuccess = (listings, showListing) => {
 
 export const listingSuccess = (listings) => {
   return {
-    type: "LISTING_SUCCESS",
+    type: 'LISTING_SUCCESS',
     payload: listings,
   };
 };
 
 export const listingFailure = (error) => {
   return {
-    type: "LISTING_FAILURE",
+    type: 'LISTING_FAILURE',
     payload: error,
   };
 };

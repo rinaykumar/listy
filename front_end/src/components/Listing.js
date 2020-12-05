@@ -1,14 +1,15 @@
-import React from "react";
-import { connect, useDispatch } from "react-redux";
+import React from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import {
   postInquiry,
   setInquiryMsg,
   fetchInquiries,
-} from "../redux/actions/inquiryActions";
-import { deleteListing } from "../redux/actions/listingActions";
+} from '../redux/actions/inquiryActions';
+import { deleteListing } from '../redux/actions/listingActions';
 
-const Listing = ({ inquiryData, userMode, listing }) => {
-  const HeaderItems = ["Title", "Type", "Description", "Price"];
+const Listing = ({ userMode, listing }) => {
+  const HeaderItems = ['Image', 'Title', 'Type', 'Description', 'Price'];
+  const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
   const dispatch = useDispatch();
   return (
     <div>
@@ -25,6 +26,7 @@ const Listing = ({ inquiryData, userMode, listing }) => {
         </thead>
         <tbody>
           <tr className="listing">
+            <td>{listing.image500x500}</td>
             <td>{listing.id}</td>
             <td>{listing.title}</td>
             <td>{listing.type}</td>
@@ -33,14 +35,12 @@ const Listing = ({ inquiryData, userMode, listing }) => {
             {userMode ? (
               <td>
                 <textarea
-                  value={inquiryData.inquiryMsg}
+                  value={inquiryMsg}
                   onChange={(e) => dispatch(setInquiryMsg(e.target.value))}
-                />{" "}
+                />{' '}
                 <br />
                 <button
-                  onClick={() =>
-                    dispatch(postInquiry(listing.id, inquiryData.inquiryMsg))
-                  }
+                  onClick={() => dispatch(postInquiry(listing.id, inquiryMsg))}
                 >
                   Send Inquiry
                 </button>
@@ -70,12 +70,6 @@ const Listing = ({ inquiryData, userMode, listing }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    inquiryData: state.inquiryReducer,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     postInquiry: () => dispatch(postInquiry()),
@@ -84,4 +78,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Listing);
+export default connect(mapDispatchToProps)(Listing);
