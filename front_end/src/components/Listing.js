@@ -8,7 +8,7 @@ import {
 import { deleteListing } from "../redux/actions/listingActions";
 
 const Listing = ({ userMode, listing }) => {
-  const HeaderItems = ["Title", "Type", "Description", "Price"];
+  const HeaderItems = ["Image", "Title", "Type", "Description", "Price"];
   const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
   const dispatch = useDispatch();
   return (
@@ -26,6 +26,7 @@ const Listing = ({ userMode, listing }) => {
         </thead>
         <tbody>
           <tr className="listing">
+            <td>{listing.image500x500}</td>
             <td>{listing.id}</td>
             <td>{listing.title}</td>
             <td>{listing.type}</td>

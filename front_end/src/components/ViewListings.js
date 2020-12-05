@@ -25,6 +25,7 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
               <tr>
                 <th>Listing ID</th>
                 <th>Listing Title</th>
+                <th>Listing Image</th>
                 <th></th>
               </tr>
             </thead>
@@ -35,6 +36,7 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
                   <tr key={listing.id} className="listing">
                     <td>{listing.id}</td>
                     <td>{listing.title}</td>
+                    <td>{listing.image100x100}</td>
                     <td>
                       <button
                         className="btn btn-info"
