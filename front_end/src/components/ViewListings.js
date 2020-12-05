@@ -25,6 +25,7 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
               <tr>
                 <th>Listing ID</th>
                 <th>Listing Title</th>
+                <th>Listing Image</th>
                 <th></th>
               </tr>
             </thead>
@@ -32,9 +33,10 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
               {listingData &&
                 listingData.listings &&
                 listingData.listings.map((listing) => (
-                  <tr key={listing.id} className="listing">
-                    <td>{listing.id}</td>
-                    <td>{listing.title}</td>
+                  <tr key={listing.listingID} className="listing">
+                    <td>{listing.listingID}</td>
+                    <td>{listing.listingTitle}</td>
+                    <td>{listing.image100x100}</td>
                     <td>
                       <button
                         className="btn btn-info"

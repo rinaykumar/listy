@@ -21,7 +21,7 @@ const Inquiries = ({ inquiryData }) => {
             {inquiryData && inquiryData.inquiries ? (
               inquiryData.inquiries.map((inquiry) => (
                 <tr key={inquiry.message} className="inquiry">
-                  <td>{inquiry.id}</td>
+                  <td>{inquiry.listingID}</td>
                   <td>{inquiry.message}</td>
                 </tr>
               ))
