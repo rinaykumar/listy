@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import NavigationHeader  from "../components/NavigationHeader";
 import React, { useEffect, useState } from "react";
+import axios from 'axios'
 
 import { connect, useDispatch } from "react-redux";
 import { setUsername, setPassword } from "../redux/actions/userActions";
@@ -65,15 +66,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ userData }) => {
+const Login = ({ userData, appUser, setAppUser }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [error, setError] = React.useState('');
+  const [usertype, setUserType] = React.useState('');
 
   const [user, setUser] = useState({
     email: '',
     password: '',
     error: '',
   });
+
+  const handleLogIn = () => {
+    console.log(user.email)
+    console.log(user.password)
+    
+
+    const body = {
+      username: user.email,
+      password: user.password,
+    }
+    
+    axios.post('/api/authenticate', body)
+      .then((res) => {
+        if (res.data.success || res.data.usertype) {
+          console.log('Worked')
+          setAppUser(user.email)
+          setUserType(res.data.usertype)
+          // setTotalUsers(totalUsers + 1)
+        }
+        else {
+          //auth error
+          setError(res.data.error)
+
+        }
+        console.log(error)
+      })
+      .catch(() => {
+        setError('Failed to authenticate')
+      })
+  }
 
   return (
     <Grid>
@@ -126,6 +159,7 @@ const Login = ({ userData }) => {
               type="submit"
               fullWidth
               variant="contained"
+              onClick={handleLogIn}
               className={classes.submit}
             >
               Sign In
