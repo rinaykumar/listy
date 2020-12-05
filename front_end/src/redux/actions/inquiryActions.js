@@ -4,26 +4,27 @@ const axios = require("axios");
 export const fetchInquiries = (loadInquiries, listingId) => {
   return (dispatch) => {
     dispatch(fetchInquiriesRequest(loadInquiries, listingId));
-    // axios
-    //   .get(`/api/getInquiries?listingId=${listingId}`)
-    //   .then((response) => {
-    //     const inquiries = response.data.inquiries;
-    //     dispatch(fetchInquiriesSuccess(inquiries, loadInquiries));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(fetchInquiriesFailure(error.message));
-    //   });
-    const inquiries = [
-      {
-        message: "first item inquiry",
-        id: 11111111,
-      },
-      {
-        message: "second item inquiry",
-        id: 11111112,
-      },
-    ];
-    dispatch(fetchInquiriesSuccess(inquiries, loadInquiries));
+    // console.log(listingId);
+    axios
+      .get(`/api/getInquiries?listingId=${listingId}`)
+      .then((response) => {
+        const inquiries = response.data;
+        dispatch(fetchInquiriesSuccess(inquiries, loadInquiries));
+      })
+      .catch((error) => {
+        dispatch(fetchInquiriesFailure(error.message));
+      });
+    // const inquiries = [
+    //   {
+    //     message: "first item inquiry",
+    //     id: 11111111,
+    //   },
+    //   {
+    //     message: "second item inquiry",
+    //     id: 11111112,
+    //   },
+    // ];
+    // dispatch(fetchInquiriesSuccess(inquiries, loadInquiries));
   };
 };
 
@@ -60,9 +61,9 @@ export const postInquiry = (id, message) => {
   return (dispatch) => {
     dispatch(postInquiryRequest(id, message));
     axios
-      .post(`/api/makeInquiry?listingId=${id}`, { message: message })
+      .post(`/api/postInquiry?listingId=${id}`, { message: message })
       .then((response) => {
-        const inquiries = response.data.inquiries;
+        const inquiries = response.data;
         // console.log(inquiries);
         dispatch(postInquirySuccess(inquiries));
       })
