@@ -166,7 +166,7 @@ const NavigationHeader = () => {
 
 
     setAnchorEl(event.currentTarget);
-    history.push("/profile");
+    history.push("/login");
   };
 
   const handleInputPage = (event) => {

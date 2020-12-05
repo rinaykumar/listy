@@ -97,15 +97,12 @@ const Login = ({ userData }) => {
                   <AccountCircle />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                  Welcome to Listy, {username}!
+                  Welcome back {username}
                 </Typography>
                 <Typography component="h1" variant="subtitle1">
                   Buy and Sell Items Locally
                 </Typography>
-                <br/>
-                <Typography component="h3" variant="body1">
-                Listy is a place for people to discover, buy and sell items. By listing on Listy, you can reach buyers where they already are.
-                </Typography>
+
                 <Button
                     fullWidth
                     variant="contained"
@@ -113,7 +110,7 @@ const Login = ({ userData }) => {
                     href="/admin"
                     className={classes.submit}
                   >
-                    Start Shopping 
+                    Continue Shopping 
                   </Button>
               </div>
             )}

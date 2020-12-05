@@ -16,7 +16,7 @@ export const signupUser = (username, password) => {
         if(signupResponse=='User has been inserted') {
           dispatch(setIsLoggedIn(true));
         } else {
-          alert('Unable to signup. Please try again.');
+          alert('Username might be already taken. Please try again.');
         }
         
       })
