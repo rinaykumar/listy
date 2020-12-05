@@ -35,12 +35,10 @@ export const setShowListing = (showListing, listing) => ({
 export const deleteListing = (id, showListing) => {
   return (dispatch) => {
     dispatch(deleteListingRequest(id, showListing));
-    // console.log(id);
     axios
       .get(`/api/deleteListing?id=${id}`)
       .then((response) => {
         const listings = response.data;
-        // console.log('listings = ' + listings);
         dispatch(deleteListingSuccess(listings, showListing));
       })
       .catch((error) => {
@@ -52,7 +50,7 @@ export const deleteListing = (id, showListing) => {
 export const postListing = (description, type, price, title, image) => {
   return (dispatch) => {
     let id = nanoid(8);
-    console.log("ID: " + id);
+    // console.log("ID: " + id);
     dispatch(postListingRequest(description, type, price, title, image));
     axios
       .post("/api/postListing", {

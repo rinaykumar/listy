@@ -33,8 +33,8 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
               {listingData &&
                 listingData.listings &&
                 listingData.listings.map((listing) => (
-                  <tr key={listing.lisitngID} className="listing">
-                    <td>{listing.lisitngID}</td>
+                  <tr key={listing.listingID} className="listing">
+                    <td>{listing.listingID}</td>
                     <td>{listing.listingTitle}</td>
                     <td>{listing.image100x100}</td>
                     <td>

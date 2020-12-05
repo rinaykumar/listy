@@ -8,7 +8,7 @@ import {
 import { deleteListing } from "../redux/actions/listingActions";
 
 const Listing = ({ userMode, listing }) => {
-  const HeaderItems = ["Image", "Title", "Type", "Description", "Price"];
+  const HeaderItems = ["Image", "ID", "Title", "Type", "Description", "Price"];
   const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
   const dispatch = useDispatch();
   return (
@@ -27,7 +27,7 @@ const Listing = ({ userMode, listing }) => {
         <tbody>
           <tr className="listing">
             <td>{listing.image500x500}</td>
-            <td>{listing.lisitngID}</td>
+            <td>{listing.listingID}</td>
             <td>{listing.listingTitle}</td>
             <td>{listing.listingType}</td>
             <td>{listing.listingDescription}</td>
@@ -40,7 +40,9 @@ const Listing = ({ userMode, listing }) => {
                 />{" "}
                 <br />
                 <button
-                  onClick={() => dispatch(postInquiry(listing.id, inquiryMsg))}
+                  onClick={() =>
+                    dispatch(postInquiry(listing.listingID, inquiryMsg))
+                  }
                 >
                   Send Inquiry
                 </button>
@@ -49,14 +51,19 @@ const Listing = ({ userMode, listing }) => {
               <>
                 <td>
                   <button
-                    onClick={() => dispatch(deleteListing(listing.id, false))}
+                    onClick={() =>
+                      dispatch(deleteListing(listing.listingID, false))
+                    }
                   >
                     Delete
                   </button>
                 </td>
                 <td>
                   <button
-                    onClick={() => dispatch(fetchInquiries(true, listing.id))}
+                    onClick={() => {
+                      // console.log(listing.listingID);
+                      dispatch(fetchInquiries(true, listing.listingID));
+                    }}
                   >
                     View Inquiries
                   </button>
