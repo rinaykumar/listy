@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { nanoid } = require("nanoid");
 
 export const setDescription = (description) => ({
   type: "DESCRIPTION_SET",
@@ -50,9 +51,12 @@ export const deleteListing = (id, showListing) => {
 
 export const postListing = (description, type, price, title, image) => {
   return (dispatch) => {
+    let id = nanoid(8);
+    console.log("ID: " + id);
     dispatch(postListingRequest(description, type, price, title, image));
     axios
-      .post("/api/createListing", {
+      .post("/api/postListing", {
+        id,
         description,
         type,
         price,
@@ -71,32 +75,32 @@ export const postListing = (description, type, price, title, image) => {
 export const fetchListings = () => {
   return (dispatch) => {
     dispatch(fetchListingsRequest());
-    // axios
-    //   .get("/api/viewListings")
-    //   .then((response) => {
-    //     const listings = response.data.items;
-    //     dispatch(listingSuccess(listings));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(listingFailure(error.message));
-    //   });
-    const listings = [
-      {
-        description: "This is the first item",
-        type: "type1",
-        price: 124,
-        title: "Itemno1",
-        id: 11111111,
-      },
-      {
-        description: "This is the second item",
-        type: "type2",
-        price: 145,
-        title: "Itemno2",
-        id: 11111112,
-      },
-    ];
-    dispatch(listingSuccess(listings));
+    axios
+      .get("/api/getListings")
+      .then((response) => {
+        const listings = response.data.items;
+        dispatch(listingSuccess(listings));
+      })
+      .catch((error) => {
+        dispatch(listingFailure(error.message));
+      });
+    // const listings = [
+    //   {
+    //     description: "This is the first item",
+    //     type: "type1",
+    //     price: 124,
+    //     title: "Itemno1",
+    //     id: 11111111,
+    //   },
+    //   {
+    //     description: "This is the second item",
+    //     type: "type2",
+    //     price: 145,
+    //     title: "Itemno2",
+    //     id: 11111112,
+    //   },
+    // ];
+    // dispatch(listingSuccess(listings));
   };
 };
 
