@@ -13,10 +13,10 @@ export const signupUser = (username, password) => {
         const signupResponse = response.data;
         console.log(signupResponse);
         dispatch(SignupSuccess(signupResponse));
-        if(signupResponse.success) {
+        if(signupResponse=='User has been inserted') {
           dispatch(setIsLoggedIn(true));
         } else {
-          // alert('Invalid username or password. Please try again.');
+          alert('Unable to signup. Please try again.');
         }
         
       })

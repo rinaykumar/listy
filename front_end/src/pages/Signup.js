@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import NavigationHeader  from "../components/NavigationHeader";
 import { connect, useSelector, useDispatch } from "react-redux";
 import {
@@ -71,13 +72,41 @@ const Signup = ({ userData }) => {
           <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign Up
-        </Typography>
-        <form className={classes.form} noValidate>
+
+      {isLoggedIn && (
+              <div className={classes.paper}>
+
+                <Avatar className={classes.avatar}>
+                  <AccountCircle />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Welcome to Listy, {username}!
+                </Typography>
+                <Typography component="h1" variant="subtitle1">
+                  Buy and Sell Items Locally
+                </Typography>
+                <br/>
+                <Typography component="h3" variant="body1">
+                Listy is a place for people to discover, buy and sell items. By listing on Listy, you can reach buyers where they already are.
+                </Typography>
+                <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    href="/admin"
+                    className={classes.submit}
+                  >
+                    Start Shopping 
+                  </Button>
+              </div>
+            )}
+
+            {!isLoggedIn && (
+              <div >
+                <Typography component="h1" variant="h5">
+                  Sign Up
+                </Typography>
+                <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -139,6 +168,9 @@ const Signup = ({ userData }) => {
             </Grid>
           </Grid>
         </form>
+              </div>
+            )}
+
       </div>
       <Box mt={8}>
         <Copyright />
