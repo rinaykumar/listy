@@ -1,5 +1,31 @@
 const axios = require("axios");
 
+// used for signing up
+export const signupUser = (username, password) => {
+  return (dispatch) => {
+    dispatch(signupUserRequest(username, password));
+    console.log(username);
+    console.log(password);
+
+    axios
+      .get(`/register?userName=${username}&password=${password}`)
+      .then((response) => {
+        const signupResponse = response.data;
+        console.log(signupResponse);
+        dispatch(SignupSuccess(signupResponse));
+        if(signupResponse.success) {
+          dispatch(setIsLoggedIn(true));
+        } else {
+          // alert('Invalid username or password. Please try again.');
+        }
+        
+      })
+      .catch((error) => {
+        dispatch(SignupFailure(error.message));
+      });
+  };
+};
+
 // used for logging in
 export const fetchUsers = (username, password) => {
   return (dispatch) => {
@@ -31,6 +57,27 @@ export const fetchUsersRequest = () => {
     type: "FETCH_USERS_REQUEST",
   };
 };
+
+export const signupUserRequest = () => {
+  return {
+    type: "FETCH_USERS_REQUEST",
+  };
+};
+
+export const SignupSuccess = (axiosResponse) => {
+  return {
+    type: "SIGNUP_SUCCESS",
+    payload: axiosResponse,
+  };
+};
+
+export const SignupFailure = (axiosResponse) => {
+  return {
+    type: "SIGNUP_FAILURE",
+    payload: axiosResponse,
+  };
+};
+
 
 export const LoginSuccess = (axiosResponse) => {
   return {

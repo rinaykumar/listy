@@ -13,7 +13,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import NavigationHeader  from "../components/NavigationHeader";
-
+import { connect, useSelector, useDispatch } from "react-redux";
+import {
+  setUsername,
+  setIsLoggedIn,
+  setPassword,
+  fetchUsers,
+  signupUser
+} from "../redux/actions/userActions";
 
 function Copyright() {
     return (
@@ -50,8 +57,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn() {
+const Signup = ({ userData }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  // extract values from the global redux store
+  const username = useSelector((state) => state.userReducer.username);
+  const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn);
 
   return (
       <div className={classes.mainContainer}>
@@ -71,10 +83,12 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            value={userData.username}
+            onChange={(e) => dispatch(setUsername(e.target.value))}
             autoFocus
           />
           <TextField
@@ -87,8 +101,10 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={userData.password}
+            onChange={(e) => dispatch(setPassword(e.target.value))}
           />
-                    <TextField
+              <TextField
             variant="outlined"
             margin="normal"
             required
@@ -101,20 +117,21 @@ export default function SignIn() {
           />
 
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
+            onClick={() => {
+              // console.log(listing.listingID);
+              dispatch(
+                signupUser(userData.username, userData.password)
+              );
+            }}
             className={classes.submit}
           >
             Sign Up
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
+
             <Grid item>
               <Link href="#" variant="body2">
                 {"Already have an account? Login"}
@@ -132,3 +149,18 @@ export default function SignIn() {
     
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userData: state.userReducer,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUsername: () => dispatch(setUsername()),
+    setPassword: () => dispatch(setPassword()),
+    fetchUsers: () => dispatch(fetchUsers()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
