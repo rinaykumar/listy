@@ -109,7 +109,7 @@ client.connect((error) => {
     // }
 
     const listingMatcher = {
-      lisitngID: req.body.id,
+      listingID: req.body.id,
     };
 
     listingCollection
@@ -119,7 +119,7 @@ client.connect((error) => {
           return Promise.reject("Listing already exists");
         }
         const newListing = {
-          lisitngID: req.body.id,
+          listingID: req.body.id,
           listingTitle: req.body.title,
           listingType: req.body.type,
           listingDescription: req.body.description,
@@ -145,7 +145,19 @@ client.connect((error) => {
       .find({})
       .toArray() // Convert documents found to JS array
       .then((inquiries) => {
-        res.send(inquiries);
+        if (req.query.listingId) {
+          // console.log(req.query.listingId);
+          const found = inquiries.some(
+            (inquiry) => inquiry.listingID == req.query.listingId
+          );
+          if (found) {
+            let filterInquiries = inquiries.filter(
+              (inquiry) => inquiry.listingID == req.query.listingId
+            );
+            // console.log(filterInquiries);
+            res.send(filterInquiries);
+          }
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -154,12 +166,11 @@ client.connect((error) => {
   });
 
   // Post inquiry, might have to be post not get
-  app.get("/api/postInquiry", (req, res) => {
+  app.post("/api/postInquiry", (req, res) => {
     const inquiry = {
       inquiryID: req.query.id,
-      inquiryMessage: req.query.message,
+      inquiryMessage: req.body.message,
     };
-
     inquiryCollection
       .insertOne(inquiry)
       .then(() => {
