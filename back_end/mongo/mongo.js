@@ -94,7 +94,7 @@ client.connect((error) => {
       .toArray() // Convert documents found to JS array
       .then((listings) => {
         res.send(listings);
-        console.log(listings);
+        // console.log(listings);
       })
       .catch((e) => {
         console.log(e);
@@ -104,7 +104,6 @@ client.connect((error) => {
 
   // Post listing endpoint, might have to be post not get
   app.post("/api/postListing", (req, res) => {
-    console.log("request id: " + req.body.id);
     // if (!req.query.userName || !req.query.password) {
     //   return res.send("Username and password must be entered");
     // }

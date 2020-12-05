@@ -27,11 +27,11 @@ const Listing = ({ userMode, listing }) => {
         <tbody>
           <tr className="listing">
             <td>{listing.image500x500}</td>
-            <td>{listing.id}</td>
-            <td>{listing.title}</td>
-            <td>{listing.type}</td>
-            <td>{listing.description}</td>
-            <td>{listing.price}</td>
+            <td>{listing.lisitngID}</td>
+            <td>{listing.listingTitle}</td>
+            <td>{listing.listingType}</td>
+            <td>{listing.listingDescription}</td>
+            <td>{listing.listingPrice}</td>
             {userMode ? (
               <td>
                 <textarea

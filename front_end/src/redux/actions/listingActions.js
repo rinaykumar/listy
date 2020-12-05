@@ -39,7 +39,7 @@ export const deleteListing = (id, showListing) => {
     axios
       .get(`/api/deleteListing?id=${id}`)
       .then((response) => {
-        const listings = response.data.items;
+        const listings = response.data;
         // console.log('listings = ' + listings);
         dispatch(deleteListingSuccess(listings, showListing));
       })
@@ -78,7 +78,7 @@ export const fetchListings = () => {
     axios
       .get("/api/getListings")
       .then((response) => {
-        const listings = response.data.items;
+        const listings = response.data;
         dispatch(listingSuccess(listings));
       })
       .catch((error) => {
