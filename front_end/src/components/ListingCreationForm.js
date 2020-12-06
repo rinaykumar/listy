@@ -1,12 +1,13 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   postListing,
   setDescription,
   setType,
   setPrice,
   setTitle,
-} from "../redux/actions/listingActions";
+} from '../redux/actions/listingActions';
+import './ListingCreationForm.css';
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch();
@@ -16,8 +17,8 @@ const ListingCreationForm = () => {
   const title = useSelector((state) => state.listingReducer.title);
   return (
     <div>
-      <h3 className="text-info">Creating A Listing</h3>
-      <form>
+      <div className="form-title">Creating A Listing</div>
+      <form className="form">
         <div className="form-group">
           <label htmlFor="description">Description: </label>
           <input
@@ -25,7 +26,7 @@ const ListingCreationForm = () => {
             type="text"
             name="description"
             value={description}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setDescription(e.target.value))}
           />
         </div>
@@ -36,7 +37,7 @@ const ListingCreationForm = () => {
             type="text"
             name="type"
             value={type}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setType(e.target.value))}
           />
         </div>
@@ -47,7 +48,7 @@ const ListingCreationForm = () => {
             type="text"
             name="price"
             value={price}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setPrice(e.target.value))}
           />
         </div>
@@ -58,7 +59,7 @@ const ListingCreationForm = () => {
             type="text"
             name="title"
             value={title}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setTitle(e.target.value))}
           />
         </div>
@@ -68,12 +69,12 @@ const ListingCreationForm = () => {
           onClick={(e) => {
             e.preventDefault();
             if (
-              description === "" ||
-              type === "" ||
-              price === "" ||
-              title === ""
+              description === '' ||
+              type === '' ||
+              price === '' ||
+              title === ''
             ) {
-              alert("Enter all fields..");
+              alert('Enter all fields..');
             } else {
               dispatch(postListing(description, type, price, title));
             }
