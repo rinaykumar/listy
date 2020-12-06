@@ -36,7 +36,11 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
                   <tr key={listing.listingID} className="listing">
                     <td>{listing.listingID}</td>
                     <td>{listing.listingTitle}</td>
-                    <td>{listing.image100x100}</td>
+                    <td>
+                      <img
+                        src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                      />
+                    </td>
                     <td>
                       <button
                         className="btn btn-info"

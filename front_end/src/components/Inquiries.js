@@ -22,7 +22,7 @@ const Inquiries = ({ inquiryData }) => {
               inquiryData.inquiries.map((inquiry) => (
                 <tr key={inquiry.message} className="inquiry">
                   <td>{inquiry.listingID}</td>
-                  <td>{inquiry.message}</td>
+                  <td>{inquiry.inquiryMessage}</td>
                 </tr>
               ))
             ) : (
