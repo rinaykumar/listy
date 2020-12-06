@@ -20,7 +20,7 @@ const ListingCreationForm = () => {
   return (
     <div>
       <h3 className="text-info">Creating A Listing</h3>
-      <form>
+      <form method="POST" encType="multipart/form-data">
         <div className="form-group">
           <label htmlFor="description">Description: </label>
           <input
@@ -71,10 +71,12 @@ const ListingCreationForm = () => {
             id="input-image"
             type="file"
             name="imageUpload"
+            accept=".jpg, .png, .jpeg"
             // value={image}
             className="form-control"
             ref={ref}
             onChange={(e) => dispatch(setImage(e.target.files[0]))}
+            single="true"
           />
         </div>
         <button
