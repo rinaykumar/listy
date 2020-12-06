@@ -26,14 +26,14 @@ wsProxy.on('error', (err, req, socket) => {
 // DONT NEED THIS
 // forwarding logic
 // all forwards every type (get, post, delete etc)
-// http://localhost:3000/api/authentication -> localhost: 4000
-// app.all('/api/authentication*', (req, res) => {
-//   console.log(req.path);
-//   const options = {
-//     target: 'http://localhost:4001',
-//   };
-//   apiProxy.web(req, res, options);
-// });
+//localhost:3000/api/authentication -> localhost: 4000
+http: app.all('/api/authentication*', (req, res) => {
+  console.log(req.path);
+  const options = {
+    target: 'http://localhost:4001',
+  };
+  apiProxy.web(req, res, options);
+});
 
 // http://localhost:3000/api/imageUpload -> localhost: 4002
 app.all('/api/imageUpload*', (req, res) => {

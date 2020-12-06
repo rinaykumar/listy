@@ -1,28 +1,36 @@
 const { MongoClient } = require('mongodb');
 const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const multer = require('multer'); // to process form-data
+const storage = require('./multerUpload.js'); // to process image using multer
+const upload = multer(storage);
+const fs = require('fs');
+const imageProcessor = require('./imageProcessor');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const url = 'mongodb://localhost:27017';
 const dbName = 'Listy';
-const redis = require('redis');
-const redisClient = redis.createClient();
+const client = new MongoClient(url);
 
-const mongoClient = new MongoClient(url);
-
-mongoClient.connect((error) => {
+client.connect((error) => {
   if (error) {
     console.log(error);
     process.exit(1); // Exit if connecion fails
   }
   // Connection successful
   console.log('Connection worked');
-  const app = express();
-  app.use(cors());
-  app.use(express.json());
+
   // Get references to db and collection
   const db = client.db(dbName);
   const userCollection = db.collection('users'); // Users collection
   const listingCollection = db.collection('listings'); // Listings collection
   const inquiryCollection = db.collection('inquiries'); // Inquiries collection
+  // not using imageCollection
   const imageCollection = db.collection('images'); // Images collection
 
   // Login endpoint
@@ -83,20 +91,17 @@ mongoClient.connect((error) => {
         console.log(e);
         res.send(e);
       });
-    const newUser = {
-      userName: req.query.userName,
-      password: req.query.password,
-    };
   });
 
   // Get listings endpoint
-  app.get('/getListings', (req, res) => {
+  app.get('/api/getListings', (req, res) => {
     // Network call
     listingCollection
       .find({})
       .toArray() // Convert documents found to JS array
       .then((listings) => {
         res.send(listings);
+        // console.log(listings);
       })
       .catch((e) => {
         console.log(e);
@@ -105,55 +110,90 @@ mongoClient.connect((error) => {
   });
 
   // Post listing endpoint, might have to be post not get
-  app.post('/postListing', (req, res) => {
-    if (!req.query.userName || !req.query.password) {
-      return res.send('Username and password must be entered');
-    }
-    const listingMatcher = {
-      lisitngID: req.query.id,
-    };
+  app.post('/api/postListing', upload.single('file'), async (req, res) => {
+    let str = path.parse(req.file.filename).name; // to get the filename without extension
+    let filePath = req.file.path;
+    // passing uploaded file path and the filename to image processor for resizing
+    await imageProcessor(filePath, str);
 
+    const listingMatcher = {
+      listingID: req.body.id,
+    };
     listingCollection
       .findOne(listingMatcher)
       .then((result) => {
         if (result) {
           return Promise.reject('Listing already exists');
         }
+        // store Original Image to Mongo
+        let img = fs.readFileSync(req.file.path);
+        let encode_img = img.toString('base64');
+        // define JSON object for the image
+        let finalImg = {
+          contentType: req.file.mimetype,
+          // path: req.file.path,
+          image: Buffer.from(encode_img, 'base64'),
+        };
+        // store 100x100 Image to Mongo
+        let fileName = './uploads/' + str + '_100.jpeg';
+        img = fs.readFileSync(fileName);
+        encode_img = img.toString('base64');
+        let finalImg100 = {
+          contentType: req.file.mimetype,
+          // path: req.file.path,
+          image: Buffer.from(encode_img, 'base64'),
+        };
+        // store 500x500 Image to Mongo
+        fileName = './uploads/' + str + '_500.jpeg';
+        img = fs.readFileSync(fileName);
+        encode_img = img.toString('base64');
+        let finalImg500 = {
+          contentType: req.file.mimetype,
+          // path: req.file.path,
+          image: Buffer.from(encode_img, 'base64'),
+        };
         const newListing = {
-          lisitngID: req.query.id,
-          listingTitle: req.query.title,
-          listingType: req.query.type,
-          listingDescription: req.query.description,
-          listingPrice: req.query.price,
+          listingID: req.body.id,
+          listingTitle: req.body.title,
+          listingType: req.body.type,
+          listingDescription: req.body.description,
+          listingPrice: req.body.price,
+          listingImage: finalImg,
+          listingImage100: finalImg100,
+          listingImage500: finalImg500,
         };
         // Insert is also async, does not happen instantly
         return listingCollection.insertOne(newListing); // Chain a promise
       })
       .then((result) => {
-        // Listing has been inserted
         res.send('Listing has been inserted');
       })
       .catch((e) => {
         console.log(e);
         res.send(e);
       });
-    const newListing = {
-      lisitngID: req.query.id,
-      listingTitle: req.query.title,
-      listingType: req.query.type,
-      listingDescription: req.query.description,
-      listingPrice: req.query.price,
-    };
   });
 
   // Get inquiries endpoint
-  app.get('/getInquiries', (req, res) => {
+  app.get('/api/getInquiries', (req, res) => {
     // Network call
     inquiryCollection
       .find({})
       .toArray() // Convert documents found to JS array
       .then((inquiries) => {
-        res.send(inquiries.map((r) => r.data));
+        if (req.query.listingId) {
+          // console.log(req.query.listingId);
+          const found = inquiries.some(
+            (inquiry) => inquiry.listingID == req.query.listingId
+          );
+          if (found) {
+            let filterInquiries = inquiries.filter(
+              (inquiry) => inquiry.listingID == req.query.listingId
+            );
+            // console.log(filterInquiries);
+            res.send(filterInquiries);
+          }
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -162,29 +202,26 @@ mongoClient.connect((error) => {
   });
 
   // Post inquiry, might have to be post not get
-  app.post('/postInquiry', (req, res) => {
-    console.log(req.body);
+  app.post('/api/postInquiry', (req, res) => {
     const inquiry = {
-      inquiryID: req.body.id,
+      listingID: req.query.listingId,
       inquiryMessage: req.body.message,
     };
-
     inquiryCollection
       .insertOne(inquiry)
       .then(() => {
         // Inquiry has been inserted
-        console.log('Inquiry insert worked!');
+        res.send('Inquiry has been inserted');
       })
       .catch((e) => {
         console.log(e);
+        res.send(e);
       });
-    redisClient.publish('newInquiry', inquiry);
-    res.send('sent inquiry data to redis channel');
   });
 
   // Get images endpoint
   // ASSUMING: Images have been processed and inserted into mongo collection
-  app.get('/getImages', (req, res) => {
+  app.get('/api/getImages', (req, res) => {
     // Network call
     imageCollection
       .find({})
@@ -200,14 +237,14 @@ mongoClient.connect((error) => {
 
   // Post image endpoint, might have to be post not get
   // ASSUMING: Images have been processed then sent to the endpoint
-  app.post('/postImage', (req, res) => {
+  app.get('/postImage', (req, res) => {
     const processedImage = {
       imageID: req.query.id, // This would be the ID of the listing the image belongs to
       imageData: req.query.image, // This should(?) be the processed image data in base64
     };
 
     imageCollection
-      .insertOne(processedImage)
+      .insertOne(prcessedImage)
       .then(() => {
         // Image has been inserted
         res.send('Image has been inserted');
@@ -216,9 +253,7 @@ mongoClient.connect((error) => {
         console.log(e);
         res.send(e);
       });
-    redisClient.publish('newImage', processedImage);
-    res.send('sent image data to redis channel');
   });
 
-  app.listen(4003, () => console.log('App listening on port 4003'));
+  app.listen(4000, () => console.log('App listening on port 4000'));
 });

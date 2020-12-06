@@ -10,26 +10,20 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Admin from './pages/Admin';
 import User from './pages/User';
-
+import Home from './pages/Home';
+import Signup from './pages/Signup';
 import { Provider } from 'react-redux';
-
-// const webSocket = new WebSocket(
-//   'ws://' +
-//     window.location.host.split(':')[0] +
-//     (window.location.port && `:${window.location.port}`) +
-//     '/websocket'
-// );
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 // create instance of web socket
 const webSocket = new WebSocket('ws://localhost:4000');
 
-webSocket.onmessage = (message) => {
-  console.log(message);
-  // someone sends message -> messenger api -> redis -> ws server -> here
-  store.dispatch(setInquiryMsg(message.data));
-};
+// webSocket.onmessage = (message) => {
+//   console.log(message);
+//   // someone sends message -> messenger api -> redis -> ws server -> here
+//   store.dispatch(setInquiryMsg(message.data));
+// };
 
 ReactDOM.render(
   <Provider store={store}>
@@ -42,8 +36,14 @@ ReactDOM.render(
           <Route path="/user">
             <User />
           </Route>
-          <Route path="/">
+          <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -1,5 +1,6 @@
 const axios = require('axios');
 const formData = new FormData();
+const { nanoid } = require('nanoid');
 
 export const setDescription = (description) => ({
   type: 'DESCRIPTION_SET',
@@ -35,12 +36,10 @@ export const setShowListing = (showListing, listing) => ({
 export const deleteListing = (id, showListing) => {
   return (dispatch) => {
     dispatch(deleteListingRequest(id, showListing));
-    // console.log(id);
     axios
       .get(`/api/deleteListing?id=${id}`)
       .then((response) => {
-        const listings = response.data.items;
-        // console.log('listings = ' + listings);
+        const listings = response.data;
         dispatch(deleteListingSuccess(listings, showListing));
       })
       .catch((error) => {
@@ -51,24 +50,19 @@ export const deleteListing = (id, showListing) => {
 
 export const postListing = (description, type, price, title, image) => {
   return (dispatch) => {
+    let id = nanoid(8);
     dispatch(postListingRequest(description, type, price, title, image));
-    const data = {
-      description,
-      type,
-      price,
-      title,
-      image,
-      actionType: 'postInquiry',
-    };
-
-    formData.append('imageUpload', image, image.name);
-    // if (data) {
-    //   webSocket.send(JSON.stringify(data)); // send plain string
-    // }
-    //send image to backend
-    axios.post('upload', formData);
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('id', id);
+    formData.append('description', description);
+    formData.append('type', type);
+    formData.append('price', price);
+    formData.append('title', title);
     axios
-      .post('/api/createListing', data)
+      .post('/api/postListing', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
       .then(() => {
         dispatch(fetchListings());
       })
@@ -81,32 +75,15 @@ export const postListing = (description, type, price, title, image) => {
 export const fetchListings = () => {
   return (dispatch) => {
     dispatch(fetchListingsRequest());
-    // axios
-    //   .get("/api/viewListings")
-    //   .then((response) => {
-    //     const listings = response.data.items;
-    //     dispatch(listingSuccess(listings));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(listingFailure(error.message));
-    //   });
-    const listings = [
-      {
-        description: 'This is the first item',
-        type: 'type1',
-        price: 124,
-        title: 'Itemno1',
-        id: 11111111,
-      },
-      {
-        description: 'This is the second item',
-        type: 'type2',
-        price: 145,
-        title: 'Itemno2',
-        id: 11111112,
-      },
-    ];
-    dispatch(listingSuccess(listings));
+    axios
+      .get('/api/getListings')
+      .then((response) => {
+        const listings = response.data;
+        dispatch(listingSuccess(listings));
+      })
+      .catch((error) => {
+        dispatch(listingFailure(error.message));
+      });
   };
 };
 

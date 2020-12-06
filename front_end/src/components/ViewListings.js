@@ -33,10 +33,14 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
               {listingData &&
                 listingData.listings &&
                 listingData.listings.map((listing) => (
-                  <tr key={listing.id} className="listing">
-                    <td>{listing.id}</td>
-                    <td>{listing.title}</td>
-                    <td>{listing.image100x100}</td>
+                  <tr key={listing.listingID} className="listing">
+                    <td>{listing.listingID}</td>
+                    <td>{listing.listingTitle}</td>
+                    <td>
+                      <img
+                        src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                      />
+                    </td>
                     <td>
                       <button
                         className="btn btn-info"

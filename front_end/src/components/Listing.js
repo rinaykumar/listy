@@ -26,21 +26,28 @@ const Listing = ({ userMode, listing }) => {
         </thead>
         <tbody>
           <tr className="listing">
-            <td>{listing.image500x500}</td>
-            <td>{listing.id}</td>
-            <td>{listing.title}</td>
-            <td>{listing.type}</td>
-            <td>{listing.description}</td>
-            <td>{listing.price}</td>
+            <td>
+              <img
+                src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+              />
+            </td>
+            <td>{listing.listingID}</td>
+            <td>{listing.listingTitle}</td>
+            <td>{listing.listingType}</td>
+            <td>{listing.listingDescription}</td>
+            <td>{listing.listingPrice}</td>
             {userMode ? (
               <td>
                 <textarea
+                  placeholder="Post your Inquiry.."
                   value={inquiryMsg}
                   onChange={(e) => dispatch(setInquiryMsg(e.target.value))}
                 />{' '}
                 <br />
                 <button
-                  onClick={() => dispatch(postInquiry(listing.id, inquiryMsg))}
+                  onClick={() =>
+                    dispatch(postInquiry(listing.listingID, inquiryMsg))
+                  }
                 >
                   Send Inquiry
                 </button>
@@ -49,14 +56,19 @@ const Listing = ({ userMode, listing }) => {
               <>
                 <td>
                   <button
-                    onClick={() => dispatch(deleteListing(listing.id, false))}
+                    onClick={() =>
+                      dispatch(deleteListing(listing.listingID, false))
+                    }
                   >
                     Delete
                   </button>
                 </td>
                 <td>
                   <button
-                    onClick={() => dispatch(fetchInquiries(true, listing.id))}
+                    onClick={() => {
+                      // console.log(listing.listingID);
+                      dispatch(fetchInquiries(true, listing.listingID));
+                    }}
                   >
                     View Inquiries
                   </button>
