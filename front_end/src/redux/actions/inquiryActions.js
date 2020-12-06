@@ -6,7 +6,7 @@ export const fetchInquiries = (loadInquiries, listingId) => {
     dispatch(fetchInquiriesRequest(loadInquiries, listingId));
     // console.log(listingId);
     axios
-      .get(`/api/getInquiries?listingId=${listingId}`)
+      .get(`/use/getInquiries?listingId=${listingId}`)
       .then((response) => {
         const inquiries = response.data;
         dispatch(fetchInquiriesSuccess(inquiries, loadInquiries));
@@ -54,7 +54,7 @@ export const postInquiry = (id, message) => {
   return (dispatch) => {
     dispatch(postInquiryRequest(id, message));
     axios
-      .post(`/api/postInquiry?listingId=${id}`, { message: message })
+      .post(`/use/postInquiry?listingId=${id}`, { message: message })
       .then(() => {
         dispatch(fetchInquiries(true, id));
       })

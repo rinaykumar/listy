@@ -17,7 +17,7 @@ import { Provider } from 'react-redux';
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 // create instance of web socket
-const webSocket = new WebSocket('ws://localhost:4000');
+// const webSocket = new WebSocket('ws://localhost:6000');
 
 // webSocket.onmessage = (message) => {
 //   console.log(message);
