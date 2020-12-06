@@ -144,7 +144,10 @@ const Signup = ({ userData }) => {
             id="password"
             autoComplete="confirm-password"
           />
-
+                  <FormControlLabel
+                    control={<Checkbox value={userData.isAdmin} color="primary" />}
+                    label="I'm an admin"
+                  />
           <Button
             fullWidth
             variant="contained"
@@ -152,13 +155,14 @@ const Signup = ({ userData }) => {
             onClick={() => {
               // console.log(listing.listingID);
               dispatch(
-                signupUser(userData.username, userData.password)
+                signupUser(userData.username, userData.password, userData.isAdmin)
               );
             }}
             className={classes.submit}
           >
             Sign Up
           </Button>
+          
           <Grid container>
 
             <Grid item>
