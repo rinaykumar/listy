@@ -30,6 +30,7 @@ client.connect((error) => {
   const userCollection = db.collection("users"); // Users collection
   const listingCollection = db.collection("listings"); // Listings collection
   const inquiryCollection = db.collection("inquiries"); // Inquiries collection
+  // not using imageCollection
   const imageCollection = db.collection("images"); // Images collection
 
   // Login endpoint
@@ -124,12 +125,31 @@ client.connect((error) => {
         if (result) {
           return Promise.reject("Listing already exists");
         }
+        // store Original Image to Mongo
         let img = fs.readFileSync(req.file.path);
         let encode_img = img.toString("base64");
         // define JSON object for the image
         let finalImg = {
           contentType: req.file.mimetype,
-          path: req.file.path,
+          // path: req.file.path,
+          image: Buffer.from(encode_img, "base64"),
+        };
+        // store 100x100 Image to Mongo
+        let fileName = "./uploads/" + str + "_100.jpeg";
+        img = fs.readFileSync(fileName);
+        encode_img = img.toString("base64");
+        let finalImg100 = {
+          contentType: req.file.mimetype,
+          // path: req.file.path,
+          image: Buffer.from(encode_img, "base64"),
+        };
+        // store 500x500 Image to Mongo
+        fileName = "./uploads/" + str + "_500.jpeg";
+        img = fs.readFileSync(fileName);
+        encode_img = img.toString("base64");
+        let finalImg500 = {
+          contentType: req.file.mimetype,
+          // path: req.file.path,
           image: Buffer.from(encode_img, "base64"),
         };
         const newListing = {
@@ -139,6 +159,8 @@ client.connect((error) => {
           listingDescription: req.body.description,
           listingPrice: req.body.price,
           listingImage: finalImg,
+          listingImage100: finalImg100,
+          listingImage500: finalImg500,
         };
         // Insert is also async, does not happen instantly
         return listingCollection.insertOne(newListing); // Chain a promise
@@ -182,7 +204,7 @@ client.connect((error) => {
   // Post inquiry, might have to be post not get
   app.post("/api/postInquiry", (req, res) => {
     const inquiry = {
-      inquiryID: req.query.id,
+      listingID: req.query.listingId,
       inquiryMessage: req.body.message,
     };
     inquiryCollection
