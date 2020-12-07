@@ -12,6 +12,7 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
   const dispatch = useDispatch();
   return (
     <div>
+      <div className="form-title">Listings</div>
       {listingData.loading ? (
         <h5>Loading...</h5>
       ) : listingData.error ? (
@@ -23,9 +24,9 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
               {listingData &&
                 listingData.listings &&
                 listingData.listings.map((listing) => (
-                  <div key={listing.id} className="listing_row">
+                  <div key={listing.id} className="form">
                     <div class="col-lg-12 mb-4">
-                      <div class="card text-center">
+                      <div class="card card-cascade card-ecommerce narrower text-center">
                         <div class="title">{listing.title}</div>
                         <p className="listing_id">{listing.id}</p>
                         <button

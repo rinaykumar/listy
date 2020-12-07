@@ -1,4 +1,4 @@
-.card {
+/* .card {
   position: relative;
   width: 300px !important;
   height: 250px !important;
@@ -11,14 +11,15 @@
   box-shadow: 0 10px 15px rgba(243, 223, 111, 0.5);
   -webkit-transition: 0.5s;
   transition: 0.5s;
-}
-.card:hover {
+} */
+/* .card:hover {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
+} */
 
-.container-fluid {
-  padding-top: 100px;
+#details {
+  font-weight: 500;
+  font-size: large;
 }
 
 .title {
@@ -79,7 +80,7 @@ h2 {
 }
 
 .form-title {
-  background: #30c9c9;
+  background: #3f51b5;
   text-transform: uppercase;
   justify-content: center;
   font-family: 'Open Sans Condensed', sans-serif;
@@ -89,4 +90,15 @@ h2 {
   padding: 20px;
   text-align: center;
   margin-top: 50px;
+}
+
+.form {
+  font-family: 'Open Sans Condensed', arial, sans;
+  width: 500px;
+  padding: 30px;
+  background: #ffffff;
+  margin: 50px auto;
+  box-shadow: 0px 0px 20px rgb(250, 216, 107);
+  -moz-box-shadow: 0px 0px 20px rgb(250, 216, 104);
+  -webkit-box-shadow: 0px 0px 20px rgba(250, 221, 126);
 }

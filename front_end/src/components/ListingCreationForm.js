@@ -17,7 +17,7 @@ const ListingCreationForm = () => {
   const title = useSelector((state) => state.listingReducer.title);
   return (
     <div>
-      <div className="form-title">Creating A Listing</div>
+      <div className="form-title">Create A Listing</div>
       <form className="form">
         <div className="form-group">
           <label htmlFor="description">Description: </label>
@@ -65,7 +65,7 @@ const ListingCreationForm = () => {
         </div>
         <button
           id="submit"
-          className="btn btn-dark"
+          className="btn"
           onClick={(e) => {
             e.preventDefault();
             if (

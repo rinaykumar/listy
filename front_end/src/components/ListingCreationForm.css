@@ -34,3 +34,8 @@
   font-weight: 100;
   padding: 20px;
 }
+
+.btn {
+  background-color: #3f51b5;
+  color: white;
+}

@@ -11,35 +11,72 @@
   text-align: center;
 }
 
-.btn-color {
-  background-color: rgb(245, 0, 87);
+textarea.form-control {
+  width: 92% !important;
 }
 
-.thead {
-  background-color: rgb(245, 0, 87) !important;
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
-.btn:focus,
-.btn:active:focus,
-.btn.active:focus {
-  outline: 0 none;
+.card-footer {
+  padding: 0.75rem 1.25rem;
+  background-color: rgb(250, 216, 107) !important;
+  border-top: 1px solid rgb(0 0 0 / 17%) !important;
 }
 
-.btn-primary {
-  background: rgb(245, 0, 87);
-  color: #ffffff;
+.box {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: transparent;
+  margin-bottom: 10px;
+  font: 16px Arial, Helvetica, sans-serif;
+  height: 45px;
+}
+.card {
+  font-family: 'Open Sans Condensed', arial, sans;
+  width: 500px;
+  padding: 30px;
+  background: #ffffff;
+  margin: 50px auto;
+  box-shadow: 0px 0px 20px rgb(250, 216, 107);
+  -moz-box-shadow: 0px 0px 20px rgb(250, 216, 104);
+  -webkit-box-shadow: 0px 0px 20px rgba(250, 221, 126);
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open > .dropdown-toggle.btn-primary {
-  background: rgb(245, 0, 87);
+.btn {
+  background-color: #3f51b5;
+  color: white;
 }
 
-.btn-primary:active,
-.btn-primary.active {
-  background: rgb(245, 0, 87);
-  box-shadow: none;
+.middle {
+  float: left;
+}
+
+.group-item {
+  /* position: relative;
+  display: block; */
+  padding: 0.75rem 1.25rem;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  float: left;
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical;
+  width: 100% !important;
 }

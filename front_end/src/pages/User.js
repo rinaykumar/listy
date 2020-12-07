@@ -6,9 +6,24 @@ const User = () => {
   return (
     <div>
       <NavigationHeader />
-      <h2>User Route</h2>
+      <nav class="navbar navbar-fixed-top navbar-dark bg-color">
+        <div class="container">
+          <ul class="nav navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#listing">
+                Listings
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#viewInquiries">
+                Inquiries
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div>
-        <div>
+        <div className="container" id="listing">
           <ViewListings userMode={true} />
         </div>
       </div>

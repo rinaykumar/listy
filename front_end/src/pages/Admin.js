@@ -10,16 +10,39 @@ const Admin = ({ listingData, inquiryData }) => {
   return (
     <div className="admin">
       <NavigationHeader />
+      <nav class="navbar sticky-top navbar-dark bg-color">
+        <div class="container">
+          <ul class="nav navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#creationform">
+                ListingCreationForm <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#listing">
+                Listings
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#viewInquiries">
+                Inquiries
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div class="container">
-        <div className="form_row">
+        <div className="form_row" id="creationform">
           <ListingCreationForm />
         </div>
         <div>
-          <div className="admin_row">
-            <ViewListings />
+          <div className="admin_row container p-t-2">
+            <div id="listing">
+              <ViewListings />
+            </div>
           </div>
         </div>
-        <div>
+        <div id="viewInquiries">
           {listingData.showListing && inquiryData.loadInquiries && (
             <Inquiries />
           )}
