@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
-import { fetchListings, setShowListing } from "../redux/actions/listingActions";
-import { setLoadInquiries } from "../redux/actions/inquiryActions";
-import Listing from "./Listing";
+import React, { useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { fetchListings, setShowListing } from '../redux/actions/listingActions';
+import { setLoadInquiries } from '../redux/actions/inquiryActions';
+import Listing from './Listing';
 
 const ViewListings = ({ listingData, fetchListings, userMode }) => {
   useEffect(() => {

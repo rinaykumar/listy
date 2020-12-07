@@ -1,15 +1,14 @@
-import React from "react";
-import ViewListings from "../components/ViewListings";
-import ListingCreationForm from "../components/ListingCreationForm";
-import { connect } from "react-redux";
-import Inquiries from "../components/Inquiries";
-import NavigationHeader  from "../components/NavigationHeader";
-
+import React from 'react';
+import ViewListings from '../components/ViewListings';
+import ListingCreationForm from '../components/ListingCreationForm';
+import { connect } from 'react-redux';
+import Inquiries from '../components/Inquiries';
+import NavigationHeader from '../components/NavigationHeader';
 
 const Admin = ({ listingData, inquiryData }) => {
   return (
     <div>
-      <NavigationHeader/>
+      <NavigationHeader />
       <h2>Admin Route</h2>
       <div>
         <div>

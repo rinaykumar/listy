@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require('axios');
 
 // used for signing up
 export const signupUser = (username, password, isAdmin) => {
@@ -14,12 +14,11 @@ export const signupUser = (username, password, isAdmin) => {
         const signupResponse = response.data;
         console.log(signupResponse);
         dispatch(SignupSuccess(signupResponse));
-        if(signupResponse=='User has been inserted') {
+        if (signupResponse == 'User has been inserted') {
           dispatch(setIsLoggedIn(true));
         } else {
           alert('Username might be already taken. Please try again.');
         }
-        
       })
       .catch((error) => {
         dispatch(SignupFailure(error.message));
@@ -35,17 +34,16 @@ export const fetchUsers = (username, password) => {
     console.log(password);
 
     axios
-      .get(`/logIn?userName=${username}&password=${password}`)
+      .get(`/auth/logIn?userName=${username}&password=${password}`)
       .then((response) => {
         const loginResponse = response.data;
         console.log(loginResponse.success);
         dispatch(LoginSuccess(loginResponse));
-        if(loginResponse.success) {
+        if (loginResponse.success) {
           dispatch(setIsLoggedIn(true));
         } else {
           alert('Invalid username or password. Please try again.');
         }
-        
       })
       .catch((error) => {
         dispatch(LoginFailure(error.message));
@@ -55,54 +53,51 @@ export const fetchUsers = (username, password) => {
 
 export const fetchUsersRequest = () => {
   return {
-    type: "FETCH_USERS_REQUEST",
+    type: 'FETCH_USERS_REQUEST',
   };
 };
 
 export const signupUserRequest = () => {
   return {
-    type: "FETCH_USERS_REQUEST",
+    type: 'FETCH_USERS_REQUEST',
   };
 };
 
 export const SignupSuccess = (axiosResponse) => {
   return {
-    type: "SIGNUP_SUCCESS",
+    type: 'SIGNUP_SUCCESS',
     payload: axiosResponse,
   };
 };
 
 export const SignupFailure = (axiosResponse) => {
   return {
-    type: "SIGNUP_FAILURE",
+    type: 'SIGNUP_FAILURE',
     payload: axiosResponse,
   };
 };
 
-
 export const LoginSuccess = (axiosResponse) => {
   return {
-    type: "LOGIN_SUCCESS",
+    type: 'LOGIN_SUCCESS',
     payload: axiosResponse,
   };
 };
 
 export const LoginFailure = (axiosResponse) => {
   return {
-    type: "LOGIN_FAILURE",
+    type: 'LOGIN_FAILURE',
     payload: axiosResponse,
   };
 };
 
-
-
 export const setUsername = (username) => ({
-  type: "USERNAME_SET",
+  type: 'USERNAME_SET',
   username,
 });
 
 export const setPassword = (password) => ({
-  type: "PASSWORD_SET",
+  type: 'PASSWORD_SET',
   password,
 });
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   postListing,
   setDescription,
@@ -7,7 +7,7 @@ import {
   setPrice,
   setTitle,
   setImage,
-} from "../redux/actions/listingActions";
+} from '../redux/actions/listingActions';
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch();
@@ -84,16 +84,16 @@ const ListingCreationForm = () => {
           className="btn btn-dark"
           onClick={(e) => {
             // console.log(image);
-            ref.current.value = "";
+            ref.current.value = '';
             e.preventDefault();
             if (
-              description === "" ||
-              type === "" ||
-              price === "" ||
-              title === "" ||
-              image === ""
+              description === '' ||
+              type === '' ||
+              price === '' ||
+              title === '' ||
+              image === ''
             ) {
-              alert("Enter all fields..");
+              alert('Enter all fields..');
             } else {
               dispatch(postListing(description, type, price, title, image));
             }

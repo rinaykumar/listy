@@ -1,14 +1,14 @@
-import React from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import {
   postInquiry,
   setInquiryMsg,
   fetchInquiries,
-} from "../redux/actions/inquiryActions";
-import { deleteListing } from "../redux/actions/listingActions";
+} from '../redux/actions/inquiryActions';
+import { deleteListing } from '../redux/actions/listingActions';
 
 const Listing = ({ userMode, listing }) => {
-  const HeaderItems = ["Image", "ID", "Title", "Type", "Description", "Price"];
+  const HeaderItems = ['Image', 'Title', 'Type', 'Description', 'Price'];
   const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
   const dispatch = useDispatch();
   return (
@@ -42,7 +42,7 @@ const Listing = ({ userMode, listing }) => {
                   placeholder="Post your Inquiry.."
                   value={inquiryMsg}
                   onChange={(e) => dispatch(setInquiryMsg(e.target.value))}
-                />{" "}
+                />{' '}
                 <br />
                 <button
                   onClick={() =>
