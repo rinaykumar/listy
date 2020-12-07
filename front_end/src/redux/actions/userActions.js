@@ -105,3 +105,9 @@ export const setIsLoggedIn = (isLoggedIn) => ({
   type: 'USER_SET_LOGGED_IN',
   isLoggedIn,
 });
+
+export const setIsAdmin = (isAdmin) => ({
+  type: 'USER_SET_ADMIN',
+  isAdmin,
+});
+

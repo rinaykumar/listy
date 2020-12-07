@@ -163,6 +163,7 @@ const handleCheckboxChange = name => event => {
             color="primary"
             onClick={() => {
               // console.log(listing.listingID);
+              dispatch(setIsLoggedIn());
               dispatch(
                 signupUser(userData.username, userData.password, state.adminCheck)
               );
@@ -204,6 +205,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUsername: () => dispatch(setUsername()),
     setPassword: () => dispatch(setPassword()),
+    setIsLoggedIn: () => dispatch(setIsLoggedIn()),
     fetchUsers: () => dispatch(fetchUsers()),
   };
 };

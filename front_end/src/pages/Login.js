@@ -19,6 +19,7 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 import {
   setUsername,
   setIsLoggedIn,
+  setIsAdmin,
   setPassword,
   fetchUsers,
 } from '../redux/actions/userActions';
@@ -91,6 +92,7 @@ const Login = ({ userData }) => {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             {isLoggedIn && (
+              
               <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                   <AccountCircle />
@@ -154,8 +156,11 @@ const Login = ({ userData }) => {
                     variant="contained"
                     onClick={() => {
                       // console.log(listing.listingID);
+                      dispatch(setIsLoggedIn());
+
                       dispatch(
                         fetchUsers(userData.username, userData.password)
+                        
                       );
                     }}
                     className={classes.submit}
