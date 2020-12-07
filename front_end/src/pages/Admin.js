@@ -4,22 +4,26 @@ import ListingCreationForm from '../components/ListingCreationForm';
 import { connect } from 'react-redux';
 import Inquiries from '../components/Inquiries';
 import NavigationHeader from '../components/NavigationHeader';
+import './Admin.css';
 
 const Admin = ({ listingData, inquiryData }) => {
   return (
-    <div>
+    <div className="admin">
       <NavigationHeader />
-      <h2>Admin Route</h2>
-      <div>
-        <div>
-          <ViewListings />
-        </div>
-        <div>
+      <div class="container">
+        <div className="form_row">
           <ListingCreationForm />
         </div>
-      </div>
-      <div>
-        {listingData.showListing && inquiryData.loadInquiries && <Inquiries />}
+        <div>
+          <div className="admin_row">
+            <ViewListings />
+          </div>
+        </div>
+        <div>
+          {listingData.showListing && inquiryData.loadInquiries && (
+            <Inquiries />
+          )}
+        </div>
       </div>
     </div>
   );

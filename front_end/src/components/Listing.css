@@ -1,0 +1,45 @@
+.form-title {
+  background: #3f51b5;
+  text-transform: uppercase;
+  justify-content: center;
+  font-family: 'Open Sans Condensed', sans-serif;
+  color: white;
+  font-size: 18px;
+  font-weight: 100;
+  padding: 20px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.btn-color {
+  background-color: rgb(245, 0, 87);
+}
+
+.thead {
+  background-color: rgb(245, 0, 87) !important;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+  outline: 0 none;
+}
+
+.btn-primary {
+  background: rgb(245, 0, 87);
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background: rgb(245, 0, 87);
+}
+
+.btn-primary:active,
+.btn-primary.active {
+  background: rgb(245, 0, 87);
+  box-shadow: none;
+}

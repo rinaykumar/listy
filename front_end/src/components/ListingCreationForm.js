@@ -8,6 +8,7 @@ import {
   setTitle,
   setImage,
 } from '../redux/actions/listingActions';
+import './ListingCreationForm.css';
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,8 @@ const ListingCreationForm = () => {
   const ref = React.useRef();
   return (
     <div>
-      <h3 className="text-info">Creating A Listing</h3>
-      <form method="POST" encType="multipart/form-data">
+      <div className="form-title">Creating A Listing</div>
+      <form className="form">
         <div className="form-group">
           <label htmlFor="description">Description: </label>
           <input
@@ -28,7 +29,7 @@ const ListingCreationForm = () => {
             type="text"
             name="description"
             value={description}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setDescription(e.target.value))}
           />
         </div>
@@ -39,7 +40,7 @@ const ListingCreationForm = () => {
             type="text"
             name="type"
             value={type}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setType(e.target.value))}
           />
         </div>
@@ -50,7 +51,7 @@ const ListingCreationForm = () => {
             type="text"
             name="price"
             value={price}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setPrice(e.target.value))}
           />
         </div>
@@ -61,7 +62,7 @@ const ListingCreationForm = () => {
             type="text"
             name="title"
             value={title}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setTitle(e.target.value))}
           />
         </div>
@@ -90,8 +91,7 @@ const ListingCreationForm = () => {
               description === '' ||
               type === '' ||
               price === '' ||
-              title === '' ||
-              image === ''
+              title === ''
             ) {
               alert('Enter all fields..');
             } else {
