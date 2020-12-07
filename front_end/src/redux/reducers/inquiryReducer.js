@@ -2,7 +2,7 @@ const initState = {
   loading: false,
   inquiries: [],
   error: "",
-  inquiryMsg: "Your Message Here...",
+  inquiryMsg: "",
   loadInquiries: false,
 };
 
@@ -28,6 +28,7 @@ const inquiryReducer = (state = initState, action) => {
         ...state,
         loading: false,
         inquiries: action.payload,
+        inquiryMsg: "",
         error: "",
         loadInquiries: action.loadInquiries,
       };
@@ -48,7 +49,7 @@ const inquiryReducer = (state = initState, action) => {
         ...state,
         loading: false,
         inquiries: action.payload,
-        inquiryMsg: "Your Message Here...",
+        inquiryMsg: "",
         error: "",
       };
     case "POST_INQUIRIES_FAILURE":

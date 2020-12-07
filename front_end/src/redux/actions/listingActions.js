@@ -50,16 +50,17 @@ export const deleteListing = (id, showListing) => {
 export const postListing = (description, type, price, title, image) => {
   return (dispatch) => {
     let id = nanoid(8);
-    // console.log("ID: " + id);
     dispatch(postListingRequest(description, type, price, title, image));
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("id", id);
+    formData.append("description", description);
+    formData.append("type", type);
+    formData.append("price", price);
+    formData.append("title", title);
     axios
-      .post("/api/postListing", {
-        id,
-        description,
-        type,
-        price,
-        title,
-        image,
+      .post("/api/postListing", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {
         dispatch(fetchListings());
@@ -82,23 +83,6 @@ export const fetchListings = () => {
       .catch((error) => {
         dispatch(listingFailure(error.message));
       });
-    // const listings = [
-    //   {
-    //     description: "This is the first item",
-    //     type: "type1",
-    //     price: 124,
-    //     title: "Itemno1",
-    //     id: 11111111,
-    //   },
-    //   {
-    //     description: "This is the second item",
-    //     type: "type2",
-    //     price: 145,
-    //     title: "Itemno2",
-    //     id: 11111112,
-    //   },
-    // ];
-    // dispatch(listingSuccess(listings));
   };
 };
 

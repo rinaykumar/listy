@@ -26,7 +26,11 @@ const Listing = ({ userMode, listing }) => {
         </thead>
         <tbody>
           <tr className="listing">
-            <td>{listing.image500x500}</td>
+            <td>
+              <img
+                src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+              />
+            </td>
             <td>{listing.listingID}</td>
             <td>{listing.listingTitle}</td>
             <td>{listing.listingType}</td>
@@ -35,6 +39,7 @@ const Listing = ({ userMode, listing }) => {
             {userMode ? (
               <td>
                 <textarea
+                  placeholder="Post your Inquiry.."
                   value={inquiryMsg}
                   onChange={(e) => dispatch(setInquiryMsg(e.target.value))}
                 />{" "}

@@ -1,14 +1,20 @@
 const { MongoClient } = require("mongodb");
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
+const multer = require("multer"); // to process form-data
+const storage = require("./multerUpload.js"); // to process image using multer
+const upload = multer(storage);
+const fs = require("fs");
+const imageProcessor = require("./imageProcessor");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const url = "mongodb://localhost:27017";
 const dbName = "Listy";
-
 const client = new MongoClient(url);
 
 client.connect((error) => {
@@ -24,6 +30,7 @@ client.connect((error) => {
   const userCollection = db.collection("users"); // Users collection
   const listingCollection = db.collection("listings"); // Listings collection
   const inquiryCollection = db.collection("inquiries"); // Inquiries collection
+  // not using imageCollection
   const imageCollection = db.collection("images"); // Images collection
 
   // Login endpoint
@@ -105,33 +112,62 @@ client.connect((error) => {
   });
 
   // Post listing endpoint, might have to be post not get
-  app.post("/api/postListing", (req, res) => {
-    // if (!req.query.userName || !req.query.password) {
-    //   return res.send("Username and password must be entered");
-    // }
+  app.post("/api/postListing", upload.single("file"), async (req, res) => {
+    let str = path.parse(req.file.filename).name; // to get the filename without extension
+    let filePath = req.file.path;
+    // passing uploaded file path and the filename to image processor for resizing
+    await imageProcessor(filePath, str);
 
     const listingMatcher = {
       listingID: req.body.id,
     };
-
     listingCollection
       .findOne(listingMatcher)
       .then((result) => {
         if (result) {
           return Promise.reject("Listing already exists");
         }
+        // store Original Image to Mongo
+        let img = fs.readFileSync(req.file.path);
+        let encode_img = img.toString("base64");
+        // define JSON object for the image
+        let finalImg = {
+          contentType: req.file.mimetype,
+          // path: req.file.path,
+          image: Buffer.from(encode_img, "base64"),
+        };
+        // store 100x100 Image to Mongo
+        let fileName = "./uploads/" + str + "_100.jpeg";
+        img = fs.readFileSync(fileName);
+        encode_img = img.toString("base64");
+        let finalImg100 = {
+          contentType: req.file.mimetype,
+          // path: req.file.path,
+          image: Buffer.from(encode_img, "base64"),
+        };
+        // store 500x500 Image to Mongo
+        fileName = "./uploads/" + str + "_500.jpeg";
+        img = fs.readFileSync(fileName);
+        encode_img = img.toString("base64");
+        let finalImg500 = {
+          contentType: req.file.mimetype,
+          // path: req.file.path,
+          image: Buffer.from(encode_img, "base64"),
+        };
         const newListing = {
           listingID: req.body.id,
           listingTitle: req.body.title,
           listingType: req.body.type,
           listingDescription: req.body.description,
           listingPrice: req.body.price,
+          listingImage: finalImg,
+          listingImage100: finalImg100,
+          listingImage500: finalImg500,
         };
         // Insert is also async, does not happen instantly
         return listingCollection.insertOne(newListing); // Chain a promise
       })
       .then((result) => {
-        // Listing has been inserted
         res.send("Listing has been inserted");
       })
       .catch((e) => {
@@ -170,7 +206,7 @@ client.connect((error) => {
   // Post inquiry, might have to be post not get
   app.post("/api/postInquiry", (req, res) => {
     const inquiry = {
-      inquiryID: req.query.id,
+      listingID: req.query.listingId,
       inquiryMessage: req.body.message,
     };
     inquiryCollection
