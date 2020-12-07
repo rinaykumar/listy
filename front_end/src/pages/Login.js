@@ -80,6 +80,7 @@ const Login = ({ userData }) => {
   // extract values from the global redux store
   const username = useSelector((state) => state.userReducer.username);
   const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn);
+  const isAdmin = useSelector((state) => state.userReducer.isAdmin);
 
   return (
     <Grid>
@@ -156,7 +157,7 @@ const Login = ({ userData }) => {
                     variant="contained"
                     onClick={() => {
                       // console.log(listing.listingID);
-                      dispatch(setIsLoggedIn());
+                      dispatch(setIsLoggedIn(isLoggedIn));
 
                       dispatch(
                         fetchUsers(userData.username, userData.password)
@@ -198,6 +199,8 @@ const mapDispatchToProps = (dispatch) => {
     setUsername: () => dispatch(setUsername()),
     setPassword: () => dispatch(setPassword()),
     fetchUsers: () => dispatch(fetchUsers()),
+    setIsLoggedIn: () => dispatch(setIsLoggedIn()),
+    setIsAdmin: () => dispatch(setIsAdmin()),
   };
 };
 

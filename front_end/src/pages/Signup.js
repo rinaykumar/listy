@@ -20,6 +20,7 @@ import {
   setIsLoggedIn,
   setPassword,
   fetchUsers,
+  setIsAdmin,
   signupUser
 } from "../redux/actions/userActions";
 
@@ -176,7 +177,7 @@ const handleCheckboxChange = name => event => {
           <Grid container>
 
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/login" variant="body2">
                 {"Already have an account? Login"}
               </Link>
             </Grid>
@@ -206,6 +207,7 @@ const mapDispatchToProps = (dispatch) => {
     setUsername: () => dispatch(setUsername()),
     setPassword: () => dispatch(setPassword()),
     setIsLoggedIn: () => dispatch(setIsLoggedIn()),
+    setIsAdmin: () => dispatch(setIsAdmin()),
     fetchUsers: () => dispatch(fetchUsers()),
   };
 };
