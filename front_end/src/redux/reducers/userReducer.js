@@ -7,6 +7,7 @@ const initState = () => ({
   username: "",
   password: "",
   isLoggedIn: false,
+  isAdmin: false,
 });
 
 const userReducer = (state = initState(), action) => {

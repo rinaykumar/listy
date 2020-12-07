@@ -1,14 +1,15 @@
 const axios = require("axios");
 
 // used for signing up
-export const signupUser = (username, password) => {
+export const signupUser = (username, password, isAdmin) => {
   return (dispatch) => {
-    dispatch(signupUserRequest(username, password));
+    dispatch(signupUserRequest(username, password, isAdmin));
     console.log(username);
     console.log(password);
+    console.log(isAdmin);
 
     axios
-      .get(`/register?userName=${username}&password=${password}`)
+      .get(`/register?userName=${username}&password=${password}&isAdmin=${isAdmin}`)
       .then((response) => {
         const signupResponse = response.data;
         console.log(signupResponse);

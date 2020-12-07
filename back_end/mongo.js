@@ -38,6 +38,7 @@ client.connect((error) => {
     const matcher = {
       userName: req.query.userName,
       password: req.query.password,
+      isAdmin: req.query.isAdmin,
     };
     userCollection
       .findOne(matcher)
@@ -60,7 +61,7 @@ client.connect((error) => {
 
   // Register endpoint, might have to be post not get
   app.get("/register", (req, res) => {
-    if (!req.query.userName || !req.query.password) {
+    if (!req.query.userName || !req.query.password || !req.query.isAdmin) {
       return res.send("Username and password must be entered");
     }
     const matcher = {
@@ -79,6 +80,7 @@ client.connect((error) => {
         const newUser = {
           userName: req.query.userName,
           password: req.query.password,
+          isAdmin: req.query.isAdmin,
         };
         // Insert is also async, does not happen instantly
         return userCollection.insertOne(newUser); // Chain a promise
