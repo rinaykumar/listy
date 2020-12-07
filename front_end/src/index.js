@@ -13,6 +13,7 @@ import User from './pages/User';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

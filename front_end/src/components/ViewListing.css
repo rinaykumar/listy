@@ -1,4 +1,4 @@
-.card {
+/* .card {
   position: relative;
   width: 300px !important;
   height: 250px !important;
@@ -11,21 +11,40 @@
   box-shadow: 0 10px 15px rgba(243, 223, 111, 0.5);
   -webkit-transition: 0.5s;
   transition: 0.5s;
+} */
+
+.card {
+  padding: 10px;
+  
 }
-.card:hover {
+
+/* .card:hover {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+} */
+
+.card2 {
+  border-radius: 5px;
+  border-width: 2px;
 }
 
 .container-fluid {
   padding-top: 100px;
 }
 
-.title {
-  font-size: 30px;
+.bottomdiv {
+ width: 100%;
+  position:absolute;
+  left:0;
+  bottom:0;
 }
+
+.type {
+  color: gray;
+}
+
 p {
-  padding-bottom: 60px;
+  font: bolder;
 }
 /* .card::after {
   content: '';
