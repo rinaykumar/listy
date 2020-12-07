@@ -9,7 +9,7 @@ export const signupUser = (username, password, isAdmin) => {
     console.log(isAdmin);
 
     axios
-      .get(`/register?userName=${username}&password=${password}&isAdmin=${isAdmin}`)
+      .get(`/auth/register?userName=${username}&password=${password}&isAdmin=${isAdmin}`)
       .then((response) => {
         const signupResponse = response.data;
         console.log(signupResponse);

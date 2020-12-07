@@ -62,6 +62,15 @@ const Signup = ({ userData }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const [state, setState] = React.useState({
+    adminCheck: false,
+  });
+
+const handleCheckboxChange = name => event => {
+    setState({ ...state, [name]: event.target.checked });
+
+  };
+
   // extract values from the global redux store
   const username = useSelector((state) => state.userReducer.username);
   const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn);
@@ -145,7 +154,7 @@ const Signup = ({ userData }) => {
             autoComplete="confirm-password"
           />
                   <FormControlLabel
-                    control={<Checkbox value={userData.isAdmin} color="primary" />}
+                    control={<Checkbox checked={state.adminCheck} onChange={handleCheckboxChange('adminCheck')} color="primary" />}
                     label="I'm an admin"
                   />
           <Button
@@ -155,7 +164,7 @@ const Signup = ({ userData }) => {
             onClick={() => {
               // console.log(listing.listingID);
               dispatch(
-                signupUser(userData.username, userData.password, userData.isAdmin)
+                signupUser(userData.username, userData.password, state.adminCheck)
               );
             }}
             className={classes.submit}
