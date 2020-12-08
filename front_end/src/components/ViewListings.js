@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import {
+  postInquiry,
+  setInquiryMsg,
+  fetchInquiries,
+} from '../redux/actions/inquiryActions';
+
 import { connect, useDispatch } from 'react-redux';
 import { fetchListings, setShowListing } from '../redux/actions/listingActions';
 import { setLoadInquiries } from '../redux/actions/inquiryActions';
@@ -15,12 +22,21 @@ import {
   Accordion,
   Collapse,
 } from 'react-bootstrap';
+import Inquiries from '../components/Inquiries';
+import { deleteListing } from '../redux/actions/listingActions';
 
-const ViewListings = ({ listingData, fetchListings, userMode }) => {
+const ViewListings = ({
+  listingData,
+  fetchListings,
+  userMode,
+  inquiryData,
+}) => {
   useEffect(() => {
     fetchListings();
   }, [fetchListings]);
   const dispatch = useDispatch();
+
+  const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
 
   return (
     <div>
@@ -67,6 +83,12 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
                                         as={Button}
                                         variant="primary"
                                         eventKey="0"
+                                        onClick={() => {
+                                          dispatch(
+                                            setShowListing(true, listing)
+                                          );
+                                          dispatch(setLoadInquiries(false));
+                                        }}
                                       >
                                         Details
                                       </Accordion.Toggle>
@@ -105,6 +127,9 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
                                       <h1>${listing.listingPrice}</h1>
                                     </Row>
                                     <Row>
+                                      <p className="listingID">ID: {listing.listingID}</p>
+                                    </Row>
+                                    <Row>
                                       <br></br>
                                       <h4 className="type">
                                         {listing.listingDescription}
@@ -112,18 +137,76 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
                                       <br></br>
                                     </Row>
                                     <div className="bottomdiv">
-                                      <InputGroup>
-                                        <FormControl
-                                          as="textarea"
-                                          rows={3}
-                                          aria-label=""
-                                          size="sm"
-                                          placeholder="Interested?"
-                                        />
-                                        <InputGroup.Prepend>
-                                          <Button>Send Inquiry</Button>
-                                        </InputGroup.Prepend>
-                                      </InputGroup>
+                                      {userMode ? (
+                                        <InputGroup>
+                                          <FormControl
+                                            as="textarea"
+                                            rows={3}
+                                            aria-label=""
+                                            size="sm"
+                                            placeholder="Interested?"
+                                            value={inquiryMsg}
+                                            onChange={(e) =>
+                                              dispatch(
+                                                setInquiryMsg(e.target.value)
+                                              )
+                                            }
+                                          />
+                                          <InputGroup.Prepend>
+                                            <Button
+                                              onClick={() =>
+                                                dispatch(
+                                                  postInquiry(
+                                                    listing.listingID,
+                                                    inquiryMsg
+                                                  )
+                                                )
+                                              }
+                                            >
+                                              Send Inquiry
+                                            </Button>
+                                          </InputGroup.Prepend>
+                                        </InputGroup>
+                                      ) : (
+                                        <>
+                                        <Row>
+                                        <Col sm={9}>
+                                          <Accordion.Toggle
+                                            as={Button}
+                                            eventKey="0"
+                                            onClick={() => {
+                                              // console.log(listing.listingID);
+                                              dispatch(
+                                                fetchInquiries(
+                                                  true,
+                                                  listing.listingID
+                                                )
+                                              );
+                                            }}
+                                          >
+                                            View Inquiries
+                                          </Accordion.Toggle>
+                                          </Col>
+                                          <Col >
+                                            
+                                          <Button
+                                            variant="danger"
+                                            onClick={() => {
+                                              dispatch(
+                                                deleteListing(
+                                                  listing.listingID,
+                                                  false
+                                                )
+                                              );
+                                            }}
+                                          >
+                                            Delete
+                                          </Button>
+                                          
+                                          </Col>
+                                          </Row>
+                                        </>
+                                      )}
                                     </div>
                                   </Col>
                                 </Row>
@@ -132,6 +215,18 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
                             <Card border="none" bg="light"></Card>
                           </div>
                         </Accordion.Collapse>
+                        {!userMode && 
+                        <Accordion.Collapse eventKey="0">
+                          <div>
+                            <Card>
+                              <div>
+                                {listingData.showListing &&
+                                  inquiryData.loadInquiries && <Inquiries />}
+                              </div>
+                            </Card>
+                          </div>
+                        </Accordion.Collapse>
+                        }
                       </Accordion>
                     </div>
                   </div>
@@ -140,6 +235,13 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
           </div>
         </div>
       )}
+      <div style={{ paddingTop: 15, paddingLeft: 15 }}>
+        {listingData.showListing ? (
+          <Listing userMode={userMode} listing={listingData.singleListing} />
+        ) : (
+          <p></p>
+        )}
+      </div>
     </div>
 
     // <div className="viewlisting">
@@ -196,6 +298,7 @@ const ViewListings = ({ listingData, fetchListings, userMode }) => {
 const mapStateToProps = (state) => {
   return {
     listingData: state.listingReducer,
+    inquiryData: state.inquiryReducer,
   };
 };
 
@@ -203,6 +306,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchListings: () => dispatch(fetchListings(), fetchListings()),
     setShowListing: () => dispatch(setShowListing()),
+    postInquiry: () => dispatch(postInquiry()),
+    deleteListing: () => dispatch(deleteListing()),
   };
 };
 
