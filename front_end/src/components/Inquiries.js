@@ -1,21 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Button,
-  InputGroup,
-  FormControl,
-  Card,
-  Container,
-  Row,
-  Col,
-  Accordion,
-  Collapse,
-} from 'react-bootstrap';
 import './Inquiries.css';
 
-
 const Inquiries = ({ inquiryData }) => {
- 
   return (
     // <div
     //   class="modal fade"
@@ -86,39 +73,40 @@ const Inquiries = ({ inquiryData }) => {
 
     <div>
       <div className="inqbox">
-     
-      {/* {inquiryData.loading ? (
+        {/* {inquiryData.loading ? (
         <h4>Loading...</h4>
       ) : inquiryData.error ? (
         <h4>{inquiryData.error}</h4>
       ) : ( */}
-      <table>
-        <thead>
-          
-          <br/>
-        </thead>
-        <tbody>
-          <tr></tr>
-          {inquiryData && inquiryData.inquiries ? (
-            inquiryData.inquiries.map((inquiry) => (
-              <tr key={inquiry.message} className="inquiry">
-                <td><p className="pid">{inquiry.listingID}</p></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><p>{inquiry.inquiryMessage}</p></td>
+        <table>
+          <thead>
+            <br />
+          </thead>
+          <tbody>
+            <tr></tr>
+            {inquiryData && inquiryData.inquiries ? (
+              inquiryData.inquiries.map((inquiry) => (
+                <tr key={inquiry.message} className="inquiry">
+                  <td>
+                    <p className="pid">{inquiry.listingID}</p>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <p>{inquiry.inquiryMessage}</p>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td>No Inquiries available...</td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td>No Inquiries available...</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      {/* )} */}
+            )}
+          </tbody>
+        </table>
+        {/* )} */}
       </div>
-
     </div>
   );
 };

@@ -111,6 +111,7 @@ const ViewListings = ({
                                       src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
                                     />
                                   </Col>
+
                                   <Col lg={5}>
                                     <Row>
                                       <br />
@@ -138,42 +139,58 @@ const ViewListings = ({
                                       </h4>
                                       <br></br>
                                     </Row>
+
                                     <div className="bottomdiv">
                                       {userMode ? (
                                         <div className="inquiryBox">
-                                        <div>
-                                          {listingData.showListing &&
-                                            inquiryData.loadInquiries && <Inquiries />}
-                                        </div>
-                                        <div className="">
-                                          <InputGroup className="mb-3">
-                                            <FormControl
-                                              placeholder="Message"
-                                              aria-label=""
-                                              aria-describedby="basic-addon2"
-                                              value={inquiryMsg}
-                                              onChange={(e) =>
-                                                dispatch(setInquiryMsg(e.target.value))
-                                              }
-                                            />
-                                            <InputGroup.Append>
-                                              <Button
-                                                variant="primary"
-                                                onClick={() =>
+                                          <div>
+                                            {listingData.showListing &&
+                                              inquiryData.loadInquiries && (
+                                                <Inquiries />
+                                              )}
+                                          </div>
+                                          <div className="">
+                                            <InputGroup className="mb-3">
+                                              <FormControl
+                                                placeholder="Message"
+                                                aria-label=""
+                                                aria-describedby="basic-addon2"
+                                                value={inquiryMsg}
+                                                onChange={(e) =>
                                                   dispatch(
-                                                    postInquiry(
-                                                      listing.listingID,
-                                                      inquiryMsg
+                                                    setInquiryMsg(
+                                                      e.target.value
                                                     )
                                                   )
                                                 }
-                                              >
-                                                Send
-                                              </Button>
-                                            </InputGroup.Append>
-                                          </InputGroup>
+                                                onFocus={() => {
+                                                  // console.log(listing.listingID);
+                                                  dispatch(
+                                                    fetchInquiries(
+                                                      true,
+                                                      listing.listingID
+                                                    )
+                                                  );
+                                                }}
+                                              />
+                                              <InputGroup.Append>
+                                                <Button
+                                                  variant="primary"
+                                                  onClick={() =>
+                                                    dispatch(
+                                                      postInquiry(
+                                                        listing.listingID,
+                                                        inquiryMsg
+                                                      )
+                                                    )
+                                                  }
+                                                >
+                                                  Send
+                                                </Button>
+                                              </InputGroup.Append>
+                                            </InputGroup>
+                                          </div>
                                         </div>
-                                      </div>
                                       ) : (
                                         <>
                                           <Row>
@@ -223,38 +240,35 @@ const ViewListings = ({
                         {!userMode && (
                           <Accordion.Collapse eventKey="0">
                             <div className="inquiryBox">
-                              <div>
-                                {listingData.showListing &&
-                                  inquiryData.loadInquiries && <Inquiries />}
-                              </div>
-                              <div className="">
-                                <InputGroup className="mb-3">
-                                  <FormControl
-                                    placeholder="Reply"
-                                    aria-label=""
-                                    aria-describedby="basic-addon2"
-                                    value={inquiryMsg}
-                                    onChange={(e) =>
-                                      dispatch(setInquiryMsg(e.target.value))
-                                    }
-                                  />
-                                  <InputGroup.Append>
-                                    <Button
-                                      variant="primary"
-                                      onClick={() =>
-                                        dispatch(
-                                          postInquiry(
-                                            listing.listingID,
-                                            inquiryMsg
-                                          )
+                              {listingData.showListing &&
+                                inquiryData.loadInquiries && <Inquiries />}
+
+                              <InputGroup className="mb-3">
+                                <FormControl
+                                  placeholder="Message"
+                                  aria-label=""
+                                  aria-describedby="basic-addon2"
+                                  value={inquiryMsg}
+                                  onChange={(e) =>
+                                    dispatch(setInquiryMsg(e.target.value))
+                                  }
+                                />
+                                <InputGroup.Append>
+                                  <Button
+                                    variant="primary"
+                                    onClick={() =>
+                                      dispatch(
+                                        postInquiry(
+                                          listing.listingID,
+                                          inquiryMsg
                                         )
-                                      }
-                                    >
-                                      Send Message
-                                    </Button>
-                                  </InputGroup.Append>
-                                </InputGroup>
-                              </div>
+                                      )
+                                    }
+                                  >
+                                    Send
+                                  </Button>
+                                </InputGroup.Append>
+                              </InputGroup>
                             </div>
                           </Accordion.Collapse>
                         )}
