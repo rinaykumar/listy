@@ -1,34 +1,34 @@
-const axios = require('axios');
-const formData = new FormData();
-const { nanoid } = require('nanoid');
+const axios = require("axios");
+// const formData = new FormData();
+const { nanoid } = require("nanoid");
 
 export const setDescription = (description) => ({
-  type: 'DESCRIPTION_SET',
+  type: "DESCRIPTION_SET",
   description,
 });
 
 export const setType = (ListingType) => ({
-  type: 'TYPE_SET',
+  type: "TYPE_SET",
   ListingType,
 });
 
 export const setPrice = (price) => ({
-  type: 'PRICE_SET',
+  type: "PRICE_SET",
   price,
 });
 
 export const setTitle = (title) => ({
-  type: 'TITLE_SET',
+  type: "TITLE_SET",
   title,
 });
 
 export const setImage = (image) => ({
-  type: 'IMAGE_SET',
+  type: "IMAGE_SET",
   image,
 });
 
 export const setShowListing = (showListing, listing) => ({
-  type: 'SHOW_LISTING_SET',
+  type: "SHOW_LISTING_SET",
   showListing,
   payload: listing,
 });
@@ -37,9 +37,10 @@ export const deleteListing = (id, showListing) => {
   return (dispatch) => {
     dispatch(deleteListingRequest(id, showListing));
     axios
-      .get(`/api/deleteListing?id=${id}`)
+      .delete(`/api/deleteListing?id=${id}`)
       .then((response) => {
         const listings = response.data;
+        console.log(listings);
         dispatch(deleteListingSuccess(listings, showListing));
       })
       .catch((error) => {
@@ -53,15 +54,17 @@ export const postListing = (description, type, price, title, image) => {
     let id = nanoid(8);
     dispatch(postListingRequest(description, type, price, title, image));
     const formData = new FormData();
-    formData.append('file', image);
-    formData.append('id', id);
-    formData.append('description', description);
-    formData.append('type', type);
-    formData.append('price', price);
-    formData.append('title', title);
+    formData.append("file", image);
+    formData.append("id", id);
+    formData.append("description", description);
+    formData.append("type", type);
+    formData.append("price", price);
+    formData.append("title", title);
     axios
-      .post('/api/postListing', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      .post("/api/postListing", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        reportProgress: true,
+        observe: "events",
       })
       .then(() => {
         dispatch(fetchListings());
@@ -76,7 +79,7 @@ export const fetchListings = () => {
   return (dispatch) => {
     dispatch(fetchListingsRequest());
     axios
-      .get('/api/getListings')
+      .get("/api/getListings")
       .then((response) => {
         const listings = response.data;
         dispatch(listingSuccess(listings));
@@ -89,25 +92,25 @@ export const fetchListings = () => {
 
 export const fetchListingsRequest = () => {
   return {
-    type: 'FETCH_LISTINGS_REQUEST',
+    type: "FETCH_LISTINGS_REQUEST",
   };
 };
 
 export const postListingRequest = () => {
   return {
-    type: 'POST_LISTING_REQUEST',
+    type: "POST_LISTING_REQUEST",
   };
 };
 
 export const deleteListingRequest = () => {
   return {
-    type: 'DELETE_LISTING_REQUEST',
+    type: "DELETE_LISTING_REQUEST",
   };
 };
 
 export const deleteListingSuccess = (listings, showListing) => {
   return {
-    type: 'DELETE_LISTING_SUCCESS',
+    type: "DELETE_LISTING_SUCCESS",
     payload: listings,
     showListing,
   };
@@ -115,14 +118,14 @@ export const deleteListingSuccess = (listings, showListing) => {
 
 export const listingSuccess = (listings) => {
   return {
-    type: 'LISTING_SUCCESS',
+    type: "LISTING_SUCCESS",
     payload: listings,
   };
 };
 
 export const listingFailure = (error) => {
   return {
-    type: 'LISTING_FAILURE',
+    type: "LISTING_FAILURE",
     payload: error,
   };
 };

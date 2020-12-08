@@ -1,13 +1,13 @@
 // const { MongoClient } = require('mongodb');
-const MongoClient = require('mongodb').MongoClient;
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-const multer = require('multer'); // to process form-data
-const storage = require('./multerUpload.js'); // to process image using multer
-const upload = multer(storage);
-const fs = require('fs');
-const imageProcessor = require('./imageProcessor');
+const MongoClient = require("mongodb").MongoClient;
+// const express = require('express');
+// const path = require('path');
+const cors = require("cors");
+// const multer = require('multer'); // to process form-data
+// const storage = require('./multerUpload.js'); // to process image using multer
+// const upload = multer(storage);
+// const fs = require('fs');
+const imageProcessor = require("./imageProcessor");
 // const port = 3001;
 
 // const app = express();
@@ -19,7 +19,7 @@ const imageProcessor = require('./imageProcessor');
 // const dbName = 'Listy';
 // const client = new MongoClient(url);
 
-const url = 'mongodb://localhost:27017';
+const url = "mongodb://localhost:27017";
 // const dbName = 'Listy';
 // const dbName;
 let dbName;
@@ -27,7 +27,7 @@ let dbName;
 const connectDB = async (callback) => {
   try {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-      dbName = client.db('Listy');
+      dbName = client.db("Listy");
       return callback(err);
     });
   } catch (e) {
