@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 import User from './pages/User';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
+import Welcome from './pages/Welcome';
 import { Provider } from 'react-redux';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

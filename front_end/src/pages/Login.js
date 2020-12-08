@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import NavigationHeader from '../components/NavigationHeader';
 import React, { useEffect, useState } from 'react';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Welcome from './Welcome';
 
 import { connect, useSelector, useDispatch } from 'react-redux';
 import {
@@ -93,28 +94,11 @@ const Login = ({ userData }) => {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             {isLoggedIn && (
-              
-              <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                  <AccountCircle />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                  Welcome back {username}
-                </Typography>
-                <Typography component="h1" variant="subtitle1">
-                  Buy and Sell Items Locally
-                </Typography>
-
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  href="/admin"
-                  className={classes.submit}
-                >
-                  Continue Shopping
-                </Button>
-              </div>
+              <Welcome
+                isAdmin={isAdmin}
+                classes={classes}
+                username={username}
+              />
             )}
             {!isLoggedIn && (
               <div>
@@ -157,11 +141,9 @@ const Login = ({ userData }) => {
                     variant="contained"
                     onClick={() => {
                       // console.log(listing.listingID);
-                      dispatch(setIsLoggedIn(isLoggedIn));
-
+                      dispatch(setIsLoggedIn(true));
                       dispatch(
                         fetchUsers(userData.username, userData.password)
-                        
                       );
                     }}
                     className={classes.submit}

@@ -17,7 +17,6 @@ const imageProcessor = require('./imageProcessor');
 
 // const url = 'mongodb://localhost:27017';
 // const dbName = 'Listy';
-// const client = new MongoClient(url);
 
 const url = 'mongodb://localhost:27017';
 // const dbName = 'Listy';
