@@ -20,8 +20,10 @@ const ListingCreationForm = () => {
   const ref = React.useRef();
   return (
     <div>
-      <div className="container-fluid">
-        <form className="form">
+      <div className="container">
+        <br/>
+        <br/>
+        <form className="form background">
           <h4 align="center">Create Listing</h4>
           <div className="form-group">
             <label htmlFor="title">Title: </label>
@@ -106,7 +108,6 @@ const ListingCreationForm = () => {
           </div>
         </form>
       </div>
-      <br />
     </div>
   );
 };

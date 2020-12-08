@@ -11,11 +11,9 @@ const Admin = ({ listingData, inquiryData }) => {
     <div className="admin ">
       <NavigationHeader />
       <div class="container">
-        <div className="form_row background">
+        <div className="form_row ">
           <ListingCreationForm />
         </div>
-        <br />
-        <br />
         <div>
           <div className="admin_row">
             <h4 align="center">Listings</h4>
