@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import {
   postInquiry,
   setInquiryMsg,
@@ -7,12 +7,13 @@ import {
 } from "../redux/actions/inquiryActions";
 import { deleteListing } from "../redux/actions/listingActions";
 
-const Listing = ({ inquiryData, userMode, listing }) => {
-  const HeaderItems = ["Title", "Type", "Description", "Price"];
+const Listing = ({ userMode, listing }) => {
+  const HeaderItems = ["Image", "ID", "Title", "Type", "Description", "Price"];
+  const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
   const dispatch = useDispatch();
   return (
     <div>
-      <h3>Listing Details</h3>
+      {/* <h3>Listing Details</h3>
       <table>
         <thead>
           <tr>
@@ -25,21 +26,27 @@ const Listing = ({ inquiryData, userMode, listing }) => {
         </thead>
         <tbody>
           <tr className="listing">
-            <td>{listing.id}</td>
-            <td>{listing.title}</td>
-            <td>{listing.type}</td>
-            <td>{listing.description}</td>
-            <td>{listing.price}</td>
+            <td>
+              <img
+                src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+              />
+            </td>
+            <td>{listing.listingID}</td>
+            <td>{listing.listingTitle}</td>
+            <td>{listing.listingType}</td>
+            <td>{listing.listingDescription}</td>
+            <td>{listing.listingPrice}</td>
             {userMode ? (
               <td>
                 <textarea
-                  value={inquiryData.inquiryMsg}
+                  placeholder="Post your Inquiry.."
+                  value={inquiryMsg}
                   onChange={(e) => dispatch(setInquiryMsg(e.target.value))}
                 />{" "}
                 <br />
                 <button
                   onClick={() =>
-                    dispatch(postInquiry(listing.id, inquiryData.inquiryMsg))
+                    dispatch(postInquiry(listing.listingID, inquiryMsg))
                   }
                 >
                   Send Inquiry
@@ -49,14 +56,19 @@ const Listing = ({ inquiryData, userMode, listing }) => {
               <>
                 <td>
                   <button
-                    onClick={() => dispatch(deleteListing(listing.id, false))}
+                    onClick={() =>
+                      dispatch(deleteListing(listing.listingID, false))
+                    }
                   >
                     Delete
                   </button>
                 </td>
                 <td>
                   <button
-                    onClick={() => dispatch(fetchInquiries(true, listing.id))}
+                    onClick={() => {
+                      // console.log(listing.listingID);
+                      dispatch(fetchInquiries(true, listing.listingID));
+                    }}
                   >
                     View Inquiries
                   </button>
@@ -65,15 +77,9 @@ const Listing = ({ inquiryData, userMode, listing }) => {
             )}
           </tr>
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    inquiryData: state.inquiryReducer,
-  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -84,4 +90,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Listing);
+export default connect(mapDispatchToProps)(Listing);

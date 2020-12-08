@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   postListing,
   setDescription,
@@ -7,7 +7,8 @@ import {
   setPrice,
   setTitle,
   setImage,
-} from "../redux/actions/listingActions";
+} from '../redux/actions/listingActions';
+import './ListingCreationForm.css';
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,8 @@ const ListingCreationForm = () => {
   const ref = React.useRef();
   return (
     <div>
-      <h3 className="text-info">Creating A Listing</h3>
-      <form>
+      <div className="form-title">Creating A Listing</div>
+      <form className="form">
         <div className="form-group">
           <label htmlFor="description">Description: </label>
           <input
@@ -28,7 +29,7 @@ const ListingCreationForm = () => {
             type="text"
             name="description"
             value={description}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setDescription(e.target.value))}
           />
         </div>
@@ -39,7 +40,7 @@ const ListingCreationForm = () => {
             type="text"
             name="type"
             value={type}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setType(e.target.value))}
           />
         </div>
@@ -50,7 +51,7 @@ const ListingCreationForm = () => {
             type="text"
             name="price"
             value={price}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setPrice(e.target.value))}
           />
         </div>
@@ -61,7 +62,7 @@ const ListingCreationForm = () => {
             type="text"
             name="title"
             value={title}
-            className="form-control"
+            className="input-form"
             onChange={(e) => dispatch(setTitle(e.target.value))}
           />
         </div>
@@ -71,10 +72,12 @@ const ListingCreationForm = () => {
             id="input-image"
             type="file"
             name="imageUpload"
+            accept=".jpg, .png, .jpeg"
             // value={image}
             className="form-control"
             ref={ref}
             onChange={(e) => dispatch(setImage(e.target.files[0]))}
+            single="true"
           />
         </div>
         <button
@@ -82,16 +85,15 @@ const ListingCreationForm = () => {
           className="btn btn-dark"
           onClick={(e) => {
             // console.log(image);
-            ref.current.value = "";
+            ref.current.value = '';
             e.preventDefault();
             if (
-              description === "" ||
-              type === "" ||
-              price === "" ||
-              title === "" ||
-              image === ""
+              description === '' ||
+              type === '' ||
+              price === '' ||
+              title === ''
             ) {
-              alert("Enter all fields..");
+              alert('Enter all fields..');
             } else {
               dispatch(postListing(description, type, price, title, image));
             }

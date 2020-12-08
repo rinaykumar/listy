@@ -1,32 +1,34 @@
-const axios = require("axios");
+const axios = require('axios');
+const formData = new FormData();
+const { nanoid } = require('nanoid');
 
 export const setDescription = (description) => ({
-  type: "DESCRIPTION_SET",
+  type: 'DESCRIPTION_SET',
   description,
 });
 
 export const setType = (ListingType) => ({
-  type: "TYPE_SET",
+  type: 'TYPE_SET',
   ListingType,
 });
 
 export const setPrice = (price) => ({
-  type: "PRICE_SET",
+  type: 'PRICE_SET',
   price,
 });
 
 export const setTitle = (title) => ({
-  type: "TITLE_SET",
+  type: 'TITLE_SET',
   title,
 });
 
 export const setImage = (image) => ({
-  type: "IMAGE_SET",
+  type: 'IMAGE_SET',
   image,
 });
 
 export const setShowListing = (showListing, listing) => ({
-  type: "SHOW_LISTING_SET",
+  type: 'SHOW_LISTING_SET',
   showListing,
   payload: listing,
 });
@@ -34,12 +36,10 @@ export const setShowListing = (showListing, listing) => ({
 export const deleteListing = (id, showListing) => {
   return (dispatch) => {
     dispatch(deleteListingRequest(id, showListing));
-    // console.log(id);
     axios
       .get(`/api/deleteListing?id=${id}`)
       .then((response) => {
-        const listings = response.data.items;
-        // console.log('listings = ' + listings);
+        const listings = response.data;
         dispatch(deleteListingSuccess(listings, showListing));
       })
       .catch((error) => {
@@ -50,14 +50,18 @@ export const deleteListing = (id, showListing) => {
 
 export const postListing = (description, type, price, title, image) => {
   return (dispatch) => {
+    let id = nanoid(8);
     dispatch(postListingRequest(description, type, price, title, image));
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('id', id);
+    formData.append('description', description);
+    formData.append('type', type);
+    formData.append('price', price);
+    formData.append('title', title);
     axios
-      .post("/api/createListing", {
-        description,
-        type,
-        price,
-        title,
-        image,
+      .post('/api/postListing', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then(() => {
         dispatch(fetchListings());
@@ -71,56 +75,39 @@ export const postListing = (description, type, price, title, image) => {
 export const fetchListings = () => {
   return (dispatch) => {
     dispatch(fetchListingsRequest());
-    // axios
-    //   .get("/api/viewListings")
-    //   .then((response) => {
-    //     const listings = response.data.items;
-    //     dispatch(listingSuccess(listings));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(listingFailure(error.message));
-    //   });
-    const listings = [
-      {
-        description: "This is the first item",
-        type: "type1",
-        price: 124,
-        title: "Itemno1",
-        id: 11111111,
-      },
-      {
-        description: "This is the second item",
-        type: "type2",
-        price: 145,
-        title: "Itemno2",
-        id: 11111112,
-      },
-    ];
-    dispatch(listingSuccess(listings));
+    axios
+      .get('/api/getListings')
+      .then((response) => {
+        const listings = response.data;
+        dispatch(listingSuccess(listings));
+      })
+      .catch((error) => {
+        dispatch(listingFailure(error.message));
+      });
   };
 };
 
 export const fetchListingsRequest = () => {
   return {
-    type: "FETCH_LISTINGS_REQUEST",
+    type: 'FETCH_LISTINGS_REQUEST',
   };
 };
 
 export const postListingRequest = () => {
   return {
-    type: "POST_LISTING_REQUEST",
+    type: 'POST_LISTING_REQUEST',
   };
 };
 
 export const deleteListingRequest = () => {
   return {
-    type: "DELETE_LISTING_REQUEST",
+    type: 'DELETE_LISTING_REQUEST',
   };
 };
 
 export const deleteListingSuccess = (listings, showListing) => {
   return {
-    type: "DELETE_LISTING_SUCCESS",
+    type: 'DELETE_LISTING_SUCCESS',
     payload: listings,
     showListing,
   };
@@ -128,14 +115,14 @@ export const deleteListingSuccess = (listings, showListing) => {
 
 export const listingSuccess = (listings) => {
   return {
-    type: "LISTING_SUCCESS",
+    type: 'LISTING_SUCCESS',
     payload: listings,
   };
 };
 
 export const listingFailure = (error) => {
   return {
-    type: "LISTING_FAILURE",
+    type: 'LISTING_FAILURE',
     payload: error,
   };
 };

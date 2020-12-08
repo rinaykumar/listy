@@ -1,25 +1,18 @@
-const sharp = require('sharp');
+const sharp = require("sharp");
 
-const imageProcessor = async (
-  req,
-  userId,
-  title,
-  description,
-  type,
-  price,
-  inquiry
-) => {
-  let fileBuffer = req.file.buffer;
+const imageProcessor = async (filePath, str) => {
   try {
-    await sharp(fileBuffer)
+    await sharp(filePath)
       .resize({ width: 100, height: 100 })
-      .toFile('./images/uploads100');
+      .jpeg({ quality: 50 })
+      .toFile("./uploads/" + str + "_100.jpeg");
 
-    await sharp(fileBuffer)
+    await sharp(filePath)
       .resize({ width: 500, height: 500 })
-      .toFile('./images/uploads500');
-  } catch (error) {
-    console.log('Error while processing an image. ', error);
+      .jpeg({ quality: 80 })
+      .toFile("./uploads/" + str + "_500.jpeg");
+  } catch (err) {
+    console.log("Unable to process Image" + err);
   }
 };
 
