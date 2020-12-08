@@ -114,3 +114,12 @@ h2 {
   font-size: smaller;
   color: gray;
 }
+
+.inquiryBox {
+  border: 1px solid silver;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+ 
+  
+}

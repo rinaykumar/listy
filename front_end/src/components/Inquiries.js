@@ -1,7 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+  Button,
+  InputGroup,
+  FormControl,
+  Card,
+  Container,
+  Row,
+  Col,
+  Accordion,
+  Collapse,
+} from 'react-bootstrap';
+import './Inquiries.css';
+
 
 const Inquiries = ({ inquiryData }) => {
+ 
   return (
     // <div
     //   class="modal fade"
@@ -71,35 +85,40 @@ const Inquiries = ({ inquiryData }) => {
     // </div>
 
     <div>
-     <h3>Inquiries List</h3>
-     {inquiryData.loading ? (
+      <div className="inqbox">
+     
+      {/* {inquiryData.loading ? (
         <h4>Loading...</h4>
       ) : inquiryData.error ? (
         <h4>{inquiryData.error}</h4>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Listing Id</th>
-              <th>Inquiry Message</th>
-            </tr>
-          </thead>
-          <tbody>
-            {inquiryData && inquiryData.inquiries ? (
-              inquiryData.inquiries.map((inquiry) => (
-                <tr key={inquiry.message} className="inquiry">
-                  <td>{inquiry.listingID}</td>
-                  <td>{inquiry.inquiryMessage}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td>No Inquiries available...</td>
+      ) : ( */}
+      <table>
+        <thead>
+          
+          <br/>
+        </thead>
+        <tbody>
+          <tr></tr>
+          {inquiryData && inquiryData.inquiries ? (
+            inquiryData.inquiries.map((inquiry) => (
+              <tr key={inquiry.message} className="inquiry">
+                <td><p className="pid">{inquiry.listingID}</p></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><p>{inquiry.inquiryMessage}</p></td>
               </tr>
-            )}
-          </tbody>
-        </table>
-      )}
+            ))
+          ) : (
+            <tr>
+              <td>No Inquiries available...</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      {/* )} */}
+      </div>
+
     </div>
   );
 };
