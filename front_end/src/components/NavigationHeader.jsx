@@ -87,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     minWidth: '5em',
     display: 'none',
+    fontFamily: 'Open Sans',
+    fontSize: 24,
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -201,7 +203,7 @@ const NavigationHeader = () => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}><br/>My Account</MenuItem>
     </Menu>
   );
 

@@ -25,14 +25,16 @@ import {
 } from '../redux/actions/userActions';
 
 function Copyright() {
+  const fork = " Fork us on Github.";
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      SFSU CSC 667. Team Listy.
+      SFSU CSC 667. Team Listy. 
       <Link
         color="blue"
-        href="https://github.com/CSC-648-SFSU/csc648-02-fa20-team02"
+        href="https://github.com/sfsu-csc-667-fall-2020/final-project-listy"
+        
       >
-        Fork us on Github.
+        {fork}
       </Link>{' '}
     </Typography>
   );
@@ -109,7 +111,7 @@ const Login = ({ userData }) => {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  href="/admin"
+                  onClick={event =>  window.location.href='/admin'}
                   className={classes.submit}
                 >
                   Continue Shopping
@@ -119,7 +121,7 @@ const Login = ({ userData }) => {
             {!isLoggedIn && (
               <div>
                 <Typography component="h1" variant="h5">
-                  Sign in
+                  Sign In
                 </Typography>
                 <form className={classes.form} noValidate>
                   <TextField
@@ -155,6 +157,7 @@ const Login = ({ userData }) => {
                   <Button
                     fullWidth
                     variant="contained"
+                    color="primary"
                     onClick={() => {
                       // console.log(listing.listingID);
                       dispatch(setIsLoggedIn(isLoggedIn));

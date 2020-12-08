@@ -7,17 +7,20 @@ import NavigationHeader from '../components/NavigationHeader';
 import './Admin.css';
 
 const Admin = ({ listingData, inquiryData }) => {
-  
   return (
-    <div className="admin">
+    <div className="admin ">
       <NavigationHeader />
       <div class="container">
-        <div className="form_row">
+        <div className="form_row background">
           <ListingCreationForm />
         </div>
+        <br />
+        <br />
         <div>
           <div className="admin_row">
-            <ViewListings userMode={false}/>
+            <h4 align="center">Listings</h4>
+            <br />
+            <ViewListings userMode={false} />
           </div>
         </div>
         {/* <div>

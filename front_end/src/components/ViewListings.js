@@ -239,7 +239,7 @@ const ViewListings = ({
                         </Accordion.Collapse>
                         {!userMode && (
                           <Accordion.Collapse eventKey="0">
-                            <div className="inquiryBox">
+                            <div className="inquiryBox2">
                               {listingData.showListing &&
                                 inquiryData.loadInquiries && <Inquiries />}
 
