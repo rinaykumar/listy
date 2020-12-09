@@ -44,7 +44,7 @@ ReactDOM.render(
             <Signup />
           </Route>
           <Route path="/">
-            <Home />
+            <Login />
           </Route>
         </Switch>
       </BrowserRouter>

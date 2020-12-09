@@ -104,7 +104,7 @@ const handleCheckboxChange = name => event => {
                     fullWidth
                     variant="contained"
                     color="primary"
-                    onClick={event =>  window.location.href='/admin'}
+                    onClick={event =>  window.location.href='/user'}
                     className={classes.submit}
                   >
                     Start Shopping 
