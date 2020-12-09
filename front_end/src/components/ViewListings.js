@@ -195,7 +195,7 @@ const ViewListings = ({
                                         <>
                                           <Row>
                                             <Col sm={9}>
-                                              <Accordion.Toggle
+                                              {/* <Accordion.Toggle
                                                 as={Button}
                                                 eventKey="0"
                                                 onClick={() => {
@@ -209,7 +209,7 @@ const ViewListings = ({
                                                 }}
                                               >
                                                 View Inquiries
-                                              </Accordion.Toggle>
+                                              </Accordion.Toggle> */}
                                             </Col>
                                             <Col>
                                               <Button
@@ -253,6 +253,15 @@ const ViewListings = ({
                                   onChange={(e) =>
                                     dispatch(setInquiryMsg(e.target.value))
                                   }
+                                  onFocus={() => {
+                                    // console.log(listing.listingID);
+                                    dispatch(
+                                      fetchInquiries(
+                                        true,
+                                        listing.listingID
+                                      )
+                                    );
+                                  }}
                                 />
                                 <InputGroup.Append>
                                   <Button
