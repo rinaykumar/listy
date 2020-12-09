@@ -240,9 +240,10 @@ const ViewListings = ({
                         {!userMode && (
                           <Accordion.Collapse eventKey="0">
                             <div className="inquiryBox2">
+                              <div>
                               {listingData.showListing &&
                                 inquiryData.loadInquiries && <Inquiries />}
-
+                             </div>
                               <InputGroup className="mb-3">
                                 <FormControl
                                   placeholder="Message"

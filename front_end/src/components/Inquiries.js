@@ -3,6 +3,17 @@ import { connect } from 'react-redux';
 import './Inquiries.css';
 
 const Inquiries = ({ inquiryData }) => {
+  const ScrollMessages = ({ messages }) => {
+    const lastMessageRef = React.useRef(null);
+    const scrolltoBottom = () => {
+        lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start', duration: 10000 });
+    }
+    React.useEffect(scrolltoBottom, [messages]);
+    return (
+        <div ref={lastMessageRef} />
+    );
+  } 
+
   return (
     // <div
     //   class="modal fade"
@@ -105,7 +116,7 @@ const Inquiries = ({ inquiryData }) => {
             )}
           </tbody>
         </table>
-        {/* )} */}
+        <ScrollMessages messages={inquiryData} />
       </div>
     </div>
   );
