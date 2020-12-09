@@ -8,7 +8,10 @@ import {
   setTitle,
   setImage,
 } from '../redux/actions/listingActions';
+import { Button } from 'react-bootstrap';
+import Modal from 'react-modal';
 import './ListingCreationForm.css';
+Modal.setAppElement('#root');
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch();
@@ -18,6 +21,8 @@ const ListingCreationForm = () => {
   const title = useSelector((state) => state.listingReducer.title);
   const image = useSelector((state) => state.listingReducer.image);
   const ref = React.useRef();
+  const [modalIsOpen, setModalIsOpen] = React.useState(false);
+
   return (
     <div>
       {/* <div className="form-title">Creating A Listing</div> */}
@@ -184,6 +189,7 @@ const ListingCreationForm = () => {
                   alert('Enter all fields..');
                 } else {
                   dispatch(postListing(description, type, price, title, image));
+                  setModalIsOpen(true);
                 }
               }}
             >
@@ -191,6 +197,30 @@ const ListingCreationForm = () => {
             </button>
           </div>
         </form>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          style={{
+            content: {
+              marginTop: 300,
+              marginLeft: 500,
+              width: 400,
+              height: 150,
+            },
+          }}
+        >
+          <h4>Listing Created Successfully!</h4>
+          <div className="deleteModal">
+            <Button
+              variant="success"
+              onClick={() => {
+                setModalIsOpen(false);
+              }}
+            >
+              OK
+            </Button>
+          </div>
+        </Modal>
       </div>
     </div>
   );
