@@ -7,6 +7,7 @@ import NavigationHeader from '../components/NavigationHeader';
 import './Admin.css';
 
 const Admin = ({ listingData, inquiryData }) => {
+  
   return (
     <div className="admin">
       <NavigationHeader />
@@ -16,14 +17,14 @@ const Admin = ({ listingData, inquiryData }) => {
         </div>
         <div>
           <div className="admin_row">
-            <ViewListings />
+            <ViewListings userMode={false}/>
           </div>
         </div>
-        <div>
+        {/* <div>
           {listingData.showListing && inquiryData.loadInquiries && (
             <Inquiries />
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

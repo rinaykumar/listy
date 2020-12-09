@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   postListing,
   setDescription,
@@ -7,8 +7,8 @@ import {
   setPrice,
   setTitle,
   setImage,
-} from '../redux/actions/listingActions';
-import './ListingCreationForm.css';
+} from "../redux/actions/listingActions";
+import "./ListingCreationForm.css";
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ const ListingCreationForm = () => {
           <input
             id="input-image"
             type="file"
-            name="imageUpload"
+            name="file"
             accept=".jpg, .png, .jpeg"
             // value={image}
             className="form-control"
@@ -85,15 +85,16 @@ const ListingCreationForm = () => {
           className="btn btn-dark"
           onClick={(e) => {
             // console.log(image);
-            ref.current.value = '';
+            ref.current.value = "";
             e.preventDefault();
             if (
-              description === '' ||
-              type === '' ||
-              price === '' ||
-              title === ''
+              description === "" ||
+              type === "" ||
+              price === "" ||
+              title === "" ||
+              image === ""
             ) {
-              alert('Enter all fields..');
+              alert("Enter all fields..");
             } else {
               dispatch(postListing(description, type, price, title, image));
             }
