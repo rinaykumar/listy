@@ -54,6 +54,37 @@ const ViewListings = ({
                 listingData.listings &&
                 listingData.listings.map((listing) => (
                   <div key={listing.listingID} className="">
+                    <Modal
+                      isOpen={modalIsOpen}
+                      onRequestClose={() => setModalIsOpen(false)}
+                      style={{
+                        content: {
+                          marginTop: 300,
+                          marginLeft: 500,
+                          width: 250,
+                          height: 150,
+                        },
+                      }}
+                    >
+                      <h4>Are you sure?</h4>
+                      <div className="deleteModal">
+                        <Button
+                          variant="success"
+                          onClick={() => {
+                            dispatch(deleteListing(listing.listingID));
+                            setModalIsOpen(false);
+                          }}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => setModalIsOpen(false)}
+                        >
+                          No
+                        </Button>
+                      </div>
+                    </Modal>
                     <div class="col-lg-12 mb-4">
                       <Accordion defaultActiveKey="1">
                         <div>
@@ -195,13 +226,13 @@ const ViewListings = ({
                                               <Button
                                                 variant="danger"
                                                 onClick={() => {
-                                                  dispatch(
-                                                    deleteListing(
-                                                      listing.listingID,
-                                                      false
-                                                    )
-                                                  );
-                                                  setModalIsOpen(true);
+                                                  // dispatch(
+                                                  //   deleteListing(
+                                                  //     listing.listingID,
+                                                  //     false
+                                                  //   )
+                                                  // );
+                                                  setModalIsOpen(true, listing);
                                                 }}
                                               >
                                                 Delete
@@ -245,23 +276,34 @@ const ViewListings = ({
           <p></p>
         )}
       </div>
-      <Modal
+
+      {/* <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         style={{
           content: {
             marginTop: 300,
             marginLeft: 500,
-            width: 400,
+            width: 250,
             height: 150,
           },
         }}
       >
-        <h4>Listing deleted successfully!</h4>
-        <Button variant="success" onClick={() => setModalIsOpen(false)}>
-          Close
-        </Button>
-      </Modal>
+        <h4>Are you sure?</h4>
+        <div className="deleteModal">
+          <Button
+            variant="success"
+            onClick={() => {
+              dispatch(deleteListing(listing.listingID));
+            }}
+          >
+            Yes
+          </Button>
+          <Button variant="danger" onClick={() => setModalIsOpen(false)}>
+            No
+          </Button>
+        </div>
+      </Modal> */}
     </div>
 
     // <div className="viewlisting">

@@ -324,7 +324,7 @@ const NavigationHeader = () => {
           </Link>
           <Link href="/admin" underline="none" color="inherit">
             <ListItem button>
-              <ListItemText primary="Admin" />
+              <ListItemText primary="Admin Console" />
             </ListItem>
           </Link>
           <Link href="/login" underline="none" color="inherit">
@@ -332,7 +332,7 @@ const NavigationHeader = () => {
               <ListItemText primary="Login" />
             </ListItem>
           </Link>
-          <Link href="/signup" underline="none" color="inherit">
+          <Link href="/signup" underline="hover" color="primary">
             <ListItem button>
               <ListItemText primary="Signup" />
             </ListItem>
