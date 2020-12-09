@@ -16,13 +16,14 @@
 
 .form {
   font-family: 'Open Sans Condensed', arial, sans;
-  width: 500px;
+  width: 60%;
   padding: 30px;
   background: #ffffff;
   margin: 50px auto;
-  box-shadow: 0px 0px 20px rgb(250, 216, 107);
-  -moz-box-shadow: 0px 0px 20px rgb(250, 216, 104);
-  -webkit-box-shadow: 0px 0px 20px rgba(250, 221, 126);
+  border: 1px solid silver;
+  -moz-box-shadow: 0 0 10px rgb(16, 106, 223);
+-webkit-box-shadow: 0 0 10px rgb(16, 106, 223);
+box-shadow: 0 0 10px rgb(16, 106, 223);
 }
 
 .form-title {
@@ -34,3 +35,10 @@
   font-weight: 100;
   padding: 20px;
 }
+
+.bottomdiv2 {
+  width: 100%;
+  left: 0;
+  bottom: 0;
+ }
+ 

@@ -25,14 +25,15 @@ import {
 } from '../redux/actions/userActions';
 
 function Copyright() {
+  const fork = ' Fork us on Github.';
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      SFSU CSC 667. Team Listy. .
+      SFSU CSC 667. Team Listy.
       <Link
         color="blue"
-        href="https://github.com/CSC-648-SFSU/csc648-02-fa20-team02"
+        href="https://github.com/sfsu-csc-667-fall-2020/final-project-listy"
       >
-        Fork us on Github.
+        {fork}
       </Link>{' '}
     </Typography>
   );
@@ -76,7 +77,6 @@ const Signup = ({ userData }) => {
   // extract values from the global redux store
   const username = useSelector((state) => state.userReducer.username);
   const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn);
-  const isAdmin = useSelector((state) => state.userReducer.isAdmin);
 
   return (
     <div className={classes.mainContainer}>
@@ -96,7 +96,7 @@ const Signup = ({ userData }) => {
                 Buy and Sell Items Locally
               </Typography>
               <br />
-              <Typography component="h3" variant="body1">
+              <Typography component="h4" variant="subtitle2">
                 Listy is a place for people to discover, buy and sell items. By
                 listing on Listy, you can reach buyers where they already are.
               </Typography>
@@ -104,7 +104,7 @@ const Signup = ({ userData }) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                href="/admin"
+                onClick={(event) => (window.location.href = '/user')}
                 className={classes.submit}
               >
                 Start Shopping
@@ -188,7 +188,7 @@ const Signup = ({ userData }) => {
                 <Grid container>
                   <Grid item>
                     <Link href="/login" variant="body2">
-                      {'Already have an account? Login'}
+                      {'Already have an account? Sign In'}
                     </Link>
                   </Grid>
                 </Grid>

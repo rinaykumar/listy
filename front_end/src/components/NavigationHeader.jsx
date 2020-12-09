@@ -80,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
     zIndex: 99999,
+    backgroundImage: 'url(https://t3.ftcdn.net/jpg/03/46/19/62/360_F_346196235_cq70soRs48KN3u5dQUpIU1Wm9NYbRjxu.jpg)',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -87,6 +88,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     minWidth: '5em',
     display: 'none',
+    fontFamily: 'Open Sans',
+    fontSize: 24,
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -201,7 +204,7 @@ const NavigationHeader = () => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}><br/>My Account</MenuItem>
     </Menu>
   );
 
@@ -265,7 +268,7 @@ const NavigationHeader = () => {
             <MenuIcon />
           </IconButton>
 
-          <HomeButton onClick={() => history.push('/')}>
+          <HomeButton onClick={() => history.push('/user')}>
             <Typography className={classes.title} variant="h6" noWrap>
               Listy
             </Typography>
@@ -317,7 +320,7 @@ const NavigationHeader = () => {
         </div>
         <Divider />
         <List>
-          <Link href="/" underline="none" color="inherit">
+          <Link href="/user" underline="none" color="inherit">
             <ListItem button>
               <ListItemText primary="Home" />
             </ListItem>
@@ -329,19 +332,19 @@ const NavigationHeader = () => {
           </Link>
           <Link href="/login" underline="none" color="inherit">
             <ListItem button>
-              <ListItemText primary="Login" />
+              <ListItemText primary="Sign In" />
             </ListItem>
           </Link>
           <Link href="/signup" underline="hover" color="primary">
             <ListItem button>
-              <ListItemText primary="Signup" />
+              <ListItemText primary="Sign Up" />
             </ListItem>
           </Link>
-          <Link href="/user" underline="none" color="inherit">
+          {/* <Link href="/user" underline="none" color="inherit">
             <ListItem button>
               <ListItemText primary="User Routes" />
             </ListItem>
-          </Link>
+          </Link> */}
         </List>
         <Divider />
         <List>

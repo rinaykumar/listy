@@ -1,0 +1,9 @@
+.inqbox {
+  height: 100px;
+  overflow: scroll;
+}
+
+.pid {
+  color: grey;
+  font-size: small;
+}
