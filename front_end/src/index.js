@@ -1,19 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import Login from './pages/Login';
-import { createStore, applyMiddleware } from 'redux';
-import * as serviceWorker from './serviceWorker';
-import rootReducer from './redux/reducers/rootReducer';
-import thunk from 'redux-thunk';
-import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Admin from './pages/Admin';
-import User from './pages/User';
-import Home from './pages/Home';
-import Signup from './pages/Signup';
-import { Provider } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import Login from "./pages/Login";
+import { createStore, applyMiddleware } from "redux";
+import * as serviceWorker from "./serviceWorker";
+import rootReducer from "./redux/reducers/rootReducer";
+import thunk from "redux-thunk";
+import "./App.css";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Admin from "./pages/Admin";
+import User from "./pages/User";
+// import Home from './pages/Home';
+import Signup from "./pages/Signup";
+import { Provider } from "react-redux";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -50,7 +50,7 @@ ReactDOM.render(
       </BrowserRouter>
     </React.StrictMode>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
