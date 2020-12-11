@@ -1,23 +1,24 @@
-import React from 'react';
-import ViewListings from '../components/ViewListings';
-import ListingCreationForm from '../components/ListingCreationForm';
-import { connect } from 'react-redux';
-import Inquiries from '../components/Inquiries';
-import NavigationHeader from '../components/NavigationHeader';
-import './Admin.css';
+import React from "react";
+import ViewListings from "../components/ViewListings";
+import ListingCreationForm from "../components/ListingCreationForm";
+import { connect } from "react-redux";
+// import Inquiries from "../components/Inquiries";
+import NavigationHeader from "../components/NavigationHeader";
+import "./Admin.css";
 
 const Admin = ({ listingData, inquiryData }) => {
-  
   return (
-    <div className="admin">
+    <div className="admin ">
       <NavigationHeader />
-      <div class="container">
-        <div className="form_row">
+      <div className="container">
+        <div className="form_row ">
           <ListingCreationForm />
         </div>
         <div>
           <div className="admin_row">
-            <ViewListings userMode={false}/>
+            <h4 align="center">Listings</h4>
+            <br />
+            <ViewListings userMode={false} />
           </div>
         </div>
         {/* <div>

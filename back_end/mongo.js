@@ -1,33 +1,21 @@
-// const { MongoClient } = require('mongodb');
-const MongoClient = require('mongodb').MongoClient;
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-const multer = require('multer'); // to process form-data
-const storage = require('./multerUpload.js'); // to process image using multer
-const upload = multer(storage);
-const fs = require('fs');
-const imageProcessor = require('./imageProcessor');
-// const port = 3001;
+const MongoClient = require("mongodb").MongoClient;
+// const express = require('express');
+// const path = require('path');
+const cors = require("cors");
+// const multer = require('multer'); // to process form-data
+// const storage = require('./multerUpload.js'); // to process image using multer
+// const upload = multer(storage);
+// const fs = require('fs');
+const imageProcessor = require("./imageProcessor");
 
-// const app = express();
-// app.use(cors());
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
 
-// const url = 'mongodb://localhost:27017';
-// const dbName = 'Listy';
-// const client = new MongoClient(url);
-
-const url = 'mongodb://localhost:27017';
-// const dbName = 'Listy';
-// const dbName;
+const url = "mongodb://localhost:27017";
 let dbName;
 
 const connectDB = async (callback) => {
   try {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-      dbName = client.db('Listy');
+      dbName = client.db("Listy");
       return callback(err);
     });
   } catch (e) {
@@ -39,9 +27,6 @@ const getDB = () => dbName;
 
 const disconnectDB = () => dbName.close();
 
-// app.get('/api/mongodb', (req, res) => {
-//   res.send('Mongodb is Connected!');
-// });
 
 // app.listen(port, () => console.log(`App listening on port ${port}`));
 

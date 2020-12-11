@@ -15,7 +15,6 @@
 
 .card {
   padding: 10px;
-  
 }
 
 /* .card:hover {
@@ -33,10 +32,10 @@
 }
 
 .bottomdiv {
- width: 100%;
-  position:absolute;
-  left:0;
-  bottom:0;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 
 .type {
@@ -113,4 +112,25 @@ h2 {
 .listingID {
   font-size: smaller;
   color: gray;
+}
+
+.deleteModal {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.inquiryBox2 {
+  border: 1px solid silver;
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-top: 10px;
+  padding-bottom: 0px;
+}
+
+.inquiryBox {
+  border: 1px solid silver;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  padding-bottom: 0px;
 }

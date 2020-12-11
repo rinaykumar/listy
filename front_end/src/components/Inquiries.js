@@ -1,7 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import './Inquiries.css';
 
 const Inquiries = ({ inquiryData }) => {
+  const ScrollMessages = ({ messages }) => {
+    const lastMessageRef = React.useRef(null);
+    const scrolltoBottom = () => {
+        lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start', duration: 10000 });
+    }
+    React.useEffect(scrolltoBottom, [messages]);
+    return (
+        <div ref={lastMessageRef} />
+    );
+  } 
+
   return (
     // <div
     //   class="modal fade"
@@ -71,25 +83,30 @@ const Inquiries = ({ inquiryData }) => {
     // </div>
 
     <div>
-     <h3>Inquiries List</h3>
-     {inquiryData.loading ? (
+      <div className="inqbox">
+        {/* {inquiryData.loading ? (
         <h4>Loading...</h4>
       ) : inquiryData.error ? (
         <h4>{inquiryData.error}</h4>
-      ) : (
+      ) : ( */}
         <table>
           <thead>
-            <tr>
-              <th>Listing Id</th>
-              <th>Inquiry Message</th>
-            </tr>
+            <br />
           </thead>
           <tbody>
+            <tr></tr>
             {inquiryData && inquiryData.inquiries ? (
               inquiryData.inquiries.map((inquiry) => (
                 <tr key={inquiry.message} className="inquiry">
-                  <td>{inquiry.listingID}</td>
-                  <td>{inquiry.inquiryMessage}</td>
+                  <td>
+                    <p className="pid">{inquiry.listingID}</p>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <p>{inquiry.inquiryMessage}</p>
+                  </td>
                 </tr>
               ))
             ) : (
@@ -99,7 +116,8 @@ const Inquiries = ({ inquiryData }) => {
             )}
           </tbody>
         </table>
-      )}
+        <ScrollMessages messages={inquiryData} />
+      </div>
     </div>
   );
 };

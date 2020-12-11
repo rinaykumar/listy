@@ -2,8 +2,35 @@ const express = require('express');
 const axios = require('axios');
 const port = 4001;
 const MongoDB = require('./mongo');
+const session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
+
+// const MongoStore = require('connect-mongo')(session);
 
 const app = express();
+
+var store = new MongoDBStore({
+  uri: 'mongodb://localhost:27017',
+  databaseName: 'Listy',
+  collection: 'mySessions',
+});
+
+// Catch errors
+store.on('error', function (error) {
+  console.log(error);
+});
+
+// app.use(
+//   require('express-session')({
+//     secret: 'This is a secret',
+//     cookie: {
+//       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+//     },
+//     store: store,
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
 
 MongoDB.connectDB((error) => {
   if (error) {
@@ -25,6 +52,7 @@ MongoDB.connectDB((error) => {
       .findOne(matcher)
       .then((result) => {
         if (result) {
+          // req.session.username = userName;
           return res.send({
             success: true,
           });
@@ -37,6 +65,7 @@ MongoDB.connectDB((error) => {
       .catch((e) => {
         console.log(e);
         res.send('Failed');
+        res.redirect('/login');
       });
   });
 

@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, {
+  useEffect,
+  // , useState
+} from "react";
+import { useSelector } from "react-redux";
 import {
   postInquiry,
   setInquiryMsg,
   fetchInquiries,
-} from '../redux/actions/inquiryActions';
-
-import { connect, useDispatch } from 'react-redux';
-import { fetchListings, setShowListing } from '../redux/actions/listingActions';
-import { setLoadInquiries } from '../redux/actions/inquiryActions';
-import Listing from './Listing';
-import './ViewListing.css';
+} from "../redux/actions/inquiryActions";
+import Modal from "react-modal";
+import { connect, useDispatch } from "react-redux";
+import { fetchListings, setShowListing } from "../redux/actions/listingActions";
+import { setLoadInquiries } from "../redux/actions/inquiryActions";
+import Listing from "./Listing";
+import "./ViewListing.css";
 import {
   Button,
   InputGroup,
@@ -20,10 +23,12 @@ import {
   Row,
   Col,
   Accordion,
-  Collapse,
-} from 'react-bootstrap';
-import Inquiries from '../components/Inquiries';
-import { deleteListing } from '../redux/actions/listingActions';
+  // Collapse,
+} from "react-bootstrap";
+import Inquiries from "../components/Inquiries";
+import { deleteListing } from "../redux/actions/listingActions";
+// import { colors, TextareaAutosize } from "@material-ui/core";
+Modal.setAppElement("#root");
 
 const ViewListings = ({
   listingData,
@@ -35,7 +40,7 @@ const ViewListings = ({
     fetchListings();
   }, [fetchListings]);
   const dispatch = useDispatch();
-
+  const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
 
   return (
@@ -47,12 +52,43 @@ const ViewListings = ({
       ) : (
         <div className="">
           <div className="">
-            <div class="">
+            <div>
               {listingData &&
                 listingData.listings &&
                 listingData.listings.map((listing) => (
                   <div key={listing.listingID} className="">
-                    <div class="col-lg-12 mb-4">
+                    <Modal
+                      isOpen={modalIsOpen}
+                      onRequestClose={() => setModalIsOpen(false)}
+                      style={{
+                        content: {
+                          marginTop: 300,
+                          marginLeft: 500,
+                          width: 250,
+                          height: 150,
+                        },
+                      }}
+                    >
+                      <h4>Are you sure?</h4>
+                      <div className="deleteModal">
+                        <Button
+                          variant="success"
+                          onClick={() => {
+                            dispatch(deleteListing(listing.listingID));
+                            setModalIsOpen(false);
+                          }}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => setModalIsOpen(false)}
+                        >
+                          No
+                        </Button>
+                      </div>
+                    </Modal>
+                    <div className="col-lg-12 mb-4">
                       <Accordion defaultActiveKey="1">
                         <div>
                           <Card>
@@ -61,6 +97,7 @@ const ViewListings = ({
                                 <Col lg={2}>
                                   <img
                                     src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                                    alt="ListingImage100x100"
                                   />
                                 </Col>
                                 <Col lg={9}>
@@ -109,8 +146,10 @@ const ViewListings = ({
                                   <Col lg={7}>
                                     <img
                                       src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+                                      alt="ListingImage500x500"
                                     />
                                   </Col>
+
                                   <Col lg={5}>
                                     <Row>
                                       <br />
@@ -127,7 +166,9 @@ const ViewListings = ({
                                       <h1>${listing.listingPrice}</h1>
                                     </Row>
                                     <Row>
-                                      <p className="listingID">ID: {listing.listingID}</p>
+                                      <p className="listingID">
+                                        ID: {listing.listingID}
+                                      </p>
                                     </Row>
                                     <Row>
                                       <br></br>
@@ -136,74 +177,94 @@ const ViewListings = ({
                                       </h4>
                                       <br></br>
                                     </Row>
+
                                     <div className="bottomdiv">
                                       {userMode ? (
-                                        <InputGroup>
-                                          <FormControl
-                                            as="textarea"
-                                            rows={3}
-                                            aria-label=""
-                                            size="sm"
-                                            placeholder="Interested?"
-                                            value={inquiryMsg}
-                                            onChange={(e) =>
-                                              dispatch(
-                                                setInquiryMsg(e.target.value)
-                                              )
-                                            }
-                                          />
-                                          <InputGroup.Prepend>
-                                            <Button
-                                              onClick={() =>
-                                                dispatch(
-                                                  postInquiry(
-                                                    listing.listingID,
-                                                    inquiryMsg
+                                        <div className="inquiryBox">
+                                          <div>
+                                            {listingData.showListing &&
+                                              inquiryData.loadInquiries && (
+                                                <Inquiries />
+                                              )}
+                                          </div>
+                                          <div className="">
+                                            <InputGroup className="mb-3">
+                                              <FormControl
+                                                placeholder="Message"
+                                                aria-label=""
+                                                aria-describedby="basic-addon2"
+                                                value={inquiryMsg}
+                                                onChange={(e) =>
+                                                  dispatch(
+                                                    setInquiryMsg(
+                                                      e.target.value
+                                                    )
                                                   )
-                                                )
-                                              }
-                                            >
-                                              Send Inquiry
-                                            </Button>
-                                          </InputGroup.Prepend>
-                                        </InputGroup>
+                                                }
+                                                onFocus={() => {
+                                                  // console.log(listing.listingID);
+                                                  dispatch(
+                                                    fetchInquiries(
+                                                      true,
+                                                      listing.listingID
+                                                    )
+                                                  );
+                                                }}
+                                              />
+                                              <InputGroup.Append>
+                                                <Button
+                                                  variant="primary"
+                                                  onClick={() =>
+                                                    dispatch(
+                                                      postInquiry(
+                                                        listing.listingID,
+                                                        inquiryMsg
+                                                      )
+                                                    )
+                                                  }
+                                                >
+                                                  Send
+                                                </Button>
+                                              </InputGroup.Append>
+                                            </InputGroup>
+                                          </div>
+                                        </div>
                                       ) : (
                                         <>
-                                        <Row>
-                                        <Col sm={9}>
-                                          <Accordion.Toggle
-                                            as={Button}
-                                            eventKey="0"
-                                            onClick={() => {
-                                              // console.log(listing.listingID);
-                                              dispatch(
-                                                fetchInquiries(
-                                                  true,
-                                                  listing.listingID
-                                                )
-                                              );
-                                            }}
-                                          >
-                                            View Inquiries
-                                          </Accordion.Toggle>
-                                          </Col>
-                                          <Col >
-                                            
-                                          <Button
-                                            variant="danger"
-                                            onClick={() => {
-                                              dispatch(
-                                                deleteListing(
-                                                  listing.listingID,
-                                                  false
-                                                )
-                                              );
-                                            }}
-                                          >
-                                            Delete
-                                          </Button>
-                                          
-                                          </Col>
+                                          <Row>
+                                            <Col sm={9}>
+                                              {/* <Accordion.Toggle
+                                                as={Button}
+                                                eventKey="0"
+                                                onClick={() => {
+                                                  // console.log(listing.listingID);
+                                                  dispatch(
+                                                    fetchInquiries(
+                                                      true,
+                                                      listing.listingID
+                                                    )
+                                                  );
+                                                }}
+                                              >
+                                                View Inquiries
+                                              </Accordion.Toggle> */}
+                                            </Col>
+                                            <Col>
+                                              <Button
+                                                variant="danger"
+                                                onClick={() => {
+                                                  // dispatch(
+                                                  //   deleteListing(
+                                                  //     listing.listingID,
+                                                  //     false
+                                                  //   )
+                                                  // );
+                                                  setModalIsOpen(true, listing);
+                                                }}
+                                              >
+                                                Delete
+                                              </Button>
+                                            </Col>
                                           </Row>
                                         </>
                                       )}
@@ -215,18 +276,48 @@ const ViewListings = ({
                             <Card border="none" bg="light"></Card>
                           </div>
                         </Accordion.Collapse>
-                        {!userMode && 
-                        <Accordion.Collapse eventKey="0">
-                          <div>
-                            <Card>
+                        {!userMode && (
+                          <Accordion.Collapse eventKey="0">
+                            <div className="inquiryBox2">
                               <div>
                                 {listingData.showListing &&
                                   inquiryData.loadInquiries && <Inquiries />}
                               </div>
-                            </Card>
-                          </div>
-                        </Accordion.Collapse>
-                        }
+                              <InputGroup className="mb-3">
+                                <FormControl
+                                  placeholder="Message"
+                                  aria-label=""
+                                  aria-describedby="basic-addon2"
+                                  value={inquiryMsg}
+                                  onChange={(e) =>
+                                    dispatch(setInquiryMsg(e.target.value))
+                                  }
+                                  onFocus={() => {
+                                    // console.log(listing.listingID);
+                                    dispatch(
+                                      fetchInquiries(true, listing.listingID)
+                                    );
+                                  }}
+                                />
+                                <InputGroup.Append>
+                                  <Button
+                                    variant="primary"
+                                    onClick={() =>
+                                      dispatch(
+                                        postInquiry(
+                                          listing.listingID,
+                                          inquiryMsg
+                                        )
+                                      )
+                                    }
+                                  >
+                                    Send
+                                  </Button>
+                                </InputGroup.Append>
+                              </InputGroup>
+                            </div>
+                          </Accordion.Collapse>
+                        )}
                       </Accordion>
                     </div>
                   </div>
@@ -242,6 +333,34 @@ const ViewListings = ({
           <p></p>
         )}
       </div>
+
+      {/* <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={{
+          content: {
+            marginTop: 300,
+            marginLeft: 500,
+            width: 250,
+            height: 150,
+          },
+        }}
+      >
+        <h4>Are you sure?</h4>
+        <div className="deleteModal">
+          <Button
+            variant="success"
+            onClick={() => {
+              dispatch(deleteListing(listing.listingID));
+            }}
+          >
+            Yes
+          </Button>
+          <Button variant="danger" onClick={() => setModalIsOpen(false)}>
+            No
+          </Button>
+        </div>
+      </Modal> */}
     </div>
 
     // <div className="viewlisting">
