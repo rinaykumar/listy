@@ -39,10 +39,21 @@ const ViewListings = ({
   fetchListings,
   userMode,
   inquiryData,
+  webSocket,
 }) => {
   useEffect(() => {
     fetchListings();
+    webSocket.addEventListener("message", handleWebSocketMessage);
   }, [fetchListings]);
+
+  const handleWebSocketMessage = (rawData) => {
+    console.log(rawData.data);
+    const data = JSON.parse(rawData.data);
+    if (data.text === "Completed Processing") {
+      fetchListings();
+    }
+  };
+
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
@@ -99,11 +110,18 @@ const ViewListings = ({
                             <Container padding="5px">
                               <Row>
                                 <Col lg={2}>
-                                  <img
-                                    // src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
-                                    src={placeholder_100}
-                                    alt="ListingImage100x100"
-                                  />
+                                  {!listing.listingImage100 && (
+                                    <img
+                                      src={placeholder_100}
+                                      alt="ListingImage100x100"
+                                    />
+                                  )}
+                                  {listing.listingImage100 && (
+                                    <img
+                                      src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                                      alt="ListingImage100x100"
+                                    />
+                                  )}
                                 </Col>
                                 <Col lg={9}>
                                   <Row>
@@ -149,11 +167,18 @@ const ViewListings = ({
                               <Container padding="5px">
                                 <Row>
                                   <Col lg={7}>
-                                    <img
-                                      // src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
-                                      src={placeholder_500}
-                                      alt="ListingImage500x500"
-                                    />
+                                    {!listing.listingImage500 && (
+                                      <img
+                                        src={placeholder_500}
+                                        alt="ListingImage500x500"
+                                      />
+                                    )}
+                                    {listing.listingImage500 && (
+                                      <img
+                                        src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+                                        alt="ListingImage500x500"
+                                      />
+                                    )}
                                   </Col>
 
                                   <Col lg={5}>

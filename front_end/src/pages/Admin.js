@@ -6,7 +6,12 @@ import { connect } from "react-redux";
 import NavigationHeader from "../components/NavigationHeader";
 import "./Admin.css";
 
-const Admin = ({ listingData, inquiryData }) => {
+const Admin = ({ listingData, inquiryData, webSocket }) => {
+  // to send logged in username/userID to websocket server in the backend.
+  const data = {
+    userName: "admin", // sample
+  };
+  webSocket.onopen = () => webSocket.send(JSON.stringify(data));
   return (
     <div className="admin ">
       <NavigationHeader />
@@ -18,7 +23,7 @@ const Admin = ({ listingData, inquiryData }) => {
           <div className="admin_row">
             <h4 align="center">Listings</h4>
             <br />
-            <ViewListings userMode={false} />
+            <ViewListings userMode={false} webSocket={webSocket} />
           </div>
         </div>
         {/* <div>
