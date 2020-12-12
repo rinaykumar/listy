@@ -31,5 +31,10 @@ module.exports = {
       script: "./kafkaWorker.js",
       watch: true,
     },
+    {
+      name: "wsServer",
+      script: "./wsServer.js",
+      watch: true,
+    },
   ],
 };
