@@ -1,13 +1,12 @@
 const MongoClient = require("mongodb").MongoClient;
 // const express = require('express');
 // const path = require('path');
-const cors = require("cors");
+// const cors = require("cors");
 // const multer = require('multer'); // to process form-data
 // const storage = require('./multerUpload.js'); // to process image using multer
 // const upload = multer(storage);
 // const fs = require('fs');
-const imageProcessor = require("./imageProcessor");
-
+// const imageProcessor = require("./imageProcessor");
 
 const url = "mongodb://localhost:27017";
 let dbName;
@@ -26,7 +25,6 @@ const connectDB = async (callback) => {
 const getDB = () => dbName;
 
 const disconnectDB = () => dbName.close();
-
 
 // app.listen(port, () => console.log(`App listening on port ${port}`));
 

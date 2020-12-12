@@ -8,7 +8,9 @@ const multer = require("multer"); // to process form-data
 const storage = require("./multerUpload.js"); // to process image using multer
 const upload = multer(storage);
 const fs = require("fs");
-const imageProcessor = require("./imageProcessor");
+// const imageProcessor = require("./imageProcessor");
+const KafkaProducer = require("./kafka/KafkaProducer.js");
+const producer = new KafkaProducer("myTopic");
 
 const app = express();
 app.use(cors());
@@ -45,8 +47,25 @@ MongoDB.connectDB((error) => {
   app.post("/api/postListing", upload.single("file"), async (req, res) => {
     let str = path.parse(req.file.filename).name; // to get the filename without extension
     let filePath = req.file.path;
+    console.log("MIME: " + req.file.mimetype);
+    // console.log("STR = " + str + " FILEPATH = " + filePath);
+    producer.connect(() => {
+      console.log("connected to Kafka");
+      // console.log("MIME: " + req.file.mimetype);
+      producer.send(
+        "Image Processor |" +
+          filePath +
+          "|FILENAME|" +
+          str +
+          "|" +
+          req.body.id +
+          "|" +
+          req.file.mimetype
+      );
+    });
+
     // passing uploaded file path and the filename to image processor for resizing
-    await imageProcessor(filePath, str);
+    // await imageProcessor(filePath, str);
 
     const listingMatcher = {
       listingID: req.body.id,
@@ -66,24 +85,7 @@ MongoDB.connectDB((error) => {
           // path: req.file.path,
           image: Buffer.from(encode_img, "base64"),
         };
-        // store 100x100 Image to Mongo
-        let fileName = "./uploads/" + str + "_100.jpeg";
-        img = fs.readFileSync(fileName);
-        encode_img = img.toString("base64");
-        let finalImg100 = {
-          contentType: req.file.mimetype,
-          // path: req.file.path,
-          image: Buffer.from(encode_img, "base64"),
-        };
-        // store 500x500 Image to Mongo
-        fileName = "./uploads/" + str + "_500.jpeg";
-        img = fs.readFileSync(fileName);
-        encode_img = img.toString("base64");
-        let finalImg500 = {
-          contentType: req.file.mimetype,
-          // path: req.file.path,
-          image: Buffer.from(encode_img, "base64"),
-        };
+
         const newListing = {
           listingID: req.body.id,
           listingTitle: req.body.title,
@@ -91,25 +93,13 @@ MongoDB.connectDB((error) => {
           listingDescription: req.body.description,
           listingPrice: req.body.price,
           listingImage: finalImg,
-          listingImage100: finalImg100,
-          listingImage500: finalImg500,
+          listingImage100: null,
+          listingImage500: null,
         };
         // Insert is also async, does not happen instantly
         return listingCollection.insertOne(newListing); // Chain a promise
       })
       .then((result) => {
-        // to delete the images uploaded in the /uploads folder
-        const directory = "uploads";
-        fs.readdir(directory, (err, files) => {
-          if (err) throw err;
-          for (const file of files) {
-            // console.log("Uploads deleted 1");
-            fs.unlink(path.join(directory, file), (err) => {
-              if (err) throw err;
-              // console.log("Uploads deleted");
-            });
-          }
-        });
         res.send("Listing has been inserted");
       })
       .catch((e) => {

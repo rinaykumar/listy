@@ -2,28 +2,33 @@ module.exports = {
   // pm2 start process.config.js
   apps: [
     {
-      name: 'authentication',
-      script: './authentication.js',
+      name: "authentication",
+      script: "./authentication.js",
       watch: true,
     },
     {
-      name: 'listings',
-      script: './listings.js',
+      name: "listings",
+      script: "./listings.js",
       watch: true,
     },
     {
-      name: 'inquiries',
-      script: './inquiries.js',
+      name: "inquiries",
+      script: "./inquiries.js",
       watch: true,
     },
     {
-      name: 'mongo',
-      script: './mongo.js',
+      name: "mongo",
+      script: "./mongo.js",
       watch: true,
     },
     {
-      name: 'gateway',
-      script: './gateway.js',
+      name: "gateway",
+      script: "./gateway.js",
+      watch: true,
+    },
+    {
+      name: "kafkaWorker",
+      script: "./kafkaWorker.js",
       watch: true,
     },
   ],
