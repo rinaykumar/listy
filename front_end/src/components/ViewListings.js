@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, {
+  useEffect,
+  // , useState
+} from "react";
+import { useSelector } from "react-redux";
 import {
   postInquiry,
   setInquiryMsg,
   fetchInquiries,
-} from '../redux/actions/inquiryActions';
-import Modal from 'react-modal';
-import { connect, useDispatch } from 'react-redux';
-import { fetchListings, setShowListing } from '../redux/actions/listingActions';
-import { setLoadInquiries } from '../redux/actions/inquiryActions';
-import Listing from './Listing';
-import './ViewListing.css';
+} from "../redux/actions/inquiryActions";
+import Modal from "react-modal";
+import { connect, useDispatch } from "react-redux";
+import { fetchListings, setShowListing } from "../redux/actions/listingActions";
+import { setLoadInquiries } from "../redux/actions/inquiryActions";
+import Listing from "./Listing";
+import "./ViewListing.css";
 import {
   Button,
   InputGroup,
@@ -20,12 +23,16 @@ import {
   Row,
   Col,
   Accordion,
-  Collapse,
-} from 'react-bootstrap';
-import Inquiries from '../components/Inquiries';
-import { deleteListing } from '../redux/actions/listingActions';
-import { colors, TextareaAutosize } from '@material-ui/core';
-Modal.setAppElement('#root');
+  // Collapse,
+} from "react-bootstrap";
+import Inquiries from "../components/Inquiries";
+import { deleteListing } from "../redux/actions/listingActions";
+// import { colors, TextareaAutosize } from "@material-ui/core";
+
+import placeholder_100 from "./Placeholder/Image-Coming-Soon-Placeholder_100.jpeg";
+import placeholder_500 from "./Placeholder/Image-Coming-Soon-Placeholder_500.jpeg";
+
+Modal.setAppElement("#root");
 
 const ViewListings = ({
   listingData,
@@ -49,7 +56,7 @@ const ViewListings = ({
       ) : (
         <div className="">
           <div className="">
-            <div class="">
+            <div>
               {listingData &&
                 listingData.listings &&
                 listingData.listings.map((listing) => (
@@ -85,7 +92,7 @@ const ViewListings = ({
                         </Button>
                       </div>
                     </Modal>
-                    <div class="col-lg-12 mb-4">
+                    <div className="col-lg-12 mb-4">
                       <Accordion defaultActiveKey="1">
                         <div>
                           <Card>
@@ -93,7 +100,9 @@ const ViewListings = ({
                               <Row>
                                 <Col lg={2}>
                                   <img
-                                    src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                                    // src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                                    src={placeholder_100}
+                                    alt="ListingImage100x100"
                                   />
                                 </Col>
                                 <Col lg={9}>
@@ -141,7 +150,9 @@ const ViewListings = ({
                                 <Row>
                                   <Col lg={7}>
                                     <img
-                                      src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+                                      // src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+                                      src={placeholder_500}
+                                      alt="ListingImage500x500"
                                     />
                                   </Col>
 
@@ -290,10 +301,7 @@ const ViewListings = ({
                                   onFocus={() => {
                                     // console.log(listing.listingID);
                                     dispatch(
-                                      fetchInquiries(
-                                        true,
-                                        listing.listingID
-                                      )
+                                      fetchInquiries(true, listing.listingID)
                                     );
                                   }}
                                 />
