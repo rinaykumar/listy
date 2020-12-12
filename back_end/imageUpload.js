@@ -19,12 +19,6 @@ var upload = multer({ storage: storage });
 
 const app = express();
 
-// app.get('/api/imageUpload', (req, res) => {
-//   setTimeout(() => {
-//     res.send('hello world from ImageUpload');
-//   }, 3000);
-// });
-
 app.get(
   '/createImage',
   upload.single('imageUpload'),
