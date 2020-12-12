@@ -9,7 +9,9 @@ export const signupUser = (username, password, isAdmin) => {
     console.log(isAdmin);
 
     axios
-      .get(`/auth/register?userName=${username}&password=${password}&isAdmin=${isAdmin}`)
+      .get(
+        `/auth/register?userName=${username}&password=${password}&isAdmin=${isAdmin}`
+      )
       .then((response) => {
         const signupResponse = response.data;
         console.log(signupResponse);
@@ -32,6 +34,10 @@ export const fetchUsers = (username, password) => {
     dispatch(fetchUsersRequest(username, password));
     console.log(username);
     console.log(password);
+
+    if (username == '' || password == '') {
+      alert('Username and password must be entered!');
+    }
 
     axios
       .get(`/auth/logIn?userName=${username}&password=${password}`)
@@ -110,4 +116,3 @@ export const setIsAdmin = (isAdmin) => ({
   type: 'USER_SET_ADMIN',
   isAdmin,
 });
-

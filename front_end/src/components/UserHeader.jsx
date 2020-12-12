@@ -27,7 +27,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+
+
 
 const drawerWidth = 240;
 
@@ -328,28 +330,18 @@ const NavigationHeader = () => {
               <ListItemText primary="Home" />
             </ListItem>
           </Link>
-          { !isAdmin ? 
-            <Link href="/admin" underline="none" color="inherit">
+        {isAdmin ? 
+         <Link href="/admin" underline="none" color="inherit">
             <ListItem button>
               <ListItemText primary="Admin Console" />
             </ListItem>
           </Link> : null
-          }
-          {/* <Link href="/login" underline="none" color="inherit">
-            <ListItem button>
-              <ListItemText primary="Sign In" />
-            </ListItem>
-          </Link> */}
+                    }
           <Link href="/login" underline="hover" color="inherit">
             <ListItem button>
               <ListItemText primary="Log Out" />
             </ListItem>
           </Link>
-          {/* <Link href="/user" underline="none" color="inherit">
-            <ListItem button>
-              <ListItemText primary="User Routes" />
-            </ListItem>
-          </Link> */}
         </List>
         <Divider />
         <List>

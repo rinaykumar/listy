@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ViewListings from '../components/ViewListings';
-import NavigationHeader from '../components/NavigationHeader';
+import UserHeader from '../components/UserHeader';
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
 
 const User = () => {
@@ -23,8 +23,8 @@ const User = () => {
 
   return (
     <div className="container-fluid">
-      <NavigationHeader />
-
+      {/* <NavigationHeader /> */}
+      <UserHeader />
       <div>
         <div className="container col-md-10">
           <InputGroup className="mb-3">

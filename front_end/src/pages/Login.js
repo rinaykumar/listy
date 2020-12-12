@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import NavigationHeader from '../components/NavigationHeader';
+import SignInHeader from '../components/SignInHeader';
 import React, { useEffect, useState } from 'react';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Welcome from './Welcome';
@@ -86,7 +86,7 @@ const Login = ({ userData }) => {
 
   return (
     <Grid>
-      <NavigationHeader />
+      <SignInHeader />
 
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
