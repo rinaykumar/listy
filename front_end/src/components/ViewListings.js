@@ -28,6 +28,10 @@ import {
 import Inquiries from "../components/Inquiries";
 import { deleteListing } from "../redux/actions/listingActions";
 // import { colors, TextareaAutosize } from "@material-ui/core";
+
+import placeholder_100 from "./Placeholder/Image-Coming-Soon-Placeholder_100.jpeg";
+import placeholder_500 from "./Placeholder/Image-Coming-Soon-Placeholder_500.jpeg";
+
 Modal.setAppElement("#root");
 
 const ViewListings = ({
@@ -96,7 +100,8 @@ const ViewListings = ({
                               <Row>
                                 <Col lg={2}>
                                   <img
-                                    src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                                    // src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                                    src={placeholder_100}
                                     alt="ListingImage100x100"
                                   />
                                 </Col>
@@ -145,7 +150,8 @@ const ViewListings = ({
                                 <Row>
                                   <Col lg={7}>
                                     <img
-                                      src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+                                      // src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+                                      src={placeholder_500}
                                       alt="ListingImage500x500"
                                     />
                                   </Col>
