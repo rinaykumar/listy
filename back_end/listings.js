@@ -47,7 +47,7 @@ MongoDB.connectDB((error) => {
   app.post("/api/postListing", upload.single("file"), async (req, res) => {
     let str = path.parse(req.file.filename).name; // to get the filename without extension
     let filePath = req.file.path;
-    console.log("MIME: " + req.file.mimetype);
+    // console.log("MIME: " + req.file.mimetype);
     // console.log("STR = " + str + " FILEPATH = " + filePath);
     producer.connect(() => {
       console.log("connected to Kafka");
@@ -93,8 +93,8 @@ MongoDB.connectDB((error) => {
           listingDescription: req.body.description,
           listingPrice: req.body.price,
           listingImage: finalImg,
-          listingImage100: null,
-          listingImage500: null,
+          // listingImage100: null,
+          // listingImage500: null,
         };
         // Insert is also async, does not happen instantly
         return listingCollection.insertOne(newListing); // Chain a promise

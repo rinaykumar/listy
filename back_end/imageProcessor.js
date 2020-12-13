@@ -9,7 +9,7 @@ const imageProcessor = async (filePath, str) => {
 
     await sharp(filePath)
       .resize({ width: 500, height: 500 })
-      .jpeg({ quality: 80 })
+      .jpeg({ quality: 100 })
       .toFile("./uploads/" + str + "_500.jpeg");
   } catch (err) {
     console.log("Unable to process Image" + err);

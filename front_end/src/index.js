@@ -26,25 +26,27 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 //   store.dispatch(setInquiryMsg(message.data));
 // };
 
+const webSocket = new WebSocket("ws://localhost:5001");
+
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
         <Switch>
           <Route path="/admin">
-            <Admin />
+            <Admin webSocket={webSocket} />
           </Route>
           <Route path="/user">
-            <User />
+            <User webSocket={webSocket} />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login webSocket={webSocket} />
           </Route>
           <Route path="/signup">
-            <Signup />
+            <Signup webSocket={webSocket} />
           </Route>
           <Route path="/">
-            <Login />
+            <Login webSocket={webSocket} />
           </Route>
         </Switch>
       </BrowserRouter>

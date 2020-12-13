@@ -16,5 +16,12 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     networks:
       - webnet
+  redis:
+    image: redis:5.0.4
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    networks:
+      - webnet
 networks:
   webnet:

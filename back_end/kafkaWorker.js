@@ -2,12 +2,16 @@ const fs = require("fs");
 const path = require("path");
 const MongoDB = require("./mongo");
 const imageProcessor = require("./imageProcessor");
+
+const redis = require("redis");
+const publisher = redis.createClient();
+
 const KafkaConsumer = require("./kafka/KafkaConsumer");
 const consumer = new KafkaConsumer(["myTopic"]);
 consumer.on("message", async (message) => {
   console.log("Message received on Kafka ");
   let strng = JSON.parse(message.value);
-  console.log(strng.length);
+  // console.log(strng.length);
   let result = strng.split("|");
   let filePath = result[1];
   let str = result[3];
@@ -68,6 +72,14 @@ consumer.on("message", async (message) => {
           // res.send(e);
         });
     });
-  }, 10000);
+    const userMsg = {
+      userID: "admin",
+      listingID: result[4],
+      text: "Completed Processing",
+      // finalImg100: finalImg100,
+      // finalImg500: finalImg500,
+    };
+    publisher.publish("processImage", JSON.stringify(userMsg));
+  }, 20000);
 });
 consumer.connect();
