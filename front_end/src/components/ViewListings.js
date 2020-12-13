@@ -43,7 +43,8 @@ const ViewListings = ({
 }) => {
   useEffect(() => {
     fetchListings();
-    webSocket.addEventListener("message", handleWebSocketMessage);
+    if (!userMode)
+      webSocket.addEventListener("message", handleWebSocketMessage);
   }, [fetchListings]);
 
   const handleWebSocketMessage = (rawData) => {
