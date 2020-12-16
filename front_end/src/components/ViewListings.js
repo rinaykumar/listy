@@ -111,15 +111,14 @@ const ViewListings = ({
                             <Container padding="5px">
                               <Row>
                                 <Col lg={2}>
-                                  {!listing.listingImage100 && (
-                                    <img
-                                      src={placeholder_100}
-                                      alt="ListingImage100x100"
-                                    />
-                                  )}
-                                  {listing.listingImage100 && (
+                                  {listing.listingImage100 ? (
                                     <img
                                       src={`data:image/jpeg;base64,${listing.listingImage100.image}`}
+                                      alt="ListingImage100x100"
+                                    />
+                                  ) : (
+                                    <img
+                                      src={placeholder_100}
                                       alt="ListingImage100x100"
                                     />
                                   )}
@@ -168,15 +167,14 @@ const ViewListings = ({
                               <Container padding="5px">
                                 <Row>
                                   <Col lg={7}>
-                                    {!listing.listingImage500 && (
-                                      <img
-                                        src={placeholder_500}
-                                        alt="ListingImage500x500"
-                                      />
-                                    )}
-                                    {listing.listingImage500 && (
+                                    {listing.listingImage500 ? (
                                       <img
                                         src={`data:image/jpeg;base64,${listing.listingImage500.image}`}
+                                        alt="ListingImage500x500"
+                                      />
+                                    ) : (
+                                      <img
+                                        src={placeholder_500}
                                         alt="ListingImage500x500"
                                       />
                                     )}

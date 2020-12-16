@@ -68,6 +68,7 @@ export const postListing = (description, type, price, title, image) => {
       })
       .then(() => {
         dispatch(fetchListings());
+        console.log("inside");
       })
       .catch((error) => {
         dispatch(listingFailure(error.message));

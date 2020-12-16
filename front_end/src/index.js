@@ -26,7 +26,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 //   store.dispatch(setInquiryMsg(message.data));
 // };
 
-const webSocket = new WebSocket("ws://localhost:5001");
+const webSocket = new WebSocket("ws://localhost:5001/websocket");
 
 ReactDOM.render(
   <Provider store={store}>
