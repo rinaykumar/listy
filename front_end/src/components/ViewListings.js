@@ -52,12 +52,15 @@ const ViewListings = ({
     const data = JSON.parse(rawData.data);
     if (data.text === "Completed Processing") {
       fetchListings();
+    } else {
+      console.log("FE " + data.inquiryMessage);
     }
   };
 
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
+  const client_userName = useSelector((state) => state.userReducer.username);
 
   return (
     <div>
@@ -332,14 +335,24 @@ const ViewListings = ({
                                 <InputGroup.Append>
                                   <Button
                                     variant="primary"
-                                    onClick={() =>
+                                    onClick={() => {
+                                      //to dispatch logged in username as well and store in Mongo
                                       dispatch(
                                         postInquiry(
                                           listing.listingID,
                                           inquiryMsg
                                         )
-                                      )
-                                    }
+                                      );
+                                      const client_data = {
+                                        userName: client_userName || "danish",
+                                      };
+                                      console.log(
+                                        "MSG NOT REACHING..!!" + client_data
+                                      );
+                                      webSocket.send(
+                                        JSON.stringify(client_data)
+                                      );
+                                    }}
                                   >
                                     Send
                                   </Button>

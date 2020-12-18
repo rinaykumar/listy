@@ -1,12 +1,15 @@
-const express = require('express');
-const axios = require('axios');
+const express = require("express");
+const axios = require("axios");
 const port = 4003;
-const MongoDB = require('./mongo');
-const cors = require('cors');
+const MongoDB = require("./mongo");
+const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const redis = require("redis");
+const publisher = redis.createClient();
 
 MongoDB.connectDB((error) => {
   if (error) {
@@ -14,15 +17,15 @@ MongoDB.connectDB((error) => {
     process.exit(1); // Exit if connecion fails
   }
   // Connection successful
-  console.log('Connection worked');
+  console.log("Connection worked");
   const db = MongoDB.getDB();
-  const inquiryCollection = db.collection('inquiries'); // Inquiries collection
+  const inquiryCollection = db.collection("inquiries"); // Inquiries collection
 
   // not using this yet
   //   const imageCollection = db.collection('images'); // Images collection
 
   // Get inquiries endpoint
-  app.get('/use/getInquiries', (req, res) => {
+  app.get("/use/getInquiries", (req, res) => {
     // Network call
     inquiryCollection
       .find({})
@@ -44,11 +47,12 @@ MongoDB.connectDB((error) => {
       })
       .catch((e) => {
         console.log(e);
-        res.send('Failed');
+        res.send("Failed");
       });
   });
-  app.post('/use/postInquiry', (req, res) => {
+  app.post("/use/postInquiry", (req, res) => {
     const inquiry = {
+      // todo: store username of the logged in user who sent the inquiry
       listingID: req.query.listingId,
       inquiryMessage: req.body.message,
     };
@@ -56,7 +60,8 @@ MongoDB.connectDB((error) => {
       .insertOne(inquiry)
       .then(() => {
         // Inquiry has been inserted
-        res.send('Inquiry has been inserted');
+        res.send("Inquiry has been inserted");
+        publisher.publish("postInquirytoAdmin", JSON.stringify(inquiry));
       })
       .catch((e) => {
         console.log(e);
