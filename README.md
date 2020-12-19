@@ -26,7 +26,7 @@ Listy is a place for people to discover, buy and sell items. By listing on Listy
 
  - Afreen Ahmed 
  - Bhavani Goruganthu
- - Danish 
+ - Danish Siddiqui
  - Girish Rawat
  - Mohammad Khan
  - Rinay Kumar
