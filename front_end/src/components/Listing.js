@@ -1,24 +1,24 @@
-import React from "react";
+import React from 'react';
 import {
   connect,
   // , useSelector, useDispatch
-} from "react-redux";
+} from 'react-redux';
 import {
   postInquiry,
   // setInquiryMsg,
   fetchInquiries,
-} from "../redux/actions/inquiryActions";
-import { deleteListing } from "../redux/actions/listingActions";
+} from '../redux/actions/inquiryActions';
+import { deleteListing } from '../redux/actions/listingActions';
 
 const Listing = () =>
-  // {  userMode, listing }
-  {
-    // const HeaderItems = ["Image", "ID", "Title", "Type", "Description", "Price"];
-    // const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
-    // const dispatch = useDispatch();
-    return (
-      <div>
-        {/* <h3>Listing Details</h3>
+// {  userMode, listing }
+{
+  // const HeaderItems = ["Image", "ID", "Title", "Type", "Description", "Price"];
+  // const inquiryMsg = useSelector((state) => state.inquiryReducer.inquiryMsg);
+  // const dispatch = useDispatch();
+  return (
+    <div>
+      {/* <h3>Listing Details</h3>
       <table>
         <thead>
           <tr>
@@ -83,9 +83,9 @@ const Listing = () =>
           </tr>
         </tbody>
       </table> */}
-      </div>
-    );
-  };
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {

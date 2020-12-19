@@ -1,19 +1,19 @@
 import React, {
   useEffect,
   // , useState
-} from "react";
-import { useSelector } from "react-redux";
+} from 'react';
+import { useSelector } from 'react-redux';
 import {
   postInquiry,
   setInquiryMsg,
   fetchInquiries,
-} from "../redux/actions/inquiryActions";
-import Modal from "react-modal";
-import { connect, useDispatch } from "react-redux";
-import { fetchListings, setShowListing } from "../redux/actions/listingActions";
-import { setLoadInquiries } from "../redux/actions/inquiryActions";
-import Listing from "./Listing";
-import "./ViewListing.css";
+} from '../redux/actions/inquiryActions';
+import Modal from 'react-modal';
+import { connect, useDispatch } from 'react-redux';
+import { fetchListings, setShowListing } from '../redux/actions/listingActions';
+import { setLoadInquiries } from '../redux/actions/inquiryActions';
+import Listing from './Listing';
+import './ViewListing.css';
 import {
   Button,
   InputGroup,
@@ -24,15 +24,15 @@ import {
   Col,
   Accordion,
   // Collapse,
-} from "react-bootstrap";
-import Inquiries from "../components/Inquiries";
-import { deleteListing } from "../redux/actions/listingActions";
+} from 'react-bootstrap';
+import Inquiries from '../components/Inquiries';
+import { deleteListing } from '../redux/actions/listingActions';
 // import { colors, TextareaAutosize } from "@material-ui/core";
 
-import placeholder_100 from "./Placeholder/Image-Coming-Soon-Placeholder_100.jpeg";
-import placeholder_500 from "./Placeholder/Image-Coming-Soon-Placeholder_500.jpeg";
+import placeholder_100 from './Placeholder/Image-Coming-Soon-Placeholder_100.jpeg';
+import placeholder_500 from './Placeholder/Image-Coming-Soon-Placeholder_500.jpeg';
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 
 const ViewListings = ({
   listingData,
@@ -44,16 +44,16 @@ const ViewListings = ({
   useEffect(() => {
     fetchListings();
     if (!userMode)
-      webSocket.addEventListener("message", handleWebSocketMessage);
+      webSocket.addEventListener('message', handleWebSocketMessage);
   }, [fetchListings]);
 
   const handleWebSocketMessage = (rawData) => {
     console.log(rawData.data);
     const data = JSON.parse(rawData.data);
-    if (data.text === "Completed Processing") {
+    if (data.text === 'Completed Processing') {
       fetchListings();
     } else {
-      console.log("FE " + data.inquiryMessage);
+      console.log('FE ' + data.inquiryMessage);
     }
   };
 
@@ -217,8 +217,8 @@ const ViewListings = ({
                                           <div>
                                             {listingData.showListing &&
                                               inquiryData.loadInquiries && (
-                                                <Inquiries />
-                                              )}
+                                              <Inquiries />
+                                            )}
                                           </div>
                                           <div className="">
                                             <InputGroup className="mb-3">
@@ -253,18 +253,18 @@ const ViewListings = ({
                                                         listing.listingID,
                                                         inquiryMsg,
                                                         client_userName ||
-                                                          "bhavani", // sample
-                                                        "admin"
+                                                          'bhavani', // sample
+                                                        'admin'
                                                       )
                                                     );
                                                     console.log(
-                                                      "MSG from user to admin"
+                                                      'MSG from user to admin'
                                                     );
                                                     // USER mode
                                                     const client_data = {
                                                       userName:
                                                         client_userName ||
-                                                        "bhavani", // sample
+                                                        'bhavani', // sample
                                                     };
                                                     // console.log(client_data);
                                                     webSocket.onopen = () =>
@@ -361,14 +361,14 @@ const ViewListings = ({
                                         postInquiry(
                                           listing.listingID,
                                           inquiryMsg,
-                                          "admin",
-                                          client_userName || "bhavani" // sample
+                                          'admin',
+                                          client_userName || 'bhavani' // sample
                                         )
                                       );
                                       const admin_data = {
-                                        userName: "admin", // sample
+                                        userName: 'admin', // sample
                                       };
-                                      console.log("MSG from admin to user");
+                                      console.log('MSG from admin to user');
                                       webSocket.send(
                                         JSON.stringify(admin_data)
                                       );
@@ -426,54 +426,54 @@ const ViewListings = ({
       </Modal> */}
     </div>
 
-    // <div className="viewlisting">
-    //   <h2 className="form-title">All Listings</h2>
-    //   <div className="listing_row">
-    //     {listingData.loading ? (
-    //       <h5>Loading...</h5>
-    //     ) : listingData.error ? (
-    //       <h5>{listingData.error}</h5>
-    //     ) : (
-    //       <table className="table table-striped table-bordered shadow">
-    //         <thead className="thead-dark">
-    //           <tr>
-    //             <th>Listing ID</th>
-    //             <th>Listing Title</th>
-    //             <th></th>
-    //           </tr>
-    //         </thead>
-    //         <tbody className="table table-striped">
-    //           {listingData &&
-    //             listingData.listings &&
-    //             listingData.listings.map((listing) => (
-    //               <tr key={listing.id} className="listing">
-    //                 <td>{listing.id}</td>
-    //                 <td>{listing.title}</td>
-    //                 <td>
-    //                   <button
-    //                     className="btn btn-dark"
-    //                     onClick={() => {
-    //                       dispatch(setShowListing(true, listing));
-    //                       dispatch(setLoadInquiries(false));
-    //                     }}
-    //                   >
-    //                     Click for Details
-    //                   </button>
-    //                 </td>
-    //               </tr>
-    //             ))}
-    //         </tbody>
-    //       </table>
-    //     )}
-    //   </div>
-    //   <div>
-    //     {listingData.showListing ? (
-    //       <Listing userMode={userMode} listing={listingData.singleListing} />
-    //     ) : (
-    //       <p id="details">Please select a listing for displaying the details</p>
-    //     )}
-    //   </div>
-    // </div>
+  // <div className="viewlisting">
+  //   <h2 className="form-title">All Listings</h2>
+  //   <div className="listing_row">
+  //     {listingData.loading ? (
+  //       <h5>Loading...</h5>
+  //     ) : listingData.error ? (
+  //       <h5>{listingData.error}</h5>
+  //     ) : (
+  //       <table className="table table-striped table-bordered shadow">
+  //         <thead className="thead-dark">
+  //           <tr>
+  //             <th>Listing ID</th>
+  //             <th>Listing Title</th>
+  //             <th></th>
+  //           </tr>
+  //         </thead>
+  //         <tbody className="table table-striped">
+  //           {listingData &&
+  //             listingData.listings &&
+  //             listingData.listings.map((listing) => (
+  //               <tr key={listing.id} className="listing">
+  //                 <td>{listing.id}</td>
+  //                 <td>{listing.title}</td>
+  //                 <td>
+  //                   <button
+  //                     className="btn btn-dark"
+  //                     onClick={() => {
+  //                       dispatch(setShowListing(true, listing));
+  //                       dispatch(setLoadInquiries(false));
+  //                     }}
+  //                   >
+  //                     Click for Details
+  //                   </button>
+  //                 </td>
+  //               </tr>
+  //             ))}
+  //         </tbody>
+  //       </table>
+  //     )}
+  //   </div>
+  //   <div>
+  //     {listingData.showListing ? (
+  //       <Listing userMode={userMode} listing={listingData.singleListing} />
+  //     ) : (
+  //       <p id="details">Please select a listing for displaying the details</p>
+  //     )}
+  //   </div>
+  // </div>
   );
 };
 

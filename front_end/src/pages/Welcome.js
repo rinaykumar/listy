@@ -1,8 +1,8 @@
-import React from "react";
-import Typography from "@material-ui/core/Typography";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Button from "@material-ui/core/Button";
-import Avatar from "@material-ui/core/Avatar";
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 // import { useSelector } from 'react-redux';
 
 const Welcome = ({ isAdmin, classes, username }) => {

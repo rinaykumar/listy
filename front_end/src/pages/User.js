@@ -1,11 +1,11 @@
-import React from "react";
-import axios from "axios";
-import ViewListings from "../components/ViewListings";
-import NavigationHeader from "../components/NavigationHeader";
-import { Button, InputGroup, FormControl } from "react-bootstrap";
+import React from 'react';
+import axios from 'axios';
+import ViewListings from '../components/ViewListings';
+import NavigationHeader from '../components/NavigationHeader';
+import { Button, InputGroup, FormControl } from 'react-bootstrap';
 
 const User = ({ webSocket }) => {
-  const [search, setSearch] = React.useState("");
+  const [search, setSearch] = React.useState('');
 
   const handleSearch = () => {
     const searchItem = {
@@ -13,7 +13,7 @@ const User = ({ webSocket }) => {
     };
 
     axios
-      .post("/api/search", searchItem)
+      .post('/api/search', searchItem)
       .then((res) => {
         console.log(res);
         console.log(res.data);

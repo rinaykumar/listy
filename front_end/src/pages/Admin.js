@@ -1,15 +1,15 @@
-import React from "react";
-import ViewListings from "../components/ViewListings";
-import ListingCreationForm from "../components/ListingCreationForm";
-import { connect } from "react-redux";
+import React from 'react';
+import ViewListings from '../components/ViewListings';
+import ListingCreationForm from '../components/ListingCreationForm';
+import { connect } from 'react-redux';
 // import Inquiries from "../components/Inquiries";
-import NavigationHeader from "../components/NavigationHeader";
-import "./Admin.css";
+import NavigationHeader from '../components/NavigationHeader';
+import './Admin.css';
 
-const Admin = ({ listingData, inquiryData, webSocket }) => {
+const Admin = ({ webSocket }) => {
   // to send logged in username/userID to websocket server in the backend.
   const data = {
-    userName: "admin", // sample
+    userName: 'admin', // sample
   };
   webSocket.onopen = () => webSocket.send(JSON.stringify(data));
   return (

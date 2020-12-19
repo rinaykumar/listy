@@ -1,19 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import Login from "./pages/Login";
-import { createStore, applyMiddleware } from "redux";
-import * as serviceWorker from "./serviceWorker";
-import rootReducer from "./redux/reducers/rootReducer";
-import thunk from "redux-thunk";
-import "./App.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Admin from "./pages/Admin";
-import User from "./pages/User";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import Login from './pages/Login';
+import { createStore, applyMiddleware } from 'redux';
+import * as serviceWorker from './serviceWorker';
+import rootReducer from './redux/reducers/rootReducer';
+import thunk from 'redux-thunk';
+import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Admin from './pages/Admin';
+import User from './pages/User';
 // import Home from './pages/Home';
-import Signup from "./pages/Signup";
-import { Provider } from "react-redux";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Signup from './pages/Signup';
+import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -26,7 +26,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 //   store.dispatch(setInquiryMsg(message.data));
 // };
 
-const webSocket = new WebSocket("ws://localhost:5001/websocket");
+const webSocket = new WebSocket('ws://localhost:5001/websocket');
 
 ReactDOM.render(
   <Provider store={store}>
