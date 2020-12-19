@@ -21,6 +21,7 @@ Listy is a place for people to discover, buy and sell items. By listing on Listy
 
  - Login is not persistant. User authentication works fine and the frontend is able to talk to the database but as soon we move to a different page or refresh, frontend loses access to user information. 
  - There's a small delay (~5s) in WebSocket while communicating messages between clients.
+ - Deleting a listing sometimes deletes the most recent listing instead of the intended listing that the user is trying to delete.
 
 ## Team Members
 
