@@ -82,8 +82,8 @@ consumer.on("message", async (message) => {
     // finalImg100: finalImg100,
     // finalImg500: finalImg500,
   };
-  setTimeout(() => {
-    publisher.publish("processImage", JSON.stringify(userMsg));
-  }, 5000);
+  // setTimeout(() => {
+  publisher.publish("processImage", JSON.stringify(userMsg));
+  // }, 5000);
 });
 consumer.connect();
