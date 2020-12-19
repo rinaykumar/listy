@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import NavigationHeader from '../components/NavigationHeader';
+import SignInHeader from '../components/SignInHeader';
+
 import React from 'react'; // , { useEffect, useState }
 // import AccountCircle from '@material-ui/icons/AccountCircle';
 import Welcome from './Welcome';
@@ -86,7 +88,8 @@ const Login = ({ userData }) => {
 
   return (
     <Grid>
-      <NavigationHeader />
+      {/* <NavigationHeader /> */}
+      <SignInHeader />
 
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
@@ -143,7 +146,6 @@ const Login = ({ userData }) => {
                     color="primary"
                     onClick={() => {
                       // console.log(listing.listingID);
-                      dispatch(setIsLoggedIn(true));
                       dispatch(
                         fetchUsers(userData.username, userData.password)
                       );

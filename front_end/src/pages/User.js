@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import ViewListings from '../components/ViewListings';
 import NavigationHeader from '../components/NavigationHeader';
+import UserHeader from '../components/UserHeader';
+
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
 
 const User = ({ webSocket }) => {
@@ -24,6 +26,7 @@ const User = ({ webSocket }) => {
   return (
     <div className="container-fluid">
       <NavigationHeader />
+      <UserHeader />
 
       <div>
         <div className="container col-md-10">

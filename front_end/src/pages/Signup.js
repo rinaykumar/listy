@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NavigationHeader from '../components/NavigationHeader';
+import SignUpHeader from '../components/SignUpHeader';
+
 import { connect, useSelector, useDispatch } from 'react-redux';
 import {
   setUsername,
@@ -80,7 +82,8 @@ const Signup = ({ userData }) => {
 
   return (
     <div className={classes.mainContainer}>
-      <NavigationHeader />
+      {/* <NavigationHeader /> */}
+      <SignUpHeader />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
