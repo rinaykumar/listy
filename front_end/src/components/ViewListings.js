@@ -247,14 +247,33 @@ const ViewListings = ({
                                               <InputGroup.Append>
                                                 <Button
                                                   variant="primary"
-                                                  onClick={() =>
+                                                  onClick={() => {
                                                     dispatch(
                                                       postInquiry(
                                                         listing.listingID,
-                                                        inquiryMsg
+                                                        inquiryMsg,
+                                                        client_userName ||
+                                                          "bhavani", // sample
+                                                        "admin"
                                                       )
-                                                    )
-                                                  }
+                                                    );
+                                                    console.log(
+                                                      "MSG from user to admin"
+                                                    );
+                                                    // USER mode
+                                                    const client_data = {
+                                                      userName:
+                                                        client_userName ||
+                                                        "bhavani", // sample
+                                                    };
+                                                    // console.log(client_data);
+                                                    webSocket.onopen = () =>
+                                                      webSocket.send(
+                                                        JSON.stringify(
+                                                          client_data
+                                                        )
+                                                      );
+                                                  }}
                                                 >
                                                   Send
                                                 </Button>
@@ -337,20 +356,21 @@ const ViewListings = ({
                                     variant="primary"
                                     onClick={() => {
                                       //to dispatch logged in username as well and store in Mongo
+                                      // ADMIN mode
                                       dispatch(
                                         postInquiry(
                                           listing.listingID,
-                                          inquiryMsg
+                                          inquiryMsg,
+                                          "admin",
+                                          client_userName || "bhavani" // sample
                                         )
                                       );
-                                      const client_data = {
-                                        userName: client_userName || "danish",
+                                      const admin_data = {
+                                        userName: "admin", // sample
                                       };
-                                      console.log(
-                                        "MSG NOT REACHING..!!" + client_data
-                                      );
+                                      console.log("MSG from admin to user");
                                       webSocket.send(
-                                        JSON.stringify(client_data)
+                                        JSON.stringify(admin_data)
                                       );
                                     }}
                                   >

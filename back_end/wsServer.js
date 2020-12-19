@@ -4,25 +4,29 @@ let clients = [];
 const redis = require("redis");
 const subscriber = redis.createClient();
 
-subscriber.subscribe("processImage");
-subscriber.subscribe("postInquirytoAdmin");
+subscriber.subscribe("processImage"); // Redis channel for Image processing status
+subscriber.subscribe("postInquirytoAdmin"); // channel for sending inquiry to Admin
+subscriber.subscribe("postInquirytoUser"); // channel for sending inquiry to user
 subscriber.on("message", (channel, message) => {
   console.log("Received data :" + message);
   const msg = JSON.parse(message);
   const msgToSend = JSON.stringify(msg);
 
   if (channel === "processImage") {
-    console.log("INSIDE PROCESS IMAGE");
+    console.log(channel);
     wss.clients.forEach((client) => {
       if (client === clients[msg.userID]) {
         client.send(msgToSend);
       }
     });
   }
-
   if (channel === "postInquirytoAdmin") {
-    console.log("INSIDE POST INQUIRY TO ADMIN");
+    console.log(channel);
     clients["admin"].send(msgToSend);
+  }
+  if (channel === "postInquirytoUser") {
+    console.log(channel);
+    clients[msg.receiver].send(msgToSend);
   }
 });
 

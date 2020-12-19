@@ -1,11 +1,11 @@
-import React from 'react';
-import axios from 'axios';
-import ViewListings from '../components/ViewListings';
-import NavigationHeader from '../components/NavigationHeader';
-import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import React from "react";
+import axios from "axios";
+import ViewListings from "../components/ViewListings";
+import NavigationHeader from "../components/NavigationHeader";
+import { Button, InputGroup, FormControl } from "react-bootstrap";
 
-const User = () => {
-  const [search, setSearch] = React.useState('');
+const User = ({ webSocket }) => {
+  const [search, setSearch] = React.useState("");
 
   const handleSearch = () => {
     const searchItem = {
@@ -13,7 +13,7 @@ const User = () => {
     };
 
     axios
-      .post('/api/search', searchItem)
+      .post("/api/search", searchItem)
       .then((res) => {
         console.log(res);
         console.log(res.data);
@@ -44,7 +44,7 @@ const User = () => {
 
         <div className="container col-md-10">
           <br />
-          <ViewListings userMode={true} />
+          <ViewListings userMode={true} webSocket={webSocket} />
         </div>
       </div>
     </div>

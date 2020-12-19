@@ -55,13 +55,19 @@ MongoDB.connectDB((error) => {
       // todo: store username of the logged in user who sent the inquiry
       listingID: req.query.listingId,
       inquiryMessage: req.body.message,
+      sender: req.body.sender,
+      receiver: req.body.receiver,
     };
+    console.log(inquiry.sender);
+    console.log(inquiry.receiver);
     inquiryCollection
       .insertOne(inquiry)
       .then(() => {
         // Inquiry has been inserted
         res.send("Inquiry has been inserted");
-        publisher.publish("postInquirytoAdmin", JSON.stringify(inquiry));
+        if (inquiry.receiver === "admin")
+          publisher.publish("postInquirytoAdmin", JSON.stringify(inquiry));
+        else publisher.publish("postInquirytoUser", JSON.stringify(inquiry));
       })
       .catch((e) => {
         console.log(e);
