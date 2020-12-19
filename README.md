@@ -9,10 +9,12 @@ Listy is a place for people to discover, buy and sell items. By listing on Listy
 2. Install node modules `npm i` 
 3. Start PM2 `pm2 start process.config.js`
 4. Run Docker `docker-compose pull`, `docker swarm init`, `docker stack deploy -c docker-compose.yml kafka-demo`
+5. Run wsServer in a new terminal `node wsServer.js`
+6. Run kafkaWorker in a new terminal `node kafkaWorker.js`
 
 # Run Frontend
 
-1. Head to the back_end folder `cd front_end`
+1. Head to the front_end folder `cd front_end`
 2. Install node modules `npm i` 
 3. Start react server `npm start`
 
@@ -20,8 +22,9 @@ Listy is a place for people to discover, buy and sell items. By listing on Listy
 ## Known Bugs
 
  - Login is not persistant. User authentication works fine and the frontend is able to talk to the database but as soon we move to a different page or refresh, frontend loses access to user information. 
- - There's a small delay (~5s) in WebSocket while communicating messages between clients.
- - Deleting a listing sometimes deletes the most recent listing instead of the intended listing that the user is trying to delete.
+ - If multiple message boxes are open for listings, the same inquiries get populated in each message box.
+ - Issue with websocket in messages/inquiries boxes
+ - Small bugs when running in Safari, but not with Chrome
 
 ## Team Members
 
