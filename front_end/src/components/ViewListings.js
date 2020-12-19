@@ -305,13 +305,13 @@ const ViewListings = ({
                                               <Button
                                                 variant="danger"
                                                 onClick={() => {
-                                                  // dispatch(
-                                                  //   deleteListing(
-                                                  //     listing.listingID,
-                                                  //     false
-                                                  //   )
-                                                  // );
-                                                  setModalIsOpen(true, listing);
+                                                  dispatch(
+                                                    deleteListing(
+                                                      listing.listingID,
+                                                      false
+                                                    )
+                                                  );
+                                                  // setModalIsOpen(true, listing);
                                                 }}
                                               >
                                                 Delete
