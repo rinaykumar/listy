@@ -26,15 +26,15 @@ module.exports = {
       script: "./gateway.js",
       watch: true,
     },
-    {
-      name: "kafkaWorker",
-      script: "./kafkaWorker.js",
-      watch: true,
-    },
-    {
-      name: "wsServer",
-      script: "./wsServer.js",
-      watch: true,
-    },
+    // {
+    //   name: "kafkaWorker",
+    //   script: "./kafkaWorker.js",
+    //   watch: true,
+    // },
+    // {
+    //   name: "wsServer",
+    //   script: "./wsServer.js",
+    //   watch: true,
+    // },
   ],
 };

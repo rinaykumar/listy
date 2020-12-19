@@ -53,7 +53,7 @@ const ViewListings = ({
     if (data.text === 'Completed Processing') {
       fetchListings();
     } else {
-      console.log('FE ' + data.inquiryMessage);
+      console.log('Front end ' + data.inquiryMessage);
     }
   };
 
