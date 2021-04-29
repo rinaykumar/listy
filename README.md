@@ -1,6 +1,10 @@
-# Listy - CSC 667 Final Project
+# Listy
+![GitHub language count](https://img.shields.io/github/languages/count/rinaykumar/listy)
+![GitHub top language](https://img.shields.io/github/languages/top/rinaykumar/listy)
+![GitHub](https://img.shields.io/github/license/rinaykumar/listy)
 
-Listy is a place for people to discover, buy and sell items. By listing on Listy, you can reach buyers where they already are.  Created for CSC 667.
+Listy is a fullstack ecommerce listing web app devleoped with JavaScript, utlizing React, Redux, Redis, Kafka, Docker, WebSocket, and MongoDB.
+Built with a great team using Agile software development. 
 
 
 # Run Backend
@@ -17,14 +21,6 @@ Listy is a place for people to discover, buy and sell items. By listing on Listy
 1. Head to the front_end folder `cd front_end`
 2. Install node modules `npm i` 
 3. Start react server `npm start`
-
-
-## Known Bugs
-
- - Login is not persistant. User authentication works fine and the frontend is able to talk to the database but as soon we move to a different page or refresh, frontend loses access to user information. 
- - If multiple message boxes are open for listings, the same inquiries get populated in each message box.
- - Issue with websocket in messages/inquiries boxes
- - Small bugs when running in Safari, but not with Chrome
 
 ## Team Members
 
