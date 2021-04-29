@@ -1,5 +1,4 @@
 # Listy
-![GitHub](https://img.shields.io/github/license/rinaykumar/listy)
 ![GitHub language count](https://img.shields.io/github/languages/count/rinaykumar/listy)
 ![GitHub top language](https://img.shields.io/github/languages/top/rinaykumar/listy)
 
