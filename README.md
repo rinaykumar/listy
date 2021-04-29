@@ -23,10 +23,10 @@ Built with a great team using Agile software development.
 3. Start react server `npm start`
 
 ## Team Members
-
+ 
+ - Rinay Kumar
  - Afreen Ahmed 
  - Bhavani Goruganthu
  - Danish Siddiqui
  - Girish Rawat
  - Mohammad Khan
- - Rinay Kumar
